@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BA1 Recap — Your Analytics Field Guide</title>
+<style>
+  :root{
+    --paper:#FDFBF7;
+    --paper-2:#F4F0E6;
+    --paper-3:#EDE7D9;
+    --ink:#1C2B3A;
+    --ink-soft:#55606E;
+    --ink-faint:#8A93A0;
+    --rule:#DED6C4;
+    --teal:#0E6F7E;
+    --teal-bg:#E3F1F3;
+    --lav:#6B4C9A;
+    --lav-bg:#EFE9F7;
+    --amber:#9A6B00;
+    --amber-bg:#FBF0D9;
+    --red:#A8322A;
+    --red-bg:#FBE9E7;
+    --green:#1F6B47;
+    --green-bg:#E4F2EA;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ -webkit-text-size-adjust:100%; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:20px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:34rem;      /* ~60 characters */
+    margin:0 auto;
+    padding:2rem 1.25rem 4rem 1.25rem;
+  }
+
+  /* ---------- COVER ---------- */
+  .cover{
+    padding:3rem 0 2.5rem 0;
+    border-bottom:2px solid var(--rule);
+    margin-bottom:2.5rem;
+  }
+  .cover .kicker{
+    color:var(--teal);
+    font-weight:700;
+    font-size:.82rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    margin-bottom:1rem;
+  }
+  .cover h1{
+    font-size:2.5rem;
+    line-height:1.15;
+    font-weight:800;
+    margin:0 0 1rem 0;
+    letter-spacing:-.02em;
+  }
+  .cover h1 em{ font-style:normal; color:var(--teal); display:block; }
+  .cover .lede{
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    background:var(--paper-2);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    padding:1.25rem 1.25rem .5rem 1.25rem;
+    margin-bottom:3rem;
+  }
+  nav.toc h2{
+    font-size:.82rem;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 .9rem 0;
+    font-weight:700;
+  }
+  nav.toc ol{ margin:0; padding:0; list-style:none; counter-reset:toc; }
+  nav.toc li{ counter-increment:toc; border-bottom:1px solid var(--rule); }
+  nav.toc li:last-child{ border-bottom:none; }
+  nav.toc a{
+    display:block;
+    padding:.8rem 0;
+    color:var(--ink);
+    text-decoration:none;
+    font-size:1.08rem;
+  }
+  nav.toc a::before{
+    content:counter(toc,decimal-leading-zero);
+    color:var(--teal);
+    font-weight:700;
+    font-variant-numeric:tabular-nums;
+    margin-right:.7rem;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ margin-bottom:3.5rem; scroll-margin-top:1rem; }
+
+  .sec-num{
+    display:inline-block;
+    font-size:.78rem;
+    font-weight:700;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--teal);
+    background:var(--teal-bg);
+    padding:.3rem .7rem;
+    border-radius:100px;
+    margin-bottom:.9rem;
+  }
+  h2{
+    font-size:1.95rem;
+    line-height:1.2;
+    font-weight:800;
+    margin:0 0 .6rem 0;
+    letter-spacing:-.015em;
+  }
+  .standfirst{
+    font-size:1.12rem;
+    color:var(--ink-soft);
+    margin:0 0 1.8rem 0;
+  }
+  h3{
+    font-size:1.32rem;
+    font-weight:700;
+    margin:2.2rem 0 .7rem 0;
+    line-height:1.3;
+  }
+  h4{
+    font-size:1.08rem;
+    font-weight:700;
+    margin:1.6rem 0 .5rem 0;
+  }
+  p{ margin:0 0 1.1rem 0; }
+  ul,ol{ margin:0 0 1.1rem 0; padding-left:1.3rem; }
+  li{ margin-bottom:.6rem; }
+  strong{ font-weight:700; }
+
+  hr.div{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:2.5rem 0;
+  }
+
+  /* ---------- CALLOUTS ---------- */
+  .box{
+    border-radius:10px;
+    padding:1.15rem 1.25rem;
+    margin:1.6rem 0;
+    font-size:1.05rem;
+  }
+  .box p:last-child, .box ul:last-child, .box ol:last-child{ margin-bottom:0; }
+  .box .box-label{
+    display:block;
+    font-size:.8rem;
+    font-weight:800;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    margin-bottom:.5rem;
+  }
+
+  .analogy{ background:var(--lav-bg); border-left:5px solid var(--lav); }
+  .analogy .box-label{ color:var(--lav); }
+
+  .mistake{ background:var(--red-bg); border-left:5px solid var(--red); }
+  .mistake .box-label{ color:var(--red); }
+
+  .keypoint{ background:var(--amber-bg); border-left:5px solid var(--amber); }
+  .keypoint .box-label{ color:var(--amber); }
+
+  .example{ background:var(--teal-bg); border-left:5px solid var(--teal); }
+  .example .box-label{ color:var(--teal); }
+
+  .selfcheck{
+    background:var(--green-bg);
+    border:1px solid var(--green);
+    border-radius:10px;
+    padding:1.15rem 1.25rem;
+    margin:2rem 0 0 0;
+  }
+  .selfcheck .box-label{
+    display:block;
+    font-size:.75rem; font-weight:800; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--green); margin-bottom:.6rem;
+  }
+  .selfcheck ol{ margin:0; padding-left:1.2rem; }
+  .selfcheck li{ margin-bottom:.55rem; }
+  .selfcheck li:last-child{ margin-bottom:0; }
+
+  /* ---------- FORMULA ---------- */
+  .formula{
+    background:var(--paper-3);
+    border:1px solid var(--rule);
+    border-radius:10px;
+    padding:1.1rem 1.25rem;
+    margin:1.5rem 0;
+    text-align:center;
+  }
+  .formula .eq{
+    font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    font-size:1.4rem;
+    font-weight:700;
+    color:var(--ink);
+    display:block;
+    margin-bottom:.5rem;
+    line-height:1.4;
+  }
+  .formula .note{
+    font-size:1rem;
+    color:var(--ink-soft);
+    display:block;
+  }
+
+  /* ---------- DIAGRAMS ---------- */
+  .diagram{
+    border:1px solid var(--rule);
+    background:#fff;
+    border-radius:10px;
+    padding:1.25rem 1rem 1rem 1rem;
+    margin:2rem 0;
+  }
+  .diagram .fig{
+    font-size:.78rem;
+    font-weight:800;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--lav);
+    margin-bottom:.35rem;
+  }
+  .diagram .fig-title{
+    font-weight:700;
+    font-size:1.12rem;
+    line-height:1.3;
+    margin-bottom:.9rem;
+  }
+  .diagram .fig-art{ margin:0 0 .85rem 0; }
+  .diagram .fig-art svg{ width:100%; height:auto; display:block; }
+  .diagram figcaption{
+    font-size:.98rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--rule);
+    padding-top:.7rem;
+    margin:0;
+  }
+
+  /* ---------- TABLES ---------- */
+  .table-scroll{ overflow-x:auto; margin:1.4rem 0; -webkit-overflow-scrolling:touch; }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:1.02rem;
+    min-width:20rem;
+  }
+  th{
+    text-align:left;
+    background:var(--paper-2);
+    color:var(--ink);
+    font-weight:700;
+    font-size:.88rem;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.7rem .75rem;
+    border-bottom:2px solid var(--rule);
+  }
+  td{
+    padding:.7rem;
+    border-bottom:1px solid var(--rule);
+    vertical-align:top;
+  }
+  td code, .mono{
+    font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    font-size:.95rem;
+    color:var(--teal);
+    background:var(--teal-bg);
+    padding:.12rem .35rem;
+    border-radius:4px;
+    white-space:nowrap;
+  }
+
+  /* ---------- QUOTE ---------- */
+  blockquote{
+    margin:2rem 0;
+    padding:0 0 0 1.25rem;
+    border-left:5px solid var(--amber);
+    font-size:1.3rem;
+    line-height:1.45;
+    font-weight:600;
+  }
+  blockquote cite{
+    display:block;
+    margin-top:.6rem;
+    font-size:.88rem;
+    font-weight:400;
+    font-style:normal;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- STEPS ---------- */
+  .steps{ margin:1.5rem 0; padding:0; list-style:none; counter-reset:st; }
+  .steps li{
+    counter-increment:st;
+    position:relative;
+    padding-left:2.6rem;
+    margin-bottom:1.1rem;
+  }
+  .steps li::before{
+    content:counter(st);
+    position:absolute; left:0; top:0;
+    width:1.85rem; height:1.85rem;
+    background:var(--teal); color:#fff;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.9rem; font-weight:700;
+  }
+  .steps strong{ display:block; }
+
+  /* ---------- PANIC SHEET ---------- */
+  .panic{
+    background:var(--paper-2);
+    border:2px solid var(--ink);
+    border-radius:12px;
+    padding:1.4rem 1.25rem;
+    margin-top:1.5rem;
+  }
+  .panic h3{ margin-top:1.5rem; font-size:1rem; text-transform:uppercase; letter-spacing:.06em; color:var(--teal); }
+  .panic h3:first-child{ margin-top:0; }
+  .panic table{ font-size:.9rem; }
+  .panic td{ padding:.5rem .6rem; }
+
+  .top-link{
+    display:inline-block;
+    margin-top:1.5rem;
+    font-size:.85rem;
+    color:var(--teal);
+    text-decoration:none;
+    font-weight:600;
+  }
+
+  footer{
+    margin-top:3rem;
+    padding-top:1.5rem;
+    border-top:2px solid var(--rule);
+    font-size:.88rem;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+
+  /* ---------- PRINT ---------- */
+  @media print{
+    @page{ size:A4; margin:16mm 15mm; }
+    body{ background:#fff; font-size:12pt; line-height:1.55; }
+    .wrap{ max-width:100%; padding:0; }
+    nav.toc{ page-break-after:always; }
+    section{ page-break-inside:auto; margin-bottom:2rem; }
+    h2{ page-break-after:avoid; font-size:18pt; }
+    h3,h4{ page-break-after:avoid; }
+    .box,.diagram,.formula,.selfcheck,blockquote,table{ page-break-inside:avoid; }
+    .diagram .drop{ min-height:5rem; }
+    .top-link{ display:none; }
+    .cover{ page-break-after:always; }
+    a{ color:var(--ink); text-decoration:none; }
+  }
+
+  @media (min-width:48rem){
+    body{ font-size:21px; }
+    .wrap{ padding:3rem 2rem 5rem 2rem; }
+    .cover h1{ font-size:3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ COVER ============ -->
+<header class="cover" id="top">
+  <div class="kicker">Business Analytics · Bridge Document</div>
+  <h1>BA1 Recap<em>Your Analytics Field Guide</em></h1>
+  <p class="lede">Everything you built in Business Analytics 1 — the mindset, the maths, the toolkit — rewritten to be read on your phone. Skim it before BA2 starts, or keep it open beside you while you work.</p>
+</header>
+
+<!-- ============ TOC ============ -->
+<nav class="toc">
+  <h2>What's inside</h2>
+  <ol>
+    <li><a href="#how-to-use">How to use this guide</a></li>
+    <li><a href="#ped">The PED framework</a></li>
+    <li><a href="#levels">The four levels of analytics</a></li>
+    <li><a href="#kpi">KPIs vs. metrics</a></li>
+    <li><a href="#centre">Finding the centre</a></li>
+    <li><a href="#spread">Measuring the spread</a></li>
+    <li><a href="#charts">Choosing the right chart</a></li>
+    <li><a href="#story">Telling the story</a></li>
+    <li><a href="#systems">Systems thinking</a></li>
+    <li><a href="#governance">Data governance &amp; ethics</a></li>
+    <li><a href="#cleaning">Cleaning dirty data</a></li>
+    <li><a href="#normal">Probability &amp; the normal curve</a></li>
+    <li><a href="#sampling">Samples, CLT &amp; confidence</a></li>
+    <li><a href="#regression">Simple linear regression</a></li>
+    <li><a href="#multiple">Multiple regression</a></li>
+    <li><a href="#timeseries">Time series &amp; growth</a></li>
+    <li><a href="#optimisation">Optimisation &amp; Solver</a></li>
+    <li><a href="#excel">Excel reference</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+    <li><a href="#bridge">Where BA2 picks up</a></li>
+    <li><a href="#panic">The panic sheet</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 1 HOW TO USE ============ -->
+<section id="how-to-use">
+  <span class="sec-num">Section 01</span>
+  <h2>How to use this guide</h2>
+  <p class="standfirst">This is a recap, not a textbook. It assumes you sat through BA1 — it's here to bring it back, fast.</p>
+
+  <p>Each section follows the same shape, so you can navigate it without thinking:</p>
+
+  <ul>
+    <li><strong>The idea</strong> — what the concept actually is, in plain language.</li>
+    <li><strong>An analogy</strong> — something from ordinary life that has the same shape as the maths.</li>
+    <li><strong>A worked example</strong> — real numbers, so it stops being abstract.</li>
+    <li><strong>Common mistakes</strong> — the errors people genuinely make, so you can spot them in your own work.</li>
+    <li><strong>Self-check</strong> — questions to answer out loud. If you can't, reread the section.</li>
+  </ul>
+
+  <div class="box keypoint">
+    <span class="box-label">Read this bit properly</span>
+    <p>The self-check questions are the most valuable part of this document. Trying to retrieve an answer from memory — even when you fail — builds far stronger recall than rereading the section a third time. Don't skip them because they feel uncomfortable. The discomfort <em>is</em> the learning.</p>
+  </div>
+
+  <p>If you have five minutes rather than an hour, jump straight to <a href="#panic">the panic sheet</a> at the end. It's one screen of formulas and functions, designed to be screenshotted.</p>
+</section>
+
+<!-- ============ 2 PED ============ -->
+<section id="ped">
+  <span class="sec-num">Section 02</span>
+  <h2>The PED framework</h2>
+  <p class="standfirst">The loop behind every week of BA1 — and still the backbone of BA2.</p>
+
+  <p>Analytics isn't a pile of techniques. It's a repeating three-step loop, and almost every mistake in the field comes from skipping a step.</p>
+
+  <ol class="steps">
+    <li><strong>P — Process</strong>Collect the data and clean it. This is roughly 80% of the actual work, and nobody warns you about that in advance.</li>
+    <li><strong>E — Explain</strong>Visualise it and communicate what it means. Not "here is a chart" — here is <em>why</em> the chart looks like that.</li>
+    <li><strong>D — Decide</strong>Turn the insight into an action. If nothing changes as a result, the analysis didn't happen.</li>
+  </ol>
+
+  <blockquote>An analysis that doesn't lead to a decision is just a fun fact — interesting, but nothing changes.<cite>BA1, Week 0</cite></blockquote>
+
+  <figure class="diagram">
+<div class="fig">Diagram 1</div>
+<div class="fig-title">The PED loop</div>
+<div class="fig-art"><svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The PED loop: Process, Explain, Decide, repeating">
+<defs><marker id="a1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#0E6F7E"/></marker>
+<marker id="a1g" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#8A93A0"/></marker></defs>
+<circle cx="62" cy="62" r="40" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="2"/>
+<text x="62" y="58" text-anchor="middle" font-size="15" font-weight="700" fill="#0E6F7E">Process</text>
+<text x="62" y="76" text-anchor="middle" font-size="10.5" fill="#55606E">clean it</text>
+<circle cx="200" cy="62" r="40" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="2"/>
+<text x="200" y="58" text-anchor="middle" font-size="15" font-weight="700" fill="#0E6F7E">Explain</text>
+<text x="200" y="76" text-anchor="middle" font-size="10.5" fill="#55606E">find the why</text>
+<circle cx="338" cy="62" r="40" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="2"/>
+<text x="338" y="58" text-anchor="middle" font-size="15" font-weight="700" fill="#0E6F7E">Decide</text>
+<text x="338" y="76" text-anchor="middle" font-size="11" fill="#55606E">act</text>
+<line x1="106" y1="62" x2="154" y2="62" stroke="#0E6F7E" stroke-width="2" marker-end="url(#a1)"/>
+<line x1="244" y1="62" x2="292" y2="62" stroke="#0E6F7E" stroke-width="2" marker-end="url(#a1)"/>
+<path d="M338,104 C338,160 62,160 62,106" fill="none" stroke="#8A93A0" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#a1g)"/>
+<text x="200" y="155" text-anchor="middle" font-size="12" fill="#55606E" font-style="italic">new questions</text>
+<rect x="4" y="116" width="116" height="22" rx="11" fill="#FBF0D9" stroke="#9A6B00"/>
+<text x="62" y="131" text-anchor="middle" font-size="11" font-weight="700" fill="#9A6B00">~80% of your time</text>
+</svg></div>
+<figcaption>Each decision produces the next question — which is why PED is a loop, not a line.</figcaption>
+</figure>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Think of a doctor. <strong>Process</strong> is running the blood tests and checking they weren't contaminated. <strong>Explain</strong> is reading the results and working out what's causing the symptoms. <strong>Decide</strong> is writing the prescription. A doctor who runs perfect tests and then sends you home with nothing hasn't treated you.</p>
+  </div>
+
+  <h3>The values that carry forward</h3>
+  <ul>
+    <li><strong>Human-in-the-loop.</strong> The algorithm is the engine. Your judgement is the steering wheel.</li>
+    <li><strong>Correlation isn't causation.</strong> Statistics find the link; humans find the logic.</li>
+    <li><strong>AI is a co-pilot, not an autopilot.</strong> It speeds up Process. It doesn't replace you on Explain and Decide.</li>
+  </ul>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Which stage of PED eats most of an analyst's time, and why does that surprise people?</li>
+      <li>Your report is beautiful and nobody acts on it. Which stage failed?</li>
+      <li>Why is PED drawn as a loop rather than a line?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 3 FOUR LEVELS ============ -->
+<section id="levels">
+  <span class="sec-num">Section 03</span>
+  <h2>The four levels of analytics</h2>
+  <p class="standfirst">Four questions, increasing in difficulty and in value.</p>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Level</th><th>Asks</th><th>Tool</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Descriptive</strong></td><td>What happened?</td><td>Reports, dashboards</td></tr>
+      <tr><td><strong>Diagnostic</strong></td><td>Why did it happen?</td><td>Drill-down, correlation</td></tr>
+      <tr><td><strong>Predictive</strong></td><td>What will happen?</td><td>Regression, forecasting</td></tr>
+      <tr><td><strong>Prescriptive</strong></td><td>What should we do?</td><td>Optimisation, Solver</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>You're driving. <strong>Descriptive</strong> is the rear-view mirror — where you've been. <strong>Diagnostic</strong> is looking under the bonnet when something rattles. <strong>Predictive</strong> is the sat-nav estimating your arrival time. <strong>Prescriptive</strong> is the sat-nav saying "turn left now to avoid the jam." Notice the value rises as you move down, and so does the difficulty.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 2</div>
+<div class="fig-title">The analytics value ladder</div>
+<div class="fig-art"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The analytics value ladder, four ascending steps">
+<defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#6B4C9A"/></marker></defs>
+<rect x="40" y="167" width="78" height="38" fill="#CFE7EB" stroke="#0E6F7E" stroke-width="1.2"/>
+<text x="79.0" y="185" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1C2B3A">Descriptive</text>
+<text x="79.0" y="200" text-anchor="middle" font-size="9" fill="#1C2B3A">what happened</text>
+<rect x="124" y="135" width="78" height="70" fill="#A9D5DC" stroke="#0E6F7E" stroke-width="1.2"/>
+<text x="163.0" y="153" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1C2B3A">Diagnostic</text>
+<text x="163.0" y="168" text-anchor="middle" font-size="9" fill="#1C2B3A">why</text>
+<rect x="208" y="103" width="78" height="102" fill="#6FB6C1" stroke="#0E6F7E" stroke-width="1.2"/>
+<text x="247.0" y="121" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1C2B3A">Predictive</text>
+<text x="247.0" y="136" text-anchor="middle" font-size="9" fill="#1C2B3A">what next</text>
+<rect x="292" y="71" width="78" height="134" fill="#0E6F7E" stroke="#0E6F7E" stroke-width="1.2"/>
+<text x="331.0" y="89" text-anchor="middle" font-size="10.5" font-weight="700" fill="#fff">Prescriptive</text>
+<text x="331.0" y="104" text-anchor="middle" font-size="9" fill="#fff">what to do</text>
+<line x1="28" y1="205" x2="28" y2="30" stroke="#6B4C9A" stroke-width="2" marker-end="url(#a2)"/>
+<text x="20" y="120" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6B4C9A" transform="rotate(-90 20 120)">value &amp; difficulty</text>
+<line x1="40" y1="208" x2="378" y2="208" stroke="#55606E" stroke-width="1.5"/>
+<text x="209" y="228" text-anchor="middle" font-size="11.5" fill="#55606E">each rung needs the one below it</text>
+</svg></div>
+<figcaption>Value and difficulty both rise as you climb. Every rung depends on the one below it.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Jumping straight to predictive because it sounds impressive. If your descriptive layer is wrong — bad definitions, dirty data, disputed numbers — your forecast is confidently wrong, which is worse than no forecast at all. Earn the higher rungs.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>"Sales fell 12% in March." Which level is that?</li>
+      <li>"Sales fell because our main competitor opened two branches nearby." Which level?</li>
+      <li>Which level did BA1 finish on, and in which week?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 4 KPI ============ -->
+<section id="kpi">
+  <span class="sec-num">Section 04</span>
+  <h2>KPIs vs. metrics</h2>
+  <p class="standfirst">Every KPI is a metric. Almost no metric is a KPI.</p>
+
+  <p>A <strong>metric</strong> is anything you can measure. A <strong>KPI</strong> is a metric tied directly to a goal you're actually trying to move — which means someone should change their behaviour when it moves.</p>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p>An online shop tracks <em>page views</em> (a metric — nice to know) and <em>cart abandonment rate</em> (a KPI — if it climbs, the checkout team has work to do this week). Page views can double while revenue stays flat. Abandonment rate can't move without someone caring.</p>
+  </div>
+
+  <p>A usable KPI is <strong>simple</strong> (one sentence to explain), <strong>relevant</strong> (tied to a real goal), and <strong>timely</strong> (measured often enough to act on).</p>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>The vanity metric — a number that only ever goes up and therefore tells you nothing. Total registered users since launch will rise forever, even as your product dies. Monthly <em>active</em> users won't. If a metric can't deliver bad news, it isn't a KPI.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Name a metric from your own life that's pure vanity.</li>
+      <li>Turn "total followers" into something that could actually deliver bad news.</li>
+      <li>Why does a KPI need to be <em>timely</em> to be useful?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 5 CENTRE ============ -->
+<section id="centre">
+  <span class="sec-num">Section 05</span>
+  <h2>Finding the centre</h2>
+  <p class="standfirst">Mean, median, mode — and knowing which one is lying to you.</p>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Picture a birthday cake cut into uneven slices, one per person. The <strong>mean</strong> is what you'd get if you mashed every slice together and redistributed it so everyone held an identical piece. The <strong>median</strong> is simply the person standing in the middle when everyone lines up by slice size. The <strong>mode</strong> is the slice size you see most often on the table.</p>
+  </div>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Measure</th><th>Use when</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Mean</strong></td><td>Data is fairly even, no extreme values</td></tr>
+      <tr><td><strong>Median</strong></td><td>Outliers exist — salaries, house prices, rent</td></tr>
+      <tr><td><strong>Mode</strong></td><td>Categories, or "most common" questions</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p>Six graduates report their starting salaries, in thousands: 32, 34, 35, 36, 38, and 480 (one founded a startup that sold).</p>
+    <p><strong>Mean</strong> = 109k. <strong>Median</strong> = 35.5k.</p>
+    <p>The mean is technically correct and completely useless — it describes nobody in the room. Any recruiter quoting "average graduate salary: 109k" is misleading you with true numbers.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 3</div>
+<div class="fig-title">How one outlier drags the mean</div>
+<div class="fig-art"><svg viewBox="0 0 400 185" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One outlier drags the mean away from the data">
+<line x1="45" y1="110" x2="380" y2="110" stroke="#55606E" stroke-width="1.5"/>
+<line x1="62.6" y1="110" x2="62.6" y2="115" stroke="#8A93A0"/>
+<text x="62.6" y="129" text-anchor="middle" font-size="10" fill="#8A93A0">50k</text>
+<line x1="132.8" y1="110" x2="132.8" y2="115" stroke="#8A93A0"/>
+<text x="132.8" y="129" text-anchor="middle" font-size="10" fill="#8A93A0">150k</text>
+<line x1="203.0" y1="110" x2="203.0" y2="115" stroke="#8A93A0"/>
+<text x="203.0" y="129" text-anchor="middle" font-size="10" fill="#8A93A0">250k</text>
+<line x1="273.2" y1="110" x2="273.2" y2="115" stroke="#8A93A0"/>
+<text x="273.2" y="129" text-anchor="middle" font-size="10" fill="#8A93A0">350k</text>
+<line x1="343.4" y1="110" x2="343.4" y2="115" stroke="#8A93A0"/>
+<text x="343.4" y="129" text-anchor="middle" font-size="10" fill="#8A93A0">450k</text>
+<circle cx="49.9" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<circle cx="51.3" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<circle cx="52.0" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<circle cx="52.7" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<circle cx="54.1" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<circle cx="364.5" cy="110" r="6" fill="#0E6F7E" opacity="0.85"/>
+<line x1="52.4" y1="52" x2="52.4" y2="120" stroke="#0E6F7E" stroke-width="2.5"/>
+<text x="52.4" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0E6F7E">median 35.5k</text>
+<line x1="104.1" y1="70" x2="104.1" y2="120" stroke="#A8322A" stroke-width="2.5" stroke-dasharray="5,4"/>
+<text x="104.1" y="63" text-anchor="middle" font-size="12" font-weight="700" fill="#A8322A">mean 109k</text>
+<text x="364.5" y="95" text-anchor="middle" font-size="10.5" fill="#55606E">the founder</text>
+
+<text x="200" y="166" text-anchor="middle" font-size="12" fill="#A8322A" font-weight="700">the mean describes nobody in this room</text>
+</svg></div>
+<figcaption>Five graduates earn 32–38k. One sold a startup. Only one of these measures is useful.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Reading "average" in a headline and assuming it means "typical". It usually means the mean, and the mean is the measure most easily distorted. When you see an average, always ask what the median was — and if the writer didn't say, ask why not.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>A country's average income rises but the median doesn't move. What just happened?</li>
+      <li>Which measure would you use for "most popular dress size sold"?</li>
+      <li>Why is the median unaffected by how extreme the outlier is?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 6 SPREAD ============ -->
+<section id="spread">
+  <span class="sec-num">Section 06</span>
+  <h2>Measuring the spread</h2>
+  <p class="standfirst">The centre tells you where. The spread tells you how much to trust it.</p>
+
+  <p>Two datasets can share an identical mean and describe completely different worlds. Spread is what separates them.</p>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p><strong>Range</strong> is a race: the gap between the fastest and the slowest runner. It's easy to grasp but fragile — one exhausted straggler changes it entirely. <strong>Standard deviation</strong> is better: it asks how far the <em>typical</em> runner finishes from the average finishing time.</p>
+  </div>
+
+  <div class="formula">
+    <span class="eq">low SD = clustered<br>high SD = scattered</span>
+    <span class="note">Standard deviation is the average distance from the mean.</span>
+  </div>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p>Two cafés both average 100 customers a day. Café A ranges 95–105 (low SD). Café B ranges 20–300 (high SD).</p>
+    <p>Same mean, totally different businesses. Café A can staff confidently and order stock to a schedule. Café B will be overstaffed on dead days and turning people away on busy ones. If you only had the mean, you'd advise them identically — and ruin one of them.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 4</div>
+<div class="fig-title">Same mean, different spread</div>
+<div class="fig-art"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two distributions with the same mean but different spread">
+<line x1="20" y1="150" x2="385" y2="150" stroke="#55606E" stroke-width="1.5"/>
+<path d="M 35.0,149.93 L 38.67,149.9 L 42.33,149.87 L 46.0,149.83 L 49.67,149.78 L 53.33,149.71 L 57.0,149.63 L 60.67,149.53 L 64.33,149.4 L 68.0,149.24 L 71.67,149.05 L 75.33,148.81 L 79.0,148.53 L 82.67,148.19 L 86.33,147.78 L 90.0,147.31 L 93.67,146.75 L 97.33,146.09 L 101.0,145.34 L 104.67,144.48 L 108.33,143.5 L 112.0,142.4 L 115.67,141.17 L 119.33,139.8 L 123.0,138.3 L 126.67,136.65 L 130.33,134.88 L 134.0,132.98 L 137.67,130.96 L 141.33,128.84 L 145.0,126.64 L 148.67,124.36 L 152.33,122.05 L 156.0,119.72 L 159.67,117.41 L 163.33,115.14 L 167.0,112.96 L 170.67,110.89 L 174.33,108.97 L 178.0,107.22 L 181.67,105.69 L 185.33,104.4 L 189.0,103.36 L 192.67,102.61 L 196.33,102.15 L 200.0,102.0 L 203.67,102.15 L 207.33,102.61 L 211.0,103.36 L 214.67,104.4 L 218.33,105.69 L 222.0,107.22 L 225.67,108.97 L 229.33,110.89 L 233.0,112.96 L 236.67,115.14 L 240.33,117.41 L 244.0,119.72 L 247.67,122.05 L 251.33,124.36 L 255.0,126.64 L 258.67,128.84 L 262.33,130.96 L 266.0,132.98 L 269.67,134.88 L 273.33,136.65 L 277.0,138.3 L 280.67,139.8 L 284.33,141.17 L 288.0,142.4 L 291.67,143.5 L 295.33,144.48 L 299.0,145.34 L 302.67,146.09 L 306.33,146.75 L 310.0,147.31 L 313.67,147.78 L 317.33,148.19 L 321.0,148.53 L 324.67,148.81 L 328.33,149.05 L 332.0,149.24 L 335.67,149.4 L 339.33,149.53 L 343.0,149.63 L 346.67,149.71 L 350.33,149.78 L 354.0,149.83 L 357.67,149.87 L 361.33,149.9 L 365.0,149.93" fill="#6B4C9A" fill-opacity="0.18" stroke="#6B4C9A" stroke-width="2"/>
+<path d="M 125.0,150.0 L 126.67,150.0 L 128.33,150.0 L 130.0,150.0 L 131.67,150.0 L 133.33,150.0 L 135.0,150.0 L 136.67,150.0 L 138.33,150.0 L 140.0,150.0 L 141.67,150.0 L 143.33,150.0 L 145.0,150.0 L 146.67,150.0 L 148.33,150.0 L 150.0,150.0 L 151.67,150.0 L 153.33,150.0 L 155.0,150.0 L 156.67,150.0 L 158.33,149.99 L 160.0,149.99 L 161.67,149.98 L 163.33,149.95 L 165.0,149.9 L 166.67,149.81 L 168.33,149.65 L 170.0,149.37 L 171.67,148.91 L 173.33,148.16 L 175.0,147.0 L 176.67,145.26 L 178.33,142.73 L 180.0,139.21 L 181.67,134.48 L 183.33,128.38 L 185.0,120.81 L 186.67,111.81 L 188.33,101.59 L 190.0,90.55 L 191.67,79.27 L 193.33,68.46 L 195.0,58.92 L 196.67,51.43 L 198.33,46.65 L 200.0,45.0 L 201.67,46.65 L 203.33,51.43 L 205.0,58.92 L 206.67,68.46 L 208.33,79.27 L 210.0,90.55 L 211.67,101.59 L 213.33,111.81 L 215.0,120.81 L 216.67,128.38 L 218.33,134.48 L 220.0,139.21 L 221.67,142.73 L 223.33,145.26 L 225.0,147.0 L 226.67,148.16 L 228.33,148.91 L 230.0,149.37 L 231.67,149.65 L 233.33,149.81 L 235.0,149.9 L 236.67,149.95 L 238.33,149.98 L 240.0,149.99 L 241.67,149.99 L 243.33,150.0 L 245.0,150.0 L 246.67,150.0 L 248.33,150.0 L 250.0,150.0 L 251.67,150.0 L 253.33,150.0 L 255.0,150.0 L 256.67,150.0 L 258.33,150.0 L 260.0,150.0 L 261.67,150.0 L 263.33,150.0 L 265.0,150.0 L 266.67,150.0 L 268.33,150.0 L 270.0,150.0 L 271.67,150.0 L 273.33,150.0 L 275.0,150.0" fill="#0E6F7E" fill-opacity="0.25" stroke="#0E6F7E" stroke-width="2"/>
+<line x1="200" y1="34" x2="200" y2="156" stroke="#1C2B3A" stroke-width="2" stroke-dasharray="4,4"/>
+<text x="200" y="28" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1C2B3A">mean = 100 for both</text>
+<text x="243" y="72" font-size="12" font-weight="700" fill="#0E6F7E">Caf&#233; A</text>
+<text x="243" y="87" font-size="10.5" fill="#55606E">95&#8211;105 &#183; predictable</text>
+<text x="300" y="120" font-size="12" font-weight="700" fill="#6B4C9A">Caf&#233; B</text>
+<text x="300" y="135" font-size="10.5" fill="#55606E">20&#8211;300 &#183; chaos</text>
+<text x="200" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">same average, completely different business</text>
+</svg></div>
+<figcaption>Two cafés, the same daily average, completely different businesses to run.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Reporting an average with no measure of spread beside it. It's half a finding. Any average presented alone should make you suspicious — of other people's work, and of your own.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Why is range considered a fragile measure of spread?</li>
+      <li>Two delivery firms average 30 minutes. One has a much higher SD. Which do you order from, and why?</li>
+      <li>What does a standard deviation of nearly zero tell you?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 7 CHARTS ============ -->
+<section id="charts">
+  <span class="sec-num">Section 07</span>
+  <h2>Choosing the right chart</h2>
+  <p class="standfirst">Pick the chart from the question you're answering, never from what looks nice.</p>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Your question</th><th>Chart</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td>Which is bigger?</td><td>Bar / column</td><td>Sort largest to smallest</td></tr>
+      <tr><td>How is it distributed?</td><td>Histogram / box plot</td><td>Check for skew</td></tr>
+      <tr><td>What are the parts?</td><td>Pie / treemap</td><td>Never more than 5 slices</td></tr>
+      <tr><td>How has it changed?</td><td>Line / area</td><td>Time goes on the x-axis</td></tr>
+      <tr><td>Are these related?</td><td>Scatter</td><td>Tight diagonal = strong link</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box keypoint">
+    <span class="box-label">The golden rule</span>
+    <p>Start the y-axis at zero on bar charts. A truncated axis doesn't visualise the data — it manufactures a story. A 2% difference can be made to look like a landslide, and this is the single most common way charts lie to people who are paying attention.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 5</div>
+<div class="fig-title">The same data, honest and dishonest</div>
+<div class="fig-art"><svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The same three numbers shown honestly and misleadingly">
+<rect x="38" y="42.2" width="30" height="107.8" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="53" y="164" text-anchor="middle" font-size="10" fill="#55606E">98</text>
+<rect x="78" y="41.1" width="30" height="108.9" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="93" y="164" text-anchor="middle" font-size="10" fill="#55606E">99</text>
+<rect x="118" y="40.0" width="30" height="110.0" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="133" y="164" text-anchor="middle" font-size="10" fill="#55606E">100</text>
+<line x1="30" y1="34" x2="30" y2="150" stroke="#1F6B47" stroke-width="2"/>
+<line x1="30" y1="150" x2="170" y2="150" stroke="#1F6B47" stroke-width="2"/>
+<text x="26" y="154.0" text-anchor="end" font-size="9" fill="#8A93A0">0</text>
+<text x="26" y="99.0" text-anchor="end" font-size="9" fill="#8A93A0">50</text>
+<text x="26" y="44.0" text-anchor="end" font-size="9" fill="#8A93A0">100</text>
+<text x="100" y="184" text-anchor="middle" font-size="12" font-weight="700" fill="#1F6B47">honest &#183; axis at 0</text>
+<rect x="242" y="113.3" width="30" height="36.7" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="257" y="164" text-anchor="middle" font-size="10" fill="#55606E">98</text>
+<rect x="282" y="76.7" width="30" height="73.3" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="297" y="164" text-anchor="middle" font-size="10" fill="#55606E">99</text>
+<rect x="322" y="40.0" width="30" height="110.0" fill="#7FA8B4" stroke="#0E6F7E"/>
+<text x="337" y="164" text-anchor="middle" font-size="10" fill="#55606E">100</text>
+<line x1="234" y1="34" x2="234" y2="150" stroke="#A8322A" stroke-width="2"/>
+<line x1="234" y1="150" x2="374" y2="150" stroke="#A8322A" stroke-width="2"/>
+<text x="230" y="154.0" text-anchor="end" font-size="9" fill="#8A93A0">97</text>
+<text x="230" y="117.33333333333334" text-anchor="end" font-size="9" fill="#8A93A0">98</text>
+<text x="230" y="80.66666666666667" text-anchor="end" font-size="9" fill="#8A93A0">99</text>
+<text x="230" y="44.0" text-anchor="end" font-size="9" fill="#8A93A0">100</text>
+<text x="304" y="184" text-anchor="middle" font-size="12" font-weight="700" fill="#A8322A">misleading &#183; axis at 97</text>
+<text x="200" y="202" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">identical numbers, opposite conclusion</text>
+</svg></div>
+<figcaption>98, 99 and 100 — drawn honestly, then drawn to mislead.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>The overloaded pie chart. Nine slices in near-identical shades, a legend off to the side, and the reader doing a matching puzzle instead of understanding anything. If you have more than five categories, use a sorted bar chart.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>You want to show whether study hours relate to exam marks. Which chart?</li>
+      <li>Why should bar charts be sorted rather than left alphabetical?</li>
+      <li>Name two ways a technically accurate chart can still mislead.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 8 STORY ============ -->
+<section id="story">
+  <span class="sec-num">Section 08</span>
+  <h2>Telling the story</h2>
+  <p class="standfirst">The analysis isn't finished until somebody understands it.</p>
+
+  <ol class="steps">
+    <li><strong>Context</strong>What situation are we in? Why are we looking at this at all?</li>
+    <li><strong>Evidence</strong>What does the data show? One chart, one message.</li>
+    <li><strong>Conclusion</strong>What should we do now? Be specific enough to argue with.</li>
+  </ol>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p><strong>Weak:</strong> "Here's a dashboard of Q3 churn by segment."</p>
+    <p><strong>Strong:</strong> "We're losing customers faster than we're winning them <em>(context)</em>. Almost all of it is first-month users on the basic plan <em>(evidence)</em>. I'd move onboarding support to week one and re-measure in six weeks <em>(conclusion)</em>."</p>
+    <p>Same data. Only the second one can be acted on — or challenged, which is just as valuable.</p>
+  </div>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Presenting everything you found because it took effort to find. Your audience doesn't need to see the work — they need the decision. Keep the rest for the appendix and for the questions.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Which of the three stages do analysts most often skip?</li>
+      <li>Rewrite "engagement is down 8%" as a full context-evidence-conclusion statement.</li>
+      <li>Why is a conclusion you can argue with better than a safe one?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 9 SYSTEMS ============ -->
+<section id="systems">
+  <span class="sec-num">Section 09</span>
+  <h2>Systems thinking</h2>
+  <p class="standfirst">Before you measure a process, you have to see it.</p>
+
+  <p>A number never explains itself. "Orders take nine days" only becomes useful once you can see the eleven steps an order passes through and spot which one is sitting idle.</p>
+
+  <p><strong>Process mapping</strong> draws those steps in order. A <strong>swimlane diagram</strong> adds who is responsible for each one — which is usually where the delay is hiding, in the handover between two teams who each think the other has it.</p>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>A doctor doesn't treat a fever by cooling the thermometer. The fever is a symptom of a system. Business metrics work the same way: the late delivery number is the thermometer, and the broken handover between warehouse and courier is the infection.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 6</div>
+<div class="fig-title">A swimlane map with a bottleneck</div>
+<div class="fig-art"><svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Swimlane map showing a bottleneck at a handover">
+<defs><marker id="a6" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#8A93A0"/></marker>
+<marker id="a6r" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#A8322A"/></marker></defs>
+<rect x="72" y="18" width="318" height="48" fill="#F4F0E6"/>
+<rect x="72" y="70" width="318" height="48" fill="#FDFBF7"/>
+<rect x="72" y="122" width="318" height="48" fill="#F4F0E6"/>
+<text x="66" y="47" text-anchor="end" font-size="11.5" font-weight="700" fill="#55606E">Customer</text>
+<text x="66" y="99" text-anchor="end" font-size="11.5" font-weight="700" fill="#55606E">Sales</text>
+<text x="66" y="151" text-anchor="end" font-size="11.5" font-weight="700" fill="#55606E">Warehouse</text>
+<rect x="84" y="28" width="72" height="28" rx="4" fill="#E3F1F3" stroke="#0E6F7E"/>
+<text x="120" y="46" text-anchor="middle" font-size="11" fill="#1C2B3A">place order</text>
+<rect x="172" y="80" width="72" height="28" rx="4" fill="#E3F1F3" stroke="#0E6F7E"/>
+<text x="208" y="98" text-anchor="middle" font-size="11" fill="#1C2B3A">confirm</text>
+<rect x="256" y="132" width="60" height="28" rx="4" fill="#E3F1F3" stroke="#0E6F7E"/>
+<text x="286" y="150" text-anchor="middle" font-size="11" fill="#1C2B3A">pick</text>
+<rect x="326" y="132" width="58" height="28" rx="4" fill="#E3F1F3" stroke="#0E6F7E"/>
+<text x="355" y="150" text-anchor="middle" font-size="11" fill="#1C2B3A">dispatch</text>
+<path d="M156,42 L172,42 L172,80" fill="none" stroke="#8A93A0" stroke-width="1.8" marker-end="url(#a6)"/>
+<path d="M244,94 L256,94 L256,132" fill="none" stroke="#A8322A" stroke-width="2.6" marker-end="url(#a6r)"/>
+<path d="M316,146 L326,146" fill="none" stroke="#8A93A0" stroke-width="1.8" marker-end="url(#a6)"/>
+<rect x="176" y="176" width="150" height="22" rx="11" fill="#FBE9E7" stroke="#A8322A"/>
+<text x="251" y="191" text-anchor="middle" font-size="11.5" font-weight="700" fill="#A8322A">4 days waiting here</text>
+<text x="120" y="198" text-anchor="middle" font-size="11" fill="#55606E" font-style="italic">the delay lives</text>
+<text x="120" y="186" text-anchor="middle" font-size="11" fill="#55606E" font-style="italic">between lanes</text>
+</svg></div>
+<figcaption>The four-day delay isn't inside any box. It's in the handover between two teams.</figcaption>
+</figure>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>What does a swimlane diagram add that a plain flowchart doesn't?</li>
+      <li>Why do bottlenecks so often appear at handovers between teams?</li>
+      <li>Give your own example of "cooling the thermometer" in a business.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 10 GOVERNANCE ============ -->
+<section id="governance">
+  <span class="sec-num">Section 10</span>
+  <h2>Data governance &amp; ethics</h2>
+  <p class="standfirst">Where the data came from, who's allowed to see it, and what you owe the people inside it.</p>
+
+  <h3>Single source of truth</h3>
+  <p>One agreed number, in one agreed place. Without it, two people bring two different revenue figures to the same meeting and the meeting becomes about the spreadsheets instead of the decision.</p>
+
+  <h3>Internal vs. external data</h3>
+  <ul>
+    <li><strong>Internal</strong> — your CRM, payroll, sales records. High trust, you control it.</li>
+    <li><strong>External</strong> — APIs, public datasets, scraped web data. Adds context, but verify before you lean on it.</li>
+  </ul>
+
+  <h3>Protecting people</h3>
+  <ul>
+    <li><strong>Anonymisation</strong> — identifying details permanently destroyed. Irreversible.</li>
+    <li><strong>Pseudonymisation</strong> — identifiers swapped for codes, with a key held separately. Reversible, and therefore still personal data.</li>
+  </ul>
+
+  <p>Under GDPR and similar laws, people have the <strong>right to be forgotten</strong> and the <strong>right to portability</strong>. Practically, this means you need to know where every copy of a file lives — including the one you emailed yourself.</p>
+
+  <div class="box keypoint">
+    <span class="box-label">The ethical floor</span>
+    <p>Being legally permitted to use data isn't the same as it being right to. Ask whether the person whose data it is would be comfortable seeing what you're doing with it. If the honest answer is no, you have a problem no compliance checklist will catch.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 7</div>
+<div class="fig-title">Anonymisation vs. pseudonymisation</div>
+<div class="fig-art"><svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Anonymisation removes identity permanently, pseudonymisation is reversible with a key">
+<defs><marker id="a7" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#1F6B47"/></marker>
+<marker id="a7b" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#9A6B00"/></marker>
+<marker id="a7s" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto"><path d="M7,0 L0,3 L7,6 z" fill="#9A6B00"/></marker></defs>
+<text x="10" y="16" font-size="11.5" font-weight="700" fill="#1F6B47">ANONYMISED &#183; no route back</text>
+<rect x="10" y="24" width="130" height="42" rx="4" fill="#fff" stroke="#DED6C4"/>
+<text x="18" y="40" font-size="10.5" fill="#1C2B3A">Layla Haddad</text>
+<text x="18" y="57" font-size="10.5" fill="#8A93A0">layla@mail.com</text>
+<line x1="150" y1="45" x2="196" y2="45" stroke="#1F6B47" stroke-width="2" marker-end="url(#a7)"/>
+<rect x="206" y="24" width="130" height="42" rx="4" fill="#E4F2EA" stroke="#1F6B47"/>
+<text x="214" y="40" font-size="10.5" fill="#8A93A0">&#8212;</text>
+<text x="214" y="57" font-size="10.5" fill="#1C2B3A">age 24 &#183; Dubai</text>
+<text x="10" y="108" font-size="11.5" font-weight="700" fill="#9A6B00">PSEUDONYMISED &#183; still personal data</text>
+<rect x="10" y="116" width="130" height="42" rx="4" fill="#fff" stroke="#DED6C4"/>
+<text x="18" y="132" font-size="10.5" fill="#1C2B3A">Layla Haddad</text>
+<text x="18" y="149" font-size="10.5" fill="#8A93A0">layla@mail.com</text>
+<line x1="150" y1="130" x2="196" y2="130" stroke="#9A6B00" stroke-width="2" marker-end="url(#a7b)"/>
+<line x1="196" y1="146" x2="150" y2="146" stroke="#9A6B00" stroke-width="2" marker-end="url(#a7s)"/>
+<rect x="206" y="116" width="130" height="42" rx="4" fill="#FBF0D9" stroke="#9A6B00"/>
+<text x="214" y="132" font-size="10.5" fill="#1C2B3A">USER_4471</text>
+<text x="214" y="149" font-size="10.5" fill="#1C2B3A">age 24 &#183; Dubai</text>
+<rect x="250" y="172" width="112" height="34" rx="4" fill="#F4F0E6" stroke="#9A6B00" stroke-dasharray="4,3"/>
+<text x="306" y="186" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9A6B00">key file</text>
+<text x="306" y="199" text-anchor="middle" font-size="9.5" fill="#55606E">4471 = Layla</text>
+<path d="M290,166 L290,172" stroke="#9A6B00" stroke-width="1.5"/>
+<text x="120" y="192" font-size="10.5" fill="#55606E" font-style="italic">a key exists,</text>
+<text x="120" y="204" font-size="10.5" fill="#55606E" font-style="italic">so the law still applies</text>
+</svg></div>
+<figcaption>Anonymised data is out of scope. Pseudonymised data still has a key — so the law still applies.</figcaption>
+</figure>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Why is pseudonymised data still treated as personal data?</li>
+      <li>What breaks in a company with no single source of truth?</li>
+      <li>Give an example of something legal but ethically questionable.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 11 CLEANING ============ -->
+<section id="cleaning">
+  <span class="sec-num">Section 11</span>
+  <h2>Cleaning dirty data</h2>
+  <p class="standfirst">The unglamorous 80%. Get it wrong and everything downstream is fiction.</p>
+
+  <h3>The four faces of dirty data</h3>
+  <ul>
+    <li><strong>Duplicates</strong> — the same record counted twice, inflating everything.</li>
+    <li><strong>Inconsistencies</strong> — "UAE", "U.A.E.", "United Arab Emirates" and "Dubai" splitting one country into four.</li>
+    <li><strong>Missing values</strong> — delete the row or estimate the value, but document which you chose.</li>
+    <li><strong>Outliers</strong> — investigate before deleting. Some are typos; some are your most important customer.</li>
+  </ul>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Cleaning data is preparing ingredients, not cooking. Nobody praises you for washing the vegetables — but serve a salad with grit in it and that's the only thing anyone remembers about the meal.</p>
+  </div>
+
+  <h3>The ETL loop</h3>
+  <ol class="steps">
+    <li><strong>Extract</strong>Pull from the source — never edit the original file.</li>
+    <li><strong>Transform</strong>Clean, filter and reshape it.</li>
+    <li><strong>Load</strong>Deliver it ready to analyse. Next month, hit refresh.</li>
+  </ol>
+
+  <p>The reason to build this as steps in Power Query rather than editing cells by hand: it's <strong>repeatable</strong>. Hand-cleaning is work you do again every single month, and slightly differently each time.</p>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>TRIM()</code></td><td>Strips invisible extra spaces</td></tr>
+      <tr><td><code>CLEAN()</code></td><td>Removes non-printable characters</td></tr>
+      <tr><td><code>Ctrl+E</code></td><td>Flash Fill — learns your pattern</td></tr>
+      <tr><td><code>Ctrl+H</code></td><td>Find and replace across thousands of rows</td></tr>
+      <tr><td>Text to Columns</td><td>Splits one cell into several</td></tr>
+      <tr><td>Unpivot</td><td>Wide table into tall — makes pivot tables work</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box keypoint">
+    <span class="box-label">The sum test</span>
+    <p>Total your key column before cleaning and after. If the number changed in a way you can't explain in one sentence, you didn't clean the data — you broke it. Do this every time.</p>
+  </div>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Deleting outliers because they're inconvenient. That 480k salary, that one enormous order — they're often the most informative rows in the file. Investigate first. Delete only if you can say why it isn't real.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Why is Power Query better than cleaning cells by hand?</li>
+      <li>What does the sum test catch?</li>
+      <li>When is it legitimate to delete an outlier?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 12 NORMAL ============ -->
+<section id="normal">
+  <span class="sec-num">Section 12</span>
+  <h2>Probability &amp; the normal curve</h2>
+  <p class="standfirst">Why so many things in nature and business pile up in the middle.</p>
+
+  <p>Measure enough of almost anything — heights, delivery times, exam marks — and you get the same shape: a symmetrical hump, most values near the middle, rarer ones trailing off each side.</p>
+
+  <div class="formula">
+    <span class="eq">68 — 95 — 99.7</span>
+    <span class="note">The percentage of data falling within 1, 2 and 3 standard deviations of the mean.</span>
+  </div>
+
+  <p>This is the empirical rule, and it's what makes standard deviation genuinely useful rather than just another number. One SD from the mean in either direction covers roughly 68% of everything; two SDs covers about 95%; three covers about 99.7%. Anything beyond three is properly rare.</p>
+
+  <figure class="diagram">
+<div class="fig">Diagram 8</div>
+<div class="fig-title">The empirical rule</div>
+<div class="fig-art"><svg viewBox="0 0 400 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The empirical rule: 68, 95 and 99.7 percent of data within one, two and three standard deviations">
+<path d="M 58.33,168.00 L 58.33,166.69 L 59.75,166.57 L 61.17,166.43 L 62.58,166.29 L 64.00,166.13 L 65.42,165.97 L 66.83,165.79 L 68.25,165.59 L 69.67,165.38 L 71.08,165.16 L 72.50,164.92 L 73.92,164.66 L 75.33,164.38 L 76.75,164.09 L 78.17,163.77 L 79.58,163.43 L 81.00,163.07 L 82.42,162.68 L 83.83,162.27 L 85.25,161.84 L 86.67,161.38 L 88.08,160.88 L 89.50,160.36 L 90.92,159.81 L 92.33,159.23 L 93.75,158.61 L 95.17,157.96 L 96.58,157.27 L 98.00,156.55 L 99.42,155.79 L 100.83,154.99 L 102.25,154.15 L 103.67,153.27 L 105.08,152.35 L 106.50,151.38 L 107.92,150.37 L 109.33,149.32 L 110.75,148.22 L 112.17,147.08 L 113.58,145.89 L 115.00,144.65 L 116.42,143.36 L 117.83,142.03 L 119.25,140.65 L 120.67,139.23 L 122.08,137.75 L 123.50,136.23 L 124.92,134.66 L 126.33,133.05 L 127.75,131.39 L 129.17,129.69 L 130.58,127.95 L 132.00,126.16 L 133.42,124.33 L 134.83,122.46 L 136.25,120.56 L 137.67,118.62 L 139.08,116.65 L 140.50,114.65 L 141.92,112.62 L 143.33,110.56 L 144.75,108.48 L 146.17,106.39 L 147.58,104.27 L 149.00,102.14 L 150.42,100.00 L 151.83,97.86 L 153.25,95.71 L 154.67,93.57 L 156.08,91.43 L 157.50,89.30 L 158.92,87.18 L 160.33,85.08 L 161.75,83.00 L 163.17,80.95 L 164.58,78.93 L 166.00,76.94 L 167.42,75.00 L 168.83,73.09 L 170.25,71.24 L 171.67,69.44 L 173.08,67.69 L 174.50,66.01 L 175.92,64.39 L 177.33,62.84 L 178.75,61.36 L 180.17,59.96 L 181.58,58.64 L 183.00,57.40 L 184.42,56.25 L 185.83,55.19 L 187.25,54.22 L 188.67,53.35 L 190.08,52.57 L 191.50,51.90 L 192.92,51.32 L 194.33,50.85 L 195.75,50.48 L 197.17,50.21 L 198.58,50.05 L 200.00,50.00 L 201.42,50.05 L 202.83,50.21 L 204.25,50.48 L 205.67,50.85 L 207.08,51.32 L 208.50,51.90 L 209.92,52.57 L 211.33,53.35 L 212.75,54.22 L 214.17,55.19 L 215.58,56.25 L 217.00,57.40 L 218.42,58.64 L 219.83,59.96 L 221.25,61.36 L 222.67,62.84 L 224.08,64.39 L 225.50,66.01 L 226.92,67.69 L 228.33,69.44 L 229.75,71.24 L 231.17,73.09 L 232.58,75.00 L 234.00,76.94 L 235.42,78.93 L 236.83,80.95 L 238.25,83.00 L 239.67,85.08 L 241.08,87.18 L 242.50,89.30 L 243.92,91.43 L 245.33,93.57 L 246.75,95.71 L 248.17,97.86 L 249.58,100.00 L 251.00,102.14 L 252.42,104.27 L 253.83,106.39 L 255.25,108.48 L 256.67,110.56 L 258.08,112.62 L 259.50,114.65 L 260.92,116.65 L 262.33,118.62 L 263.75,120.56 L 265.17,122.46 L 266.58,124.33 L 268.00,126.16 L 269.42,127.95 L 270.83,129.69 L 272.25,131.39 L 273.67,133.05 L 275.08,134.66 L 276.50,136.23 L 277.92,137.75 L 279.33,139.23 L 280.75,140.65 L 282.17,142.03 L 283.58,143.36 L 285.00,144.65 L 286.42,145.89 L 287.83,147.08 L 289.25,148.22 L 290.67,149.32 L 292.08,150.37 L 293.50,151.38 L 294.92,152.35 L 296.33,153.27 L 297.75,154.15 L 299.17,154.99 L 300.58,155.79 L 302.00,156.55 L 303.42,157.27 L 304.83,157.96 L 306.25,158.61 L 307.67,159.23 L 309.08,159.81 L 310.50,160.36 L 311.92,160.88 L 313.33,161.38 L 314.75,161.84 L 316.17,162.27 L 317.58,162.68 L 319.00,163.07 L 320.42,163.43 L 321.83,163.77 L 323.25,164.09 L 324.67,164.38 L 326.08,164.66 L 327.50,164.92 L 328.92,165.16 L 330.33,165.38 L 331.75,165.59 L 333.17,165.79 L 334.58,165.97 L 336.00,166.13 L 337.42,166.29 L 338.83,166.43 L 340.25,166.57 L 341.67,166.69 L 341.67,168 Z" fill="#0E6F7E" fill-opacity="0.1"/>
+<path d="M 105.08,168.00 L 105.08,152.35 L 106.50,151.38 L 107.92,150.37 L 109.33,149.32 L 110.75,148.22 L 112.17,147.08 L 113.58,145.89 L 115.00,144.65 L 116.42,143.36 L 117.83,142.03 L 119.25,140.65 L 120.67,139.23 L 122.08,137.75 L 123.50,136.23 L 124.92,134.66 L 126.33,133.05 L 127.75,131.39 L 129.17,129.69 L 130.58,127.95 L 132.00,126.16 L 133.42,124.33 L 134.83,122.46 L 136.25,120.56 L 137.67,118.62 L 139.08,116.65 L 140.50,114.65 L 141.92,112.62 L 143.33,110.56 L 144.75,108.48 L 146.17,106.39 L 147.58,104.27 L 149.00,102.14 L 150.42,100.00 L 151.83,97.86 L 153.25,95.71 L 154.67,93.57 L 156.08,91.43 L 157.50,89.30 L 158.92,87.18 L 160.33,85.08 L 161.75,83.00 L 163.17,80.95 L 164.58,78.93 L 166.00,76.94 L 167.42,75.00 L 168.83,73.09 L 170.25,71.24 L 171.67,69.44 L 173.08,67.69 L 174.50,66.01 L 175.92,64.39 L 177.33,62.84 L 178.75,61.36 L 180.17,59.96 L 181.58,58.64 L 183.00,57.40 L 184.42,56.25 L 185.83,55.19 L 187.25,54.22 L 188.67,53.35 L 190.08,52.57 L 191.50,51.90 L 192.92,51.32 L 194.33,50.85 L 195.75,50.48 L 197.17,50.21 L 198.58,50.05 L 200.00,50.00 L 201.42,50.05 L 202.83,50.21 L 204.25,50.48 L 205.67,50.85 L 207.08,51.32 L 208.50,51.90 L 209.92,52.57 L 211.33,53.35 L 212.75,54.22 L 214.17,55.19 L 215.58,56.25 L 217.00,57.40 L 218.42,58.64 L 219.83,59.96 L 221.25,61.36 L 222.67,62.84 L 224.08,64.39 L 225.50,66.01 L 226.92,67.69 L 228.33,69.44 L 229.75,71.24 L 231.17,73.09 L 232.58,75.00 L 234.00,76.94 L 235.42,78.93 L 236.83,80.95 L 238.25,83.00 L 239.67,85.08 L 241.08,87.18 L 242.50,89.30 L 243.92,91.43 L 245.33,93.57 L 246.75,95.71 L 248.17,97.86 L 249.58,100.00 L 251.00,102.14 L 252.42,104.27 L 253.83,106.39 L 255.25,108.48 L 256.67,110.56 L 258.08,112.62 L 259.50,114.65 L 260.92,116.65 L 262.33,118.62 L 263.75,120.56 L 265.17,122.46 L 266.58,124.33 L 268.00,126.16 L 269.42,127.95 L 270.83,129.69 L 272.25,131.39 L 273.67,133.05 L 275.08,134.66 L 276.50,136.23 L 277.92,137.75 L 279.33,139.23 L 280.75,140.65 L 282.17,142.03 L 283.58,143.36 L 285.00,144.65 L 286.42,145.89 L 287.83,147.08 L 289.25,148.22 L 290.67,149.32 L 292.08,150.37 L 293.50,151.38 L 294.92,152.35 L 294.92,168 Z" fill="#0E6F7E" fill-opacity="0.2"/>
+<path d="M 151.83,168.00 L 151.83,97.86 L 153.25,95.71 L 154.67,93.57 L 156.08,91.43 L 157.50,89.30 L 158.92,87.18 L 160.33,85.08 L 161.75,83.00 L 163.17,80.95 L 164.58,78.93 L 166.00,76.94 L 167.42,75.00 L 168.83,73.09 L 170.25,71.24 L 171.67,69.44 L 173.08,67.69 L 174.50,66.01 L 175.92,64.39 L 177.33,62.84 L 178.75,61.36 L 180.17,59.96 L 181.58,58.64 L 183.00,57.40 L 184.42,56.25 L 185.83,55.19 L 187.25,54.22 L 188.67,53.35 L 190.08,52.57 L 191.50,51.90 L 192.92,51.32 L 194.33,50.85 L 195.75,50.48 L 197.17,50.21 L 198.58,50.05 L 200.00,50.00 L 201.42,50.05 L 202.83,50.21 L 204.25,50.48 L 205.67,50.85 L 207.08,51.32 L 208.50,51.90 L 209.92,52.57 L 211.33,53.35 L 212.75,54.22 L 214.17,55.19 L 215.58,56.25 L 217.00,57.40 L 218.42,58.64 L 219.83,59.96 L 221.25,61.36 L 222.67,62.84 L 224.08,64.39 L 225.50,66.01 L 226.92,67.69 L 228.33,69.44 L 229.75,71.24 L 231.17,73.09 L 232.58,75.00 L 234.00,76.94 L 235.42,78.93 L 236.83,80.95 L 238.25,83.00 L 239.67,85.08 L 241.08,87.18 L 242.50,89.30 L 243.92,91.43 L 245.33,93.57 L 246.75,95.71 L 248.17,97.86 L 248.17,168 Z" fill="#0E6F7E" fill-opacity="0.36"/>
+<path d="M 30.00,167.82 L 31.42,167.80 L 32.83,167.78 L 34.25,167.75 L 35.67,167.72 L 37.08,167.69 L 38.50,167.66 L 39.92,167.62 L 41.33,167.58 L 42.75,167.54 L 44.17,167.49 L 45.58,167.44 L 47.00,167.38 L 48.42,167.32 L 49.83,167.25 L 51.25,167.17 L 52.67,167.09 L 54.08,167.00 L 55.50,166.91 L 56.92,166.80 L 58.33,166.69 L 59.75,166.57 L 61.17,166.43 L 62.58,166.29 L 64.00,166.13 L 65.42,165.97 L 66.83,165.79 L 68.25,165.59 L 69.67,165.38 L 71.08,165.16 L 72.50,164.92 L 73.92,164.66 L 75.33,164.38 L 76.75,164.09 L 78.17,163.77 L 79.58,163.43 L 81.00,163.07 L 82.42,162.68 L 83.83,162.27 L 85.25,161.84 L 86.67,161.38 L 88.08,160.88 L 89.50,160.36 L 90.92,159.81 L 92.33,159.23 L 93.75,158.61 L 95.17,157.96 L 96.58,157.27 L 98.00,156.55 L 99.42,155.79 L 100.83,154.99 L 102.25,154.15 L 103.67,153.27 L 105.08,152.35 L 106.50,151.38 L 107.92,150.37 L 109.33,149.32 L 110.75,148.22 L 112.17,147.08 L 113.58,145.89 L 115.00,144.65 L 116.42,143.36 L 117.83,142.03 L 119.25,140.65 L 120.67,139.23 L 122.08,137.75 L 123.50,136.23 L 124.92,134.66 L 126.33,133.05 L 127.75,131.39 L 129.17,129.69 L 130.58,127.95 L 132.00,126.16 L 133.42,124.33 L 134.83,122.46 L 136.25,120.56 L 137.67,118.62 L 139.08,116.65 L 140.50,114.65 L 141.92,112.62 L 143.33,110.56 L 144.75,108.48 L 146.17,106.39 L 147.58,104.27 L 149.00,102.14 L 150.42,100.00 L 151.83,97.86 L 153.25,95.71 L 154.67,93.57 L 156.08,91.43 L 157.50,89.30 L 158.92,87.18 L 160.33,85.08 L 161.75,83.00 L 163.17,80.95 L 164.58,78.93 L 166.00,76.94 L 167.42,75.00 L 168.83,73.09 L 170.25,71.24 L 171.67,69.44 L 173.08,67.69 L 174.50,66.01 L 175.92,64.39 L 177.33,62.84 L 178.75,61.36 L 180.17,59.96 L 181.58,58.64 L 183.00,57.40 L 184.42,56.25 L 185.83,55.19 L 187.25,54.22 L 188.67,53.35 L 190.08,52.57 L 191.50,51.90 L 192.92,51.32 L 194.33,50.85 L 195.75,50.48 L 197.17,50.21 L 198.58,50.05 L 200.00,50.00 L 201.42,50.05 L 202.83,50.21 L 204.25,50.48 L 205.67,50.85 L 207.08,51.32 L 208.50,51.90 L 209.92,52.57 L 211.33,53.35 L 212.75,54.22 L 214.17,55.19 L 215.58,56.25 L 217.00,57.40 L 218.42,58.64 L 219.83,59.96 L 221.25,61.36 L 222.67,62.84 L 224.08,64.39 L 225.50,66.01 L 226.92,67.69 L 228.33,69.44 L 229.75,71.24 L 231.17,73.09 L 232.58,75.00 L 234.00,76.94 L 235.42,78.93 L 236.83,80.95 L 238.25,83.00 L 239.67,85.08 L 241.08,87.18 L 242.50,89.30 L 243.92,91.43 L 245.33,93.57 L 246.75,95.71 L 248.17,97.86 L 249.58,100.00 L 251.00,102.14 L 252.42,104.27 L 253.83,106.39 L 255.25,108.48 L 256.67,110.56 L 258.08,112.62 L 259.50,114.65 L 260.92,116.65 L 262.33,118.62 L 263.75,120.56 L 265.17,122.46 L 266.58,124.33 L 268.00,126.16 L 269.42,127.95 L 270.83,129.69 L 272.25,131.39 L 273.67,133.05 L 275.08,134.66 L 276.50,136.23 L 277.92,137.75 L 279.33,139.23 L 280.75,140.65 L 282.17,142.03 L 283.58,143.36 L 285.00,144.65 L 286.42,145.89 L 287.83,147.08 L 289.25,148.22 L 290.67,149.32 L 292.08,150.37 L 293.50,151.38 L 294.92,152.35 L 296.33,153.27 L 297.75,154.15 L 299.17,154.99 L 300.58,155.79 L 302.00,156.55 L 303.42,157.27 L 304.83,157.96 L 306.25,158.61 L 307.67,159.23 L 309.08,159.81 L 310.50,160.36 L 311.92,160.88 L 313.33,161.38 L 314.75,161.84 L 316.17,162.27 L 317.58,162.68 L 319.00,163.07 L 320.42,163.43 L 321.83,163.77 L 323.25,164.09 L 324.67,164.38 L 326.08,164.66 L 327.50,164.92 L 328.92,165.16 L 330.33,165.38 L 331.75,165.59 L 333.17,165.79 L 334.58,165.97 L 336.00,166.13 L 337.42,166.29 L 338.83,166.43 L 340.25,166.57 L 341.67,166.69 L 343.08,166.80 L 344.50,166.91 L 345.92,167.00 L 347.33,167.09 L 348.75,167.17 L 350.17,167.25 L 351.58,167.32 L 353.00,167.38 L 354.42,167.44 L 355.83,167.49 L 357.25,167.54 L 358.67,167.58 L 360.08,167.62 L 361.50,167.66 L 362.92,167.69 L 364.33,167.72 L 365.75,167.75 L 367.17,167.78 L 368.58,167.80 L 370.00,167.82" fill="none" stroke="#0E6F7E" stroke-width="2.2"/>
+<line x1="30" y1="168" x2="372" y2="168" stroke="#55606E" stroke-width="1.5"/>
+<line x1="58.3" y1="168" x2="58.3" y2="173" stroke="#8A93A0"/>
+<text x="58.3" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">-3</text>
+<line x1="105.6" y1="168" x2="105.6" y2="173" stroke="#8A93A0"/>
+<text x="105.6" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">-2</text>
+<line x1="152.8" y1="168" x2="152.8" y2="173" stroke="#8A93A0"/>
+<text x="152.8" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">-1</text>
+<line x1="200.0" y1="168" x2="200.0" y2="173" stroke="#8A93A0"/>
+<text x="200.0" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">mean</text>
+<line x1="247.2" y1="168" x2="247.2" y2="173" stroke="#8A93A0"/>
+<text x="247.2" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">+1</text>
+<line x1="294.4" y1="168" x2="294.4" y2="173" stroke="#8A93A0"/>
+<text x="294.4" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">+2</text>
+<line x1="341.7" y1="168" x2="341.7" y2="173" stroke="#8A93A0"/>
+<text x="341.7" y="187" text-anchor="middle" font-size="10.5" fill="#55606E">+3</text>
+<path d="M152.8,58 L152.8,52 L247.2,52 L247.2,58" fill="none" stroke="#0E6F7E" stroke-width="1.6"/><text x="200" y="48" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0E6F7E">68%</text>
+<path d="M105.6,38 L105.6,32 L294.4,32 L294.4,38" fill="none" stroke="#6B4C9A" stroke-width="1.6"/><text x="200" y="28" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6B4C9A">95%</text>
+<path d="M58.3,20 L58.3,14 L341.7,14 L341.7,20" fill="none" stroke="#9A6B00" stroke-width="1.6"/><text x="200" y="10" text-anchor="middle" font-size="11.5" font-weight="700" fill="#9A6B00">99.7%</text>
+<text x="200" y="208" text-anchor="middle" font-size="11.5" fill="#55606E">standard deviations from the mean</text>
+</svg></div>
+<figcaption>Why standard deviation is useful: it converts into a share of the data.</figcaption>
+</figure>
+
+  <h3>Z-scores</h3>
+  <div class="formula">
+    <span class="eq">Z = (x − μ) / σ</span>
+    <span class="note">How many standard deviations a value sits from the mean.</span>
+  </div>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>You already calculate Z-scores instinctively. A shopper sees the price of her usual coffee jump and thinks "that's unusually steep" — she's comparing the rise both to the normal price <em>and</em> to how much prices usually wobble. A 50p rise is nothing on a laptop and outrageous on a chocolate bar. That instinct — distance from typical, measured in units of normal variation — is exactly a Z-score.</p>
+  </div>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p>A test has mean 70, SD 8. You scored 86.</p>
+    <p>Z = (86 − 70) / 8 = <strong>2.0</strong></p>
+    <p>You're two standard deviations above the mean — the empirical rule tells you roughly 95% of people fall within that band, so you're in the top ~2.5%. Z-scores let you compare across completely different tests: a Z of 2.0 in maths and a Z of 2.0 in history are equally impressive, whatever the raw marks were.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>What fraction of data sits within two standard deviations of the mean?</li>
+      <li>Why is a Z-score more comparable across datasets than a raw score?</li>
+      <li>Your Z-score is −1.5. In plain words, where do you stand?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 13 SAMPLING ============ -->
+<section id="sampling">
+  <span class="sec-num">Section 13</span>
+  <h2>Samples, CLT &amp; confidence</h2>
+  <p class="standfirst">You'll almost never have all the data. Here's why that's survivable.</p>
+
+  <p>You can't survey every customer in the country. You survey some, and reason about the rest. The <strong>Central Limit Theorem</strong> is what makes that legitimate: take repeated samples and their averages form a normal distribution around the true value — even when the underlying data is a mess.</p>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>You don't drink the whole pot of soup to check the seasoning. One spoonful will do — as long as you stirred first. Stirring is random sampling. A spoonful from an unstirred pot tells you about that corner of the pot and nothing else, which is exactly what biased sampling does to your conclusions.</p>
+  </div>
+
+  <h3>Standard deviation vs. standard error</h3>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th></th><th>Measures</th><th>With more data</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SD</strong></td><td>Spread of individual values</td><td>Stays roughly the same</td></tr>
+      <tr><td><strong>SE</strong></td><td>Spread of sample means</td><td>Shrinks</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>That difference is the whole argument for collecting more data. The world doesn't get less variable — your estimate of it gets more precise.</p>
+
+  <h3>Confidence intervals</h3>
+  <p>A confidence interval is a range, not a point. "We're 95% confident the true average sits between 42 and 48" is an honest finding. "The average is 45" quietly hides how much you don't know.</p>
+
+  <figure class="diagram">
+<div class="fig">Diagram 9</div>
+<div class="fig-title">Why sample size narrows the interval</div>
+<div class="fig-art"><svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Larger samples narrow the confidence interval around the same true value">
+<line x1="200" y1="24" x2="200" y2="150" stroke="#1C2B3A" stroke-width="2" stroke-dasharray="5,4"/>
+<text x="200" y="18" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1C2B3A">true value</text>
+<line x1="60" y1="48" x2="340" y2="48" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="60" y1="41" x2="60" y2="55" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="340" y1="41" x2="340" y2="55" stroke="#0E6F7E" stroke-width="3"/>
+<circle cx="200" cy="48" r="4.5" fill="#1C2B3A"/>
+<text x="348" y="52" font-size="11.5" font-weight="700" fill="#55606E">n = 30</text>
+<line x1="136" y1="84" x2="264" y2="84" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="136" y1="77" x2="136" y2="91" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="264" y1="77" x2="264" y2="91" stroke="#0E6F7E" stroke-width="3"/>
+<circle cx="200" cy="84" r="4.5" fill="#1C2B3A"/>
+<text x="272" y="88" font-size="11.5" font-weight="700" fill="#55606E">n = 300</text>
+<line x1="174" y1="120" x2="226" y2="120" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="174" y1="113" x2="174" y2="127" stroke="#0E6F7E" stroke-width="3"/>
+<line x1="226" y1="113" x2="226" y2="127" stroke="#0E6F7E" stroke-width="3"/>
+<circle cx="200" cy="120" r="4.5" fill="#1C2B3A"/>
+<text x="234" y="124" font-size="11.5" font-weight="700" fill="#55606E">n = 3,000</text>
+<text x="200" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">the centre doesn't move &#8212; the uncertainty shrinks</text>
+</svg></div>
+<figcaption>More data doesn't move your answer. It sharpens how confident you can be in it.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Assuming a big sample fixes a biased one. If you only survey people who answer the phone at 2pm on a Tuesday, surveying 50,000 of them makes you precisely wrong instead of vaguely wrong. Size never repairs bias — only better sampling does.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>In the soup analogy, what does "stirring" represent?</li>
+      <li>Which shrinks when you collect more data — SD or SE?</li>
+      <li>Why is reporting a range more honest than a single number?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 14 REGRESSION ============ -->
+<section id="regression">
+  <span class="sec-num">Section 14</span>
+  <h2>Simple linear regression</h2>
+  <p class="standfirst">Drawing the line that best explains the dots.</p>
+
+  <div class="formula">
+    <span class="eq">Y = a + bX</span>
+    <span class="note">a = where the line starts. b = how much Y moves per 1 unit of X.</span>
+  </div>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Imagine pinning a piece of string across a scatter of dots and sliding it until it sits as close to all of them as possible. Regression does that arithmetically — it finds the one line where the total distance from the dots is as small as it can be. The dots are reality; the line is the pattern underneath.</p>
+  </div>
+
+  <div class="box example">
+    <span class="box-label">Worked example</span>
+    <p>A café models daily revenue against advertising spend and gets:</p>
+    <p><code>Revenue = 400 + 3.2 × (ad spend)</code></p>
+    <p>Read it as: with zero advertising the café still takes about 400 a day (<strong>a</strong>), and every extra 1 spent on ads is associated with about 3.20 more revenue (<strong>b</strong>). That's a claim the owner can test — and argue with.</p>
+  </div>
+
+  <h3>Judging the model</h3>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Metric</th><th>Means</th><th>Rule of thumb</th></tr></thead>
+    <tbody>
+      <tr><td><strong>R²</strong></td><td>Share of variation in Y explained by X</td><td>Closer to 1 is a tighter fit</td></tr>
+      <tr><td><strong>p-value</strong></td><td>Could this be coincidence?</td><td>Below 0.05 = significant</td></tr>
+      <tr><td><strong>Residual</strong></td><td>Actual minus predicted</td><td>Should look like random scatter</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 10</div>
+<div class="fig-title">The line of best fit and its residuals</div>
+<div class="fig-art"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Line of best fit with residual distances marked">
+<line x1="40" y1="170" x2="378" y2="170" stroke="#55606E" stroke-width="1.5"/>
+<line x1="40" y1="18" x2="40" y2="170" stroke="#55606E" stroke-width="1.5"/>
+<line x1="70" y1="128" x2="70" y2="130.4" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="95" y1="115" x2="95" y2="120.8" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="118" y1="120" x2="118" y2="112.0" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="140" y1="98" x2="140" y2="103.5" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="165" y1="90" x2="165" y2="93.9" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="190" y1="96" x2="190" y2="84.2" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="212" y1="74" x2="212" y2="75.8" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="238" y1="66" x2="238" y2="65.8" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="260" y1="71" x2="260" y2="57.3" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="285" y1="50" x2="285" y2="47.7" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="308" y1="44" x2="308" y2="38.8" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="332" y1="30" x2="332" y2="29.6" stroke="#8A93A0" stroke-width="1.4"/>
+<line x1="60" y1="134.3" x2="340" y2="26.5" stroke="#0E6F7E" stroke-width="2.6"/>
+<circle cx="70" cy="128" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="95" cy="115" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="118" cy="120" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="140" cy="98" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="165" cy="90" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="190" cy="96" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="212" cy="74" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="238" cy="66" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="260" cy="71" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="285" cy="50" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="308" cy="44" r="5" fill="#6B4C9A" opacity="0.85"/>
+<circle cx="332" cy="30" r="5" fill="#6B4C9A" opacity="0.85"/>
+<text x="296" y="130" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0E6F7E">line of best fit</text>
+<path d="M296,122 L278,72" stroke="#0E6F7E" stroke-width="1.2"/>
+<text x="96" y="150" font-size="11" fill="#55606E">residual</text>
+<path d="M120,146 L138,126" stroke="#8A93A0" stroke-width="1.2"/>
+<text x="209" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">residual = actual &#8722; predicted</text>
+</svg></div>
+<figcaption>Regression finds the line where the total residual distance is as small as possible.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Treating the slope as proof of cause. Ice cream sales predict drowning deaths beautifully, and neither causes the other — summer causes both. Regression finds the relationship. Only you can argue for the mechanism.</p>
+  </div>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p><strong>Extrapolation.</strong> Your model was built on ad spends of 50–500. It says nothing trustworthy about spending 50,000. The line keeps going on the chart; reality doesn't have to follow it.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>In <code>Y = 400 + 3.2X</code>, what does 400 represent?</li>
+      <li>Your R² is high but residuals show a clear curve. What's wrong?</li>
+      <li>Why can't a low p-value prove causation?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 15 MULTIPLE ============ -->
+<section id="multiple">
+  <span class="sec-num">Section 15</span>
+  <h2>Multiple regression</h2>
+  <p class="standfirst">Reality has more than one cause. So should your model.</p>
+
+  <p>Revenue isn't driven by advertising alone — there's season, pricing, weather, competitors. Multiple regression takes several inputs at once and isolates each one's contribution <strong>holding the others constant</strong>.</p>
+
+  <p>That phrase — <em>ceteris paribus</em> — is how you read every coefficient. "Each extra 1 of ad spend adds 3.20, <em>assuming price and season don't change</em>."</p>
+
+  <h3>What's new at this level</h3>
+  <ul>
+    <li><strong>Adjusted R²</strong> — the honest version. Plain R² always rises when you add a variable, even a useless one. Adjusted R² only rises if the variable actually earned its place.</li>
+    <li><strong>Multicollinearity</strong> — two inputs so correlated with each other that the model can't tell them apart. Drop one.</li>
+    <li><strong>Dummy variables</strong> — turning categories into 0/1 columns so regression can use them.</li>
+    <li><strong>F-test</strong> — asks whether the model as a whole beats simply guessing the average.</li>
+  </ul>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Multicollinearity is two people carrying one sofa through a door. Something's clearly doing the lifting, but you can't credit either one individually. Height and weight in the same model behave like that — keep both and the model gets confused about which deserves the credit.</p>
+  </div>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p><strong>Overfitting.</strong> Add enough variables and your model will explain your historical data almost perfectly — because it has memorised the noise, not learnt the pattern. It will then fail on next month's data. A simpler model that performs slightly worse on old data and much better on new data is the better model.</p>
+  </div>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Why does plain R² always rise when you add a variable?</li>
+      <li>What does <em>ceteris paribus</em> mean when reading a coefficient?</li>
+      <li>How would you spot an overfitted model?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 16 TIME SERIES ============ -->
+<section id="timeseries">
+  <span class="sec-num">Section 16</span>
+  <h2>Time series &amp; growth</h2>
+  <p class="standfirst">When the order of your data matters, everything changes.</p>
+
+  <p>Time series data can't be shuffled — March comes after February, and that sequence carries information. Every series breaks into four components:</p>
+
+  <ul>
+    <li><strong>Trend</strong> — the long-term direction, ignoring the wobbles.</li>
+    <li><strong>Seasonality</strong> — repeating, calendar-linked patterns. Retail spikes every December.</li>
+    <li><strong>Cyclical</strong> — longer economic waves, not tied to the calendar.</li>
+    <li><strong>Noise</strong> — the leftover randomness nothing explains.</li>
+  </ul>
+
+  <figure class="diagram">
+<div class="fig">Diagram 11</div>
+<div class="fig-title">Decomposing a time series</div>
+<div class="fig-art"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A time series decomposed into trend, seasonality and noise">
+<rect x="96" y="12" width="284" height="52" fill="#FDFBF7" stroke="#DED6C4"/>
+<line x1="96" y1="38" x2="380" y2="38" stroke="#EDE7D9"/>
+<path d="M 96.0,55.0 L 100.7,51.5 L 105.5,38.4 L 110.2,43.9 L 114.9,35.6 L 119.7,39.6 L 124.4,47.9 L 129.1,45.9 L 133.9,58.7 L 138.6,57.5 L 143.3,66.6 L 148.1,67.7 L 152.8,61.4 L 157.5,51.6 L 162.3,57.3 L 167.0,49.5 L 171.7,36.9 L 176.5,26.6 L 181.2,28.9 L 185.9,30.6 L 190.7,23.0 L 195.4,41.0 L 200.1,33.2 L 204.9,47.6 L 209.6,54.8 L 214.3,58.7 L 219.1,57.1 L 223.8,48.1 L 228.5,54.6 L 233.3,43.0 L 238.0,35.8 L 242.7,33.7 L 247.5,25.7 L 252.2,29.8 L 256.9,28.7 L 261.7,27.8 L 266.4,23.9 L 271.1,32.8 L 275.9,40.1 L 280.6,40.8 L 285.3,46.3 L 290.1,50.1 L 294.8,41.3 L 299.5,39.3 L 304.3,41.1 L 309.0,29.7 L 313.7,24.2 L 318.5,13.4 L 323.2,12.2 L 327.9,18.0 L 332.7,8.6 L 337.4,25.5 L 342.1,25.8 L 346.9,26.0 L 351.6,40.4 L 356.3,38.6 L 361.1,47.0 L 365.8,36.1 L 370.5,31.2 L 375.3,28.9 L 380.0,17.8" fill="none" stroke="#1C2B3A" stroke-width="2"/>
+<text x="88" y="42" text-anchor="end" font-size="11" font-weight="700" fill="#1C2B3A">observed</text>
+<rect x="96" y="88" width="284" height="52" fill="#FDFBF7" stroke="#DED6C4"/>
+<line x1="96" y1="114" x2="380" y2="114" stroke="#EDE7D9"/>
+<path d="M 96.0,128.3 L 100.7,127.8 L 105.5,127.3 L 110.2,126.9 L 114.9,126.4 L 119.7,125.9 L 124.4,125.4 L 129.1,125.0 L 133.9,124.5 L 138.6,124.0 L 143.3,123.5 L 148.1,123.1 L 152.8,122.6 L 157.5,122.1 L 162.3,121.6 L 167.0,121.2 L 171.7,120.7 L 176.5,120.2 L 181.2,119.7 L 185.9,119.2 L 190.7,118.8 L 195.4,118.3 L 200.1,117.8 L 204.9,117.3 L 209.6,116.9 L 214.3,116.4 L 219.1,115.9 L 223.8,115.4 L 228.5,115.0 L 233.3,114.5 L 238.0,114.0 L 242.7,113.5 L 247.5,113.0 L 252.2,112.6 L 256.9,112.1 L 261.7,111.6 L 266.4,111.1 L 271.1,110.7 L 275.9,110.2 L 280.6,109.7 L 285.3,109.2 L 290.1,108.8 L 294.8,108.3 L 299.5,107.8 L 304.3,107.3 L 309.0,106.8 L 313.7,106.4 L 318.5,105.9 L 323.2,105.4 L 327.9,104.9 L 332.7,104.5 L 337.4,104.0 L 342.1,103.5 L 346.9,103.0 L 351.6,102.6 L 356.3,102.1 L 361.1,101.6 L 365.8,101.1 L 370.5,100.7 L 375.3,100.2 L 380.0,99.7" fill="none" stroke="#0E6F7E" stroke-width="2"/>
+<text x="88" y="118" text-anchor="end" font-size="11" font-weight="700" fill="#0E6F7E">trend</text>
+<rect x="96" y="164" width="284" height="52" fill="#FDFBF7" stroke="#DED6C4"/>
+<line x1="96" y1="190" x2="380" y2="190" stroke="#EDE7D9"/>
+<path d="M 96.0,190.0 L 100.7,184.2 L 105.5,179.4 L 110.2,176.4 L 114.9,175.8 L 119.7,177.6 L 124.4,181.6 L 129.1,187.0 L 133.9,193.0 L 138.6,198.4 L 143.3,202.4 L 148.1,204.2 L 152.8,203.6 L 157.5,200.6 L 162.3,195.8 L 167.0,190.0 L 171.7,184.2 L 176.5,179.4 L 181.2,176.4 L 185.9,175.8 L 190.7,177.6 L 195.4,181.6 L 200.1,187.0 L 204.9,193.0 L 209.6,198.4 L 214.3,202.4 L 219.1,204.2 L 223.8,203.6 L 228.5,200.6 L 233.3,195.8 L 238.0,190.0 L 242.7,184.2 L 247.5,179.4 L 252.2,176.4 L 256.9,175.8 L 261.7,177.6 L 266.4,181.6 L 271.1,187.0 L 275.9,193.0 L 280.6,198.4 L 285.3,202.4 L 290.1,204.2 L 294.8,203.6 L 299.5,200.6 L 304.3,195.8 L 309.0,190.0 L 313.7,184.2 L 318.5,179.4 L 323.2,176.4 L 327.9,175.8 L 332.7,177.6 L 337.4,181.6 L 342.1,187.0 L 346.9,193.0 L 351.6,198.4 L 356.3,202.4 L 361.1,204.2 L 365.8,203.6 L 370.5,200.6 L 375.3,195.8 L 380.0,190.0" fill="none" stroke="#6B4C9A" stroke-width="2"/>
+<text x="88" y="194" text-anchor="end" font-size="11" font-weight="700" fill="#6B4C9A">seasonality</text>
+<rect x="96" y="240" width="284" height="52" fill="#FDFBF7" stroke="#DED6C4"/>
+<line x1="96" y1="266" x2="380" y2="266" stroke="#EDE7D9"/>
+<path d="M 96.0,268.7 L 100.7,271.4 L 105.5,263.6 L 110.2,272.7 L 114.9,265.4 L 119.7,268.1 L 124.4,272.9 L 129.1,265.9 L 133.9,273.2 L 138.6,267.0 L 143.3,272.7 L 148.1,272.4 L 152.8,267.2 L 157.5,260.9 L 162.3,271.9 L 167.0,270.3 L 171.7,264.0 L 176.5,259.0 L 181.2,264.8 L 185.9,267.6 L 190.7,258.6 L 195.4,273.1 L 200.1,260.4 L 204.9,269.3 L 209.6,271.5 L 214.3,272.0 L 219.1,269.0 L 223.8,261.1 L 228.5,271.0 L 233.3,264.7 L 238.0,263.8 L 242.7,268.0 L 247.5,265.3 L 252.2,272.8 L 256.9,272.9 L 261.7,270.6 L 266.4,263.2 L 271.1,267.1 L 275.9,268.9 L 280.6,264.7 L 285.3,266.7 L 290.1,269.1 L 294.8,261.4 L 299.5,262.9 L 304.3,270.0 L 309.0,264.8 L 313.7,265.6 L 318.5,260.1 L 323.2,262.4 L 327.9,269.3 L 332.7,258.5 L 337.4,272.0 L 342.1,267.3 L 346.9,262.0 L 351.6,271.4 L 356.3,266.2 L 361.1,273.2 L 365.8,263.4 L 370.5,261.9 L 375.3,264.9 L 380.0,260.1" fill="none" stroke="#8A93A0" stroke-width="2"/>
+<text x="88" y="270" text-anchor="end" font-size="11" font-weight="700" fill="#8A93A0">noise</text>
+<text x="238.0" y="82" text-anchor="middle" font-size="17" font-weight="700" fill="#55606E">=</text>
+<text x="238.0" y="158" text-anchor="middle" font-size="17" font-weight="700" fill="#55606E">+</text>
+<text x="238.0" y="234" text-anchor="middle" font-size="17" font-weight="700" fill="#55606E">+</text>
+</svg></div>
+<figcaption>Any series splits into a direction, a repeating pattern, and what's left over.</figcaption>
+</figure>
+
+  <div class="box mistake">
+    <span class="box-label">Common mistake</span>
+    <p>Comparing December to November and declaring a collapse. Against seasonal data, always compare like with like — this December against last December. Month-on-month comparisons on seasonal businesses generate panic on a schedule.</p>
+  </div>
+
+  <h3>Exponential growth</h3>
+  <div class="formula">
+    <span class="eq">72 ÷ growth rate = years to double</span>
+    <span class="note">The Rule of 72. At 10% a year, something doubles in about 7.2 years.</span>
+  </div>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>Fold a piece of paper in half 42 times and it would reach the moon. Nobody's intuition accepts that, and that's the point: humans reason in straight lines and growth often isn't one. This is why a "small" 8% monthly growth rate is enormous, and why compound interest feels like magic.</p>
+  </div>
+
+  <p>A <strong>log transformation</strong> turns an exponential curve into a straight line — which means all your regression tools work on it again. It's a change of lens, not of data.</p>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>Name the four components of a time series.</li>
+      <li>At 6% growth a year, roughly how long to double?</li>
+      <li>Why take logs before running a regression on exponential data?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 17 OPTIMISATION ============ -->
+<section id="optimisation">
+  <span class="sec-num">Section 17</span>
+  <h2>Optimisation &amp; Solver</h2>
+  <p class="standfirst">The prescriptive level: not what will happen, but what you should do.</p>
+
+  <p>Linear programming answers "what's the best possible choice, given everything that limits me?" Every problem has three parts:</p>
+
+  <ul>
+    <li><strong>Objective function</strong> — the single thing you're maximising or minimising.</li>
+    <li><strong>Decision variables</strong> — the levers you can actually pull.</li>
+    <li><strong>Constraints</strong> — the walls: hours, budget, materials, staff.</li>
+  </ul>
+
+  <div class="box analogy">
+    <span class="box-label">Analogy</span>
+    <p>It's packing a suitcase for a weight limit. The objective is to bring the most useful set of things. The decision variables are what you put in. The constraint is the airline's 23kg. Optimisation is what you're doing when you stand over an open case deciding what earns its place — you're just doing it by feel.</p>
+  </div>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Feasible region</strong></td><td>Every combination that satisfies all constraints</td></tr>
+      <tr><td><strong>Corner point theorem</strong></td><td>The best answer always sits at a corner of that region</td></tr>
+      <tr><td><strong>Binding constraint</strong></td><td>The one you've hit — your real bottleneck</td></tr>
+      <tr><td><strong>Shadow price</strong></td><td>Extra profit from one more unit of a scarce resource</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box keypoint">
+    <span class="box-label">Why shadow price matters</span>
+    <p>It tells you where to spend money. If one more hour of machine time is worth 40 and one more hour of staff time is worth 4, you know exactly which to invest in — and you know that buying more of a non-binding resource is money set on fire.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 12</div>
+<div class="fig-title">The feasible region</div>
+<div class="fig-art"><svg viewBox="0 0 400 235" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The feasible region, with the optimal solution at a corner">
+<line x1="50" y1="190" x2="378" y2="190" stroke="#55606E" stroke-width="1.5"/>
+<line x1="50" y1="20" x2="50" y2="190" stroke="#55606E" stroke-width="1.5"/>
+<polygon points="50,190 50,96 132,62 244,104 288,190" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="2"/>
+<line x1="34" y1="112" x2="200" y2="42" stroke="#A8322A" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="96" y1="34" x2="330" y2="140" stroke="#9A6B00" stroke-width="1.6" stroke-dasharray="6,4"/>
+<line x1="288" y1="16" x2="288" y2="204" stroke="#6B4C9A" stroke-width="1.6" stroke-dasharray="6,4"/>
+<text x="150" y="140" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0E6F7E">feasible region</text>
+<text x="150" y="156" text-anchor="middle" font-size="10.5" fill="#55606E">every constraint satisfied</text>
+<circle cx="50" cy="96" r="4" fill="#0E6F7E"/><circle cx="50" cy="190" r="4" fill="#0E6F7E"/>
+<circle cx="288" cy="190" r="4" fill="#0E6F7E"/><circle cx="132" cy="62" r="4" fill="#0E6F7E"/>
+<path d="M244,104 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0" fill="#9A6B00" opacity="0.25"/>
+<circle cx="244" cy="104" r="6" fill="#9A6B00"/>
+<text x="258" y="92" font-size="11.5" font-weight="700" fill="#9A6B00">optimum</text>
+<text x="214" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">the best answer is always at a corner</text>
+<text x="40" y="16" font-size="10.5" fill="#8A93A0">Product B</text>
+<text x="382" y="204" text-anchor="end" font-size="10.5" fill="#8A93A0">Product A</text>
+</svg></div>
+<figcaption>Three constraints enclose the feasible region. The optimum sits on a corner of it.</figcaption>
+</figure>
+
+  <div class="selfcheck">
+    <span class="box-label">Self-check</span>
+    <ol>
+      <li>What's the difference between a binding and non-binding constraint?</li>
+      <li>Why is it wasteful to buy more of a non-binding resource?</li>
+      <li>In the suitcase analogy, what's the shadow price of 1kg more allowance?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 18 EXCEL ============ -->
+<section id="excel">
+  <span class="sec-num">Section 18</span>
+  <h2>Excel reference</h2>
+  <p class="standfirst">Everything BA1 used, in one place.</p>
+
+  <h3>Core functions</h3>
+  <div class="table-scroll">
+  <table>
+    <tbody>
+      <tr><td><code>=SUM()</code></td><td>Totals</td></tr>
+      <tr><td><code>=AVERAGE()</code></td><td>Mean — watch for outliers</td></tr>
+      <tr><td><code>=MEDIAN()</code></td><td>Middle value, outlier-proof</td></tr>
+      <tr><td><code>=MODE()</code></td><td>Most frequent value</td></tr>
+      <tr><td><code>=STDEV()</code></td><td>Spread of a sample</td></tr>
+      <tr><td><code>=AVERAGEIF()</code></td><td>Mean, but only for matching rows</td></tr>
+      <tr><td><code>=IF()</code></td><td>Your first decision rule</td></tr>
+      <tr><td><code>=NORM.DIST()</code></td><td>Value into probability</td></tr>
+      <tr><td><code>=NORM.INV()</code></td><td>Probability back into value</td></tr>
+      <tr><td><code>=FORECAST.LINEAR()</code></td><td>Predict Y for a new X</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Shortcuts &amp; tools</h3>
+  <div class="table-scroll">
+  <table>
+    <tbody>
+      <tr><td><code>Ctrl + arrows</code></td><td>Jump to the edge of a data block</td></tr>
+      <tr><td><code>Ctrl + Shift + L</code></td><td>Toggle filters</td></tr>
+      <tr><td><code>Ctrl + E</code></td><td>Flash Fill</td></tr>
+      <tr><td><code>Ctrl + H</code></td><td>Find and replace</td></tr>
+      <tr><td>Analysis ToolPak</td><td>Regression, histograms, descriptive stats</td></tr>
+      <tr><td>Solver</td><td>Linear programming</td></tr>
+      <tr><td>Slicers</td><td>One-click pivot table filtering</td></tr>
+      <tr><td>Sparklines</td><td>Tiny in-cell trend charts</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box keypoint">
+    <span class="box-label">The dollar sign</span>
+    <p><code>A1</code> shifts when you drag a formula. <code>$A$1</code> stays locked. Half of all broken spreadsheets are a missing dollar sign — when your formula works in the first row and produces nonsense by row 200, this is almost always why.</p>
+  </div>
+
+  <figure class="diagram">
+<div class="fig">Diagram 13</div>
+<div class="fig-title">Relative vs. absolute references</div>
+<div class="fig-art"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Relative references slide when dragged, absolute references stay locked">
+<text x="78" y="14" text-anchor="middle" font-size="11.5" font-weight="700" fill="#A8322A">A1 &#183; slides as you drag</text>
+<text x="290" y="14" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1F6B47">$A$1 &#183; stays locked</text>
+<rect x="4" y="30" width="150" height="26" fill="#F4F0E6" stroke="#DED6C4"/>
+<text x="14" y="47" font-size="11" font-weight="700" fill="#55606E">rate</text>
+<text x="96" y="47" font-size="11" font-weight="700" fill="#0E6F7E">0.20</text>
+<text x="79" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#8A93A0">A1</text>
+<rect x="4" y="70" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="12" y="87" font-size="10.5" fill="#1C2B3A">=B2*A1</text>
+<text x="140" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#1F6B47">&#10003;</text>
+<rect x="4" y="100" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="12" y="117" font-size="10.5" fill="#1C2B3A">=B3*A2</text>
+<text x="140" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#A8322A">&#10007;</text>
+<rect x="4" y="130" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="12" y="147" font-size="10.5" fill="#1C2B3A">=B4*A3</text>
+<text x="140" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#A8322A">&#10007;</text>
+<rect x="216" y="30" width="150" height="26" fill="#F4F0E6" stroke="#DED6C4"/>
+<text x="226" y="47" font-size="11" font-weight="700" fill="#55606E">rate</text>
+<text x="308" y="47" font-size="11" font-weight="700" fill="#0E6F7E">0.20</text>
+<text x="291" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#8A93A0">A1</text>
+<rect x="216" y="70" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="224" y="87" font-size="10.5" fill="#1C2B3A">=B2*$A$1</text>
+<text x="352" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#1F6B47">&#10003;</text>
+<rect x="216" y="100" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="224" y="117" font-size="10.5" fill="#1C2B3A">=B3*$A$1</text>
+<text x="352" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="#1F6B47">&#10003;</text>
+<rect x="216" y="130" width="150" height="26" fill="#fff" stroke="#DED6C4"/>
+<text x="224" y="147" font-size="10.5" fill="#1C2B3A">=B4*$A$1</text>
+<text x="352" y="148" text-anchor="middle" font-size="14" font-weight="700" fill="#1F6B47">&#10003;</text>
+<path d="M160,83 C186,83 186,113 160,113" fill="none" stroke="#A8322A" stroke-width="1.4"/>
+<text x="200" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">half of all broken spreadsheets are a missing $</text>
+</svg></div>
+<figcaption>The same formula dragged down three rows, with and without the dollar signs.</figcaption>
+</figure>
+</section>
+
+<!-- ============ 19 GLOSSARY ============ -->
+<section id="glossary">
+  <span class="sec-num">Section 19</span>
+  <h2>Glossary</h2>
+  <p class="standfirst">If you can define every term here without looking, you're ready for BA2.</p>
+
+  <div class="table-scroll">
+  <table>
+    <tbody>
+      <tr><td><strong>KPI</strong></td><td>A metric tied to a goal, that someone acts on</td></tr>
+      <tr><td><strong>SSOT</strong></td><td>Single source of truth — one agreed number</td></tr>
+      <tr><td><strong>ETL</strong></td><td>Extract, transform, load — the prep pipeline</td></tr>
+      <tr><td><strong>Outlier</strong></td><td>A value far from the rest — investigate, don't assume</td></tr>
+      <tr><td><strong>SD</strong></td><td>Typical distance of a value from the mean</td></tr>
+      <tr><td><strong>SE</strong></td><td>Spread of sample means; shrinks with more data</td></tr>
+      <tr><td><strong>Z-score</strong></td><td>Distance from the mean, in standard deviations</td></tr>
+      <tr><td><strong>CLT</strong></td><td>Sample means trend normal, whatever the source data</td></tr>
+      <tr><td><strong>Confidence interval</strong></td><td>An honest range rather than a false point</td></tr>
+      <tr><td><strong>R²</strong></td><td>Share of variation your model explains (0–1)</td></tr>
+      <tr><td><strong>p-value</strong></td><td>Probability the result is chance; under 0.05 = significant</td></tr>
+      <tr><td><strong>Residual</strong></td><td>Actual minus predicted</td></tr>
+      <tr><td><strong>Multicollinearity</strong></td><td>Two predictors too alike to separate</td></tr>
+      <tr><td><strong>Overfitting</strong></td><td>Memorising noise; fails on new data</td></tr>
+      <tr><td><strong>Extrapolation</strong></td><td>Predicting beyond the range you have data for</td></tr>
+      <tr><td><strong>Ceteris paribus</strong></td><td>All else held constant</td></tr>
+      <tr><td><strong>Seasonality</strong></td><td>Repeating, calendar-linked pattern</td></tr>
+      <tr><td><strong>Feasible region</strong></td><td>All solutions satisfying every constraint</td></tr>
+      <tr><td><strong>Shadow price</strong></td><td>Value of one more unit of a scarce resource</td></tr>
+      <tr><td><strong>Anonymisation</strong></td><td>Irreversible removal of identifying data</td></tr>
+      <tr><td><strong>Pseudonymisation</strong></td><td>Reversible with a key — still personal data</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<!-- ============ 20 BRIDGE ============ -->
+<section id="bridge">
+  <span class="sec-num">Section 20</span>
+  <h2>Where BA2 picks up</h2>
+  <p class="standfirst">You've learnt the rear-view mirror, the microscope and the crystal ball. Here's what's genuinely new.</p>
+
+  <ul>
+    <li><strong>SQL</strong> — querying data at the source, beyond what a spreadsheet can hold.</li>
+    <li><strong>Classification &amp; machine learning</strong> — predicting categories, not just numbers, and judging whether a model deserves trust.</li>
+    <li><strong>Domain analytics</strong> — marketing, people, operations and finance, each with its own questions.</li>
+    <li><strong>Forecasting 2.0</strong> — past Excel's forecast sheet, into AI-assisted methods.</li>
+  </ul>
+
+  <blockquote>You're not starting over. You're adding a second engine to a car you already know how to drive.<cite>Welcome to BA2</cite></blockquote>
+
+  <div class="box keypoint">
+    <span class="box-label">One rule doesn't change</span>
+    <p>Every AI tool in BA2 speeds up <strong>Process</strong>. None of them replaces your judgement on <strong>Explain</strong> and <strong>Decide</strong>. If you can't explain why the AI's answer is right, you haven't finished — you've just got an answer you can't defend in a meeting.</p>
+  </div>
+</section>
+
+<!-- ============ 21 PANIC SHEET ============ -->
+<section id="panic">
+  <span class="sec-num">Section 21</span>
+  <h2>The panic sheet</h2>
+  <p class="standfirst">One screen. Screenshot it.</p>
+
+  <div class="panic">
+    <h3>Formulas</h3>
+    <div class="table-scroll">
+    <table>
+      <tbody>
+        <tr><td><strong>Z-score</strong></td><td>(x − μ) ÷ σ</td></tr>
+        <tr><td><strong>Empirical rule</strong></td><td>68 / 95 / 99.7 at 1 / 2 / 3 SD</td></tr>
+        <tr><td><strong>Regression</strong></td><td>Y = a + bX</td></tr>
+        <tr><td><strong>Residual</strong></td><td>actual − predicted</td></tr>
+        <tr><td><strong>Rule of 72</strong></td><td>72 ÷ growth% = years to double</td></tr>
+        <tr><td><strong>Significant</strong></td><td>p &lt; 0.05</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Excel</h3>
+    <div class="table-scroll">
+    <table>
+      <tbody>
+        <tr><td><code>=AVERAGE</code> <code>=MEDIAN</code></td><td>centre</td></tr>
+        <tr><td><code>=STDEV</code></td><td>spread</td></tr>
+        <tr><td><code>=FORECAST.LINEAR</code></td><td>predict</td></tr>
+        <tr><td><code>$A$1</code></td><td>lock a reference</td></tr>
+        <tr><td><code>Ctrl+E</code> / <code>Ctrl+H</code></td><td>flash fill / replace</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>Before you present</h3>
+    <ul>
+      <li>Does the y-axis start at zero?</li>
+      <li>Did I quote a median alongside the mean?</li>
+      <li>Did I give a range, not just a point?</li>
+      <li>Am I claiming cause from a correlation?</li>
+      <li>Does this end in a decision?</li>
+    </ul>
+  </div>
+
+  <a class="top-link" href="#top">Back to top ↑</a>
+</section>
+
+<footer>
+  BA1 Recap · Bridge to BA2<br>
+  See you in Week 0.
+</footer>
+
+</div>
+</body>
+</html>
