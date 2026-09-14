@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BA2 Week 0 — Introduction to Business Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FDFBF7; --paper-2:#F4F0E6; --paper-3:#EDE7D9; --ink:#1C2B3A;
+    --ink-soft:#55606E; --ink-faint:#8A93A0; --rule:#DED6C4;
+    --teal:#0E6F7E; --teal-bg:#E3F1F3; --lav:#6B4C9A; --lav-bg:#EFE9F7;
+    --amber:#9A6B00; --amber-bg:#FBF0D9; --red:#A8322A; --red-bg:#FBE9E7;
+    --green:#1F6B47; --green-bg:#E4F2EA; --sidebar-w:260px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    font-size:17px; line-height:1.65;
+  }
+  html[dir="rtl"] body{ font-family:'Cairo','Inter',sans-serif; }
+
+  /* ---------- LANGUAGE TOGGLE ---------- */
+  [data-lang]{ display:none; }
+  [data-lang].active{ display:block; }
+  span[data-lang].active{ display:inline; }
+
+  .langbar{
+    position:fixed; inset-inline-end:20px; top:16px; z-index:50;
+    display:flex; gap:6px; background:#fff; border:1px solid var(--rule);
+    border-radius:100px; padding:4px; box-shadow:0 2px 8px rgba(28,43,58,.08);
+  }
+  .langbar button{
+    border:none; background:transparent; padding:7px 16px; border-radius:100px;
+    font-size:13.5px; font-weight:700; color:var(--ink-soft); cursor:pointer;
+    font-family:inherit;
+  }
+  .langbar button.active{ background:var(--teal); color:#fff; }
+
+  /* ---------- LAYOUT ---------- */
+  .shell{ display:flex; min-height:100vh; max-width:1180px; margin:0 auto; }
+  .sidebar{
+    width:var(--sidebar-w); flex-shrink:0; position:sticky; top:0; height:100vh;
+    overflow-y:auto; padding:28px 18px; border-inline-end:1px solid var(--rule);
+  }
+  .sidebar .brand{ font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+  .sidebar .brand-sub{ font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:22px; line-height:1.35; }
+  .sidebar nav a{
+    display:block; padding:8px 10px; margin-bottom:2px; border-radius:6px;
+    color:var(--ink-soft); text-decoration:none; font-size:14px; line-height:1.4;
+  }
+  .sidebar nav a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar nav a.current{ background:var(--teal-bg); color:var(--teal); font-weight:700; }
+  .sidebar .grp-label{ font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin:18px 0 6px 4px; }
+  .sidebar .grp-label:first-of-type{ margin-top:0; }
+
+  .main{ flex:1; min-width:0; padding:60px 56px 100px 56px; }
+
+  /* ---------- COVER ---------- */
+  .cover{ padding-bottom:36px; border-bottom:2px solid var(--rule); margin-bottom:36px; }
+  .cover .kicker{ color:var(--teal); font-weight:700; font-size:13px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px; }
+  .cover h1{ font-size:2.6rem; line-height:1.15; font-weight:800; margin:0 0 14px 0; letter-spacing:-.02em; }
+  .cover h1 em{ font-style:normal; color:var(--teal); display:block; }
+  .cover .lede{ font-size:1.1rem; color:var(--ink-soft); max-width:640px; margin:0; }
+
+  /* ---------- SECTIONS ---------- */
+  section{ margin-bottom:52px; scroll-margin-top:24px; max-width:720px; }
+  .sec-num{ display:inline-block; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); background:var(--teal-bg); padding:4px 12px; border-radius:100px; margin-bottom:14px; }
+  h2{ font-size:1.85rem; line-height:1.2; font-weight:800; margin:0 0 8px 0; letter-spacing:-.01em; }
+  .standfirst{ font-size:1.08rem; color:var(--ink-soft); margin:0 0 22px 0; }
+  h3{ font-size:1.25rem; font-weight:700; margin:28px 0 10px 0; }
+  h4{ font-size:1.05rem; font-weight:700; margin:20px 0 8px 0; }
+  p{ margin:0 0 15px 0; }
+  ul,ol{ margin:0 0 15px 0; padding-inline-start:22px; }
+  li{ margin-bottom:8px; }
+  strong{ font-weight:700; }
+
+  /* ---------- BOXES ---------- */
+  .box{ border-radius:10px; padding:18px 20px; margin:20px 0; font-size:.98rem; }
+  .box p:last-child, .box ul:last-child{ margin-bottom:0; }
+  .box .box-label{ display:block; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:8px; }
+  .analogy{ background:var(--lav-bg); border-inline-start:5px solid var(--lav); }
+  .analogy .box-label{ color:var(--lav); }
+  .mistake{ background:var(--red-bg); border-inline-start:5px solid var(--red); }
+  .mistake .box-label{ color:var(--red); }
+  .keypoint{ background:var(--amber-bg); border-inline-start:5px solid var(--amber); }
+  .keypoint .box-label{ color:var(--amber); }
+  .example{ background:var(--teal-bg); border-inline-start:5px solid var(--teal); }
+  .example .box-label{ color:var(--teal); }
+
+  /* ---------- SELF-CHECK ACCORDION ---------- */
+  details.selfcheck{ background:var(--green-bg); border:1px solid var(--green); border-radius:10px; padding:14px 20px; margin:22px 0; }
+  details.selfcheck summary{ cursor:pointer; font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--green); list-style:none; }
+  details.selfcheck summary::-webkit-details-marker{ display:none; }
+  details.selfcheck summary::after{ content:" +"; }
+  details.selfcheck[open] summary::after{ content:" \2212"; }
+  details.selfcheck ol{ margin:12px 0 0 0; padding-inline-start:20px; }
+  @media print{
+    details.selfcheck > *:not(summary){ display:block !important; }
+    details.selfcheck summary::after{ content:""; }
+  }
+
+  /* ---------- TABS ---------- */
+  .tabs{ border:1px solid var(--rule); border-radius:10px; overflow:hidden; margin:22px 0; background:#fff; }
+  .tab-heads{ display:flex; border-bottom:1px solid var(--rule); background:var(--paper-2); }
+  .tab-heads button{
+    flex:1; border:none; background:transparent; padding:13px 10px; font-size:14px; font-weight:700;
+    color:var(--ink-soft); cursor:pointer; font-family:inherit; border-bottom:3px solid transparent;
+  }
+  .tab-heads button.active{ color:var(--teal); border-bottom-color:var(--teal); background:#fff; }
+  .tab-panel{ display:none; padding:20px; }
+  .tab-panel.active{ display:block; }
+  @media print{
+    .tab-heads{ display:none; }
+    .tab-panel{ display:block !important; border-top:1px solid var(--rule); }
+    .tab-panel::before{ content:attr(data-print-label); display:block; font-weight:800; color:var(--teal); font-size:12px; text-transform:uppercase; letter-spacing:.06em; padding:12px 20px 0 20px; }
+  }
+
+  /* ---------- DIAGRAMS (always LTR, direction-neutral) ---------- */
+  figure.diagram{ border:1px solid var(--rule); background:#fff; border-radius:10px; padding:20px 18px 16px 18px; margin:24px 0; direction:ltr; }
+  figure.diagram .fig{ font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--lav); margin-bottom:6px; text-align:start; }
+  figure.diagram .fig-title{ font-weight:700; font-size:1.08rem; margin-bottom:14px; text-align:start; }
+  figure.diagram .fig-art svg{ width:100%; height:auto; display:block; }
+  figure.diagram figcaption{ font-size:.95rem; color:var(--ink-soft); border-top:1px solid var(--rule); padding-top:11px; margin-top:14px; text-align:start; }
+  html[dir="rtl"] figure.diagram figcaption,
+  html[dir="rtl"] figure.diagram .fig,
+  html[dir="rtl"] figure.diagram .fig-title{ direction:rtl; text-align:right; }
+
+  /* ---------- TABLES ---------- */
+  .table-scroll{ overflow-x:auto; margin:18px 0; }
+  table{ width:100%; border-collapse:collapse; font-size:.95rem; }
+  th{ text-align:start; background:var(--paper-2); font-weight:700; font-size:12px; letter-spacing:.03em; text-transform:uppercase; padding:10px; border-bottom:2px solid var(--rule); }
+  td{ padding:10px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  td.dim{ color:var(--ink-soft); }
+
+  /* ---------- QUOTE ---------- */
+  blockquote{ margin:26px 0; padding:0; padding-inline-start:20px; border-inline-start:4px solid var(--amber); font-size:1.2rem; line-height:1.45; font-weight:600; }
+  blockquote cite{ display:block; margin-top:8px; font-size:.88rem; font-weight:400; font-style:normal; color:var(--ink-soft); }
+
+  /* ---------- INTERACTIVE SLIDER DEMO ---------- */
+  .demo{ background:var(--paper-2); border:1px solid var(--rule); border-radius:10px; padding:20px; margin:22px 0; }
+  .demo .demo-row{ display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+  .demo input[type=range]{ flex:1; accent-color:var(--teal); }
+  .demo .readout{ font-family:'SF Mono',Menlo,Consolas,monospace; font-weight:700; color:var(--teal); min-width:52px; text-align:end; }
+  .demo .bar-track{ background:#fff; border:1px solid var(--rule); border-radius:6px; height:26px; overflow:hidden; }
+  .demo .bar-fill{ height:100%; background:var(--teal); transition:width .15s; }
+  .demo .demo-out{ margin-top:10px; font-size:.95rem; color:var(--ink-soft); }
+  .demo .demo-out strong{ color:var(--ink); }
+
+  footer{ margin-top:56px; padding-top:20px; border-top:2px solid var(--rule); font-size:.9rem; color:var(--ink-faint); }
+
+  @media print{
+    .langbar{ display:none; }
+    .sidebar{ display:none; }
+    .shell{ display:block; max-width:100%; }
+    .main{ padding:0; }
+    body{ font-size:11.5pt; }
+    section{ max-width:100%; }
+    @page{ size:A4; margin:16mm 15mm; }
+  }
+
+  @media (max-width:900px){
+    .sidebar{ display:none; }
+    .main{ padding:32px 20px 80px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="langbar">
+  <button data-setlang="en" class="active">EN</button>
+  <button data-setlang="ar">AR</button>
+</div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span data-lang="en" class="active">Business Analytics 2</span>
+      <span data-lang="ar">تحليلات الأعمال 2</span>
+    </div>
+    <div class="brand-sub">
+      <span data-lang="en" class="active">Week 0 — Introduction</span>
+      <span data-lang="ar">الأسبوع 0 — مقدمة</span>
+    </div>
+    <nav>
+      <div data-lang="en" class="active">
+        <a href="#welcome" class="current">Welcome</a>
+        <a href="#what-is">What is business analytics?</a>
+        <a href="#questions">The three questions</a>
+        <a href="#worked">Worked example</a>
+        <a href="#companies">Who's doing this</a>
+        <div class="grp-label">AI layer</div>
+        <a href="#checks">The three checks</a>
+        <a href="#prompting">Prompting basics</a>
+        <a href="#copilots">Meet your co-pilots</a>
+        <div class="grp-label">Data foundations</div>
+        <a href="#structure">Structured data</a>
+        <a href="#shape">Discrete vs continuous</a>
+        <div class="grp-label">Orientation</div>
+        <a href="#roadmap">12-week map</a>
+        <a href="#rules">Ground rules</a>
+        <a href="#before">Before Week 1</a>
+      </div>
+      <div data-lang="ar">
+        <a href="#welcome" class="current">ترحيب</a>
+        <a href="#what-is">ما هي تحليلات الأعمال؟</a>
+        <a href="#questions">الأسئلة الثلاثة</a>
+        <a href="#worked">مثال تطبيقي</a>
+        <a href="#companies">من يستخدمها بالفعل</a>
+        <div class="grp-label">طبقة الذكاء الاصطناعي</div>
+        <a href="#checks">الفحوصات الثلاثة</a>
+        <a href="#prompting">أساسيات كتابة الأوامر</a>
+        <a href="#copilots">تعرّف على مساعديك</a>
+        <div class="grp-label">أساسيات البيانات</div>
+        <a href="#structure">بنية البيانات</a>
+        <a href="#shape">منفصلة أم متصلة</a>
+        <div class="grp-label">التوجيه</div>
+        <a href="#roadmap">خريطة ١٢ أسبوعًا</a>
+        <a href="#rules">القواعد الأساسية</a>
+        <a href="#before">قبل الأسبوع 1</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="cover" id="top">
+      <div class="kicker">
+        <span data-lang="en" class="active">Business Analytics 2 &#183; Week 0</span>
+        <span data-lang="ar">تحليلات الأعمال 2 &#183; الأسبوع 0</span>
+      </div>
+      <div data-lang="en" class="active">
+        <h1>Introduction to<em>Business Analytics</em></h1>
+        <p class="lede">The questions every analysis is really trying to answer — and how an AI co-pilot changes how fast you can answer them, without changing whose judgement it is.</p>
+      </div>
+      <div data-lang="ar">
+        <h1>مقدمة في<em>تحليلات الأعمال</em></h1>
+        <p class="lede">الأسئلة التي يحاول كل تحليل الإجابة عنها فعليًا — وكيف يغيّر مساعد الذكاء الاصطناعي سرعة إجابتك عليها، دون أن يغيّر صاحب القرار.</p>
+      </div>
+    </header>
+
+    <section id="welcome">
+      <span class="sec-num"><span data-lang="en" class="active">Section 01</span><span data-lang="ar">القسم ٠١</span></span>
+      <div data-lang="en" class="active">
+        <h2>Welcome</h2>
+        <p class="standfirst">Same fundamentals. A faster set of hands.</p>
+        <p>If you've taken BA1, nothing you learned there stops mattering. Reading a distribution, cleaning a dataset, fitting a regression line — that's still exactly how this course works. What's new sits on top of it, not instead of it.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>ترحيب</h2>
+        <p class="standfirst">نفس الأساسيات. أيدٍ أسرع.</p>
+        <p>إن كنت قد أتممت BA1، فكل ما تعلمته هناك ما زال مهمًا. قراءة التوزيع، تنظيف البيانات، ملاءمة خط الانحدار — هذا بالضبط ما زال أساس هذا المقرر. الجديد يُبنى فوق ذلك، لا بدلاً منه.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 1</span><span data-lang="ar">الرسم ١</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">BA1 is the ground floor</span><span data-lang="ar">BA1 هو الطابق الأرضي</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BA1 is the foundation, BA2 adds four new floors, AI runs through all of them like an elevator">
+<rect x="40" y="230" width="300" height="46" fill="#1C2B3A"/>
+<text x="190" y="250" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff">BA1 &#8212; the foundation</text>
+<text x="190" y="266" text-anchor="middle" font-size="9.5" fill="#C7CDD6">PED &#183; stats &#183; Excel &#183; regression &#183; time series &#183; optimisation</text>
+
+<rect x="40" y="184" width="300" height="42" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.4"/>
+<text x="150" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#0E6F7E">SQL</text>
+<text x="270" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#0E6F7E">Classification &amp; ML</text>
+
+<rect x="40" y="138" width="300" height="42" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.4"/>
+<text x="130" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#6B4C9A">Domain modules</text>
+<text x="280" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#6B4C9A">Forecasting 2.0</text>
+
+<rect x="40" y="96" width="300" height="38" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.4"/>
+<text x="190" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#9A6B00">Capstone &#8212; the full workflow</text>
+
+<rect x="352" y="96" width="30" height="180" rx="6" fill="#FBE9E7" stroke="#A8322A" stroke-width="1.6"/>
+<text x="0" y="0" text-anchor="middle" font-size="11" font-weight="700" fill="#A8322A" transform="translate(367,186) rotate(-90)">AI CO-PILOT &#8212; every floor</text>
+<line x1="352" y1="96" x2="40" y2="96" stroke="#A8322A" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+<line x1="352" y1="276" x2="40" y2="276" stroke="#A8322A" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+
+<text x="190" y="292" text-anchor="middle" font-size="11.5" fill="#55606E">the elevator, not a new floor</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Four new floors on top of what you already built. AI runs through all of them — it isn't a floor of its own.</span><span data-lang="ar">أربعة طوابق جديدة فوق ما بنيته بالفعل. الذكاء الاصطناعي يمر عبرها جميعًا — وليس طابقًا مستقلاً بذاته.</span></figcaption>
+      </figure>
+
+      <div class="box analogy">
+        <div data-lang="en" class="active">
+          <span class="box-label">Analogy</span>
+          <p>Think of AI the way you'd think of a calculator. It multiplies two twelve-digit numbers instantly — but has no idea whether multiplying them was the right move for your problem. That decision was always yours.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">تشبيه</span>
+          <p>فكّر في الذكاء الاصطناعي كما تفكر في الآلة الحاسبة. إنها تضرب رقمين من اثني عشر خانة فورًا — لكنها لا تعرف ما إذا كان ضربهما هو الخطوة الصحيحة لمشكلتك. ذلك القرار كان دائمًا قرارك أنت.</p>
+        </div>
+      </div>
+
+      <details class="selfcheck">
+        <summary><span data-lang="en" class="active">Self-check</span><span data-lang="ar">تحقق ذاتي</span></summary>
+        <div data-lang="en" class="active"><ol>
+          <li>Name two BA1 skills you'll use in your first BA2 assignment.</li>
+          <li>Why is AI drawn as an elevator here, not a floor?</li>
+        </ol></div>
+        <div data-lang="ar"><ol>
+          <li>اذكر مهارتين من BA1 ستستخدمهما في أول واجب في BA2.</li>
+          <li>لماذا رُسم الذكاء الاصطناعي هنا كمصعد لا كطابق؟</li>
+        </ol></div>
+      </details>
+    </section>
+
+    <section id="what-is">
+      <span class="sec-num"><span data-lang="en" class="active">Section 02</span><span data-lang="ar">القسم ٠٢</span></span>
+      <div data-lang="en" class="active">
+        <h2>What is business analytics?</h2>
+        <p class="standfirst">One definition, worth knowing properly.</p>
+        <blockquote>The use of data, statistical analysis, and mathematical or computer-based models to help managers gain improved insight about their business operations and make better, fact-based decisions.<cite>Working definition</cite></blockquote>
+        <p>Notice the sentence ends on <em>decisions</em>, not on data. Everything in this course — AI-assisted or not — is in service of that last word.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>ما هي تحليلات الأعمال؟</h2>
+        <p class="standfirst">تعريف واحد يستحق أن تعرفه جيدًا.</p>
+        <blockquote>استخدام البيانات والتحليل الإحصائي والنماذج الرياضية أو الحاسوبية لمساعدة المديرين على فهم أعمق لعمليات أعمالهم واتخاذ قرارات أفضل مبنية على الحقائق.<cite>تعريف عملي</cite></blockquote>
+        <p>لاحظ أن الجملة تنتهي بكلمة <em>قرارات</em>، لا بكلمة بيانات. كل شيء في هذا المقرر — بمساعدة الذكاء الاصطناعي أو بدونها — يخدم هذه الكلمة الأخيرة.</p>
+      </div>
+    </section>
+
+    <section id="questions">
+      <span class="sec-num"><span data-lang="en" class="active">Section 03</span><span data-lang="ar">القسم ٠٣</span></span>
+      <div data-lang="en" class="active">
+        <h2>The three business questions</h2>
+        <p class="standfirst">Every technique in this course answers one of three questions.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>الأسئلة الثلاثة للأعمال</h2>
+        <p class="standfirst">كل أسلوب في هذا المقرر يجيب عن أحد ثلاثة أسئلة.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 2</span><span data-lang="ar">الرسم ٢</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Descriptive, predictive, prescriptive</span><span data-lang="ar">وصفي، تنبؤي، توجيهي</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three questions: what happened, what will happen, what should we do">
+<defs><marker id="q1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#0E6F7E"/></marker></defs>
+<circle cx="62" cy="60" r="42" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="2"/>
+<text x="62" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#0E6F7E">Descriptive</text>
+<text x="62" y="72" text-anchor="middle" font-size="11" fill="#55606E">what happened</text>
+<circle cx="200" cy="60" r="42" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="2"/>
+<text x="200" y="55" text-anchor="middle" font-size="12" font-weight="700" fill="#6B4C9A">Predictive</text>
+<text x="200" y="72" text-anchor="middle" font-size="11" fill="#55606E">what&#8217;s next</text>
+<circle cx="338" cy="60" r="42" fill="#FBF0D9" stroke="#9A6B00" stroke-width="2"/>
+<text x="338" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#9A6B00">Prescriptive</text>
+<text x="338" y="72" text-anchor="middle" font-size="11" fill="#55606E">what to do</text>
+<line x1="108" y1="60" x2="154" y2="60" stroke="#0E6F7E" stroke-width="2" marker-end="url(#q1)"/>
+<line x1="246" y1="60" x2="292" y2="60" stroke="#6B4C9A" stroke-width="2" marker-end="url(#q1)"/>
+<text x="200" y="145" text-anchor="middle" font-size="12" fill="#55606E">each answer only matters once it changes what you do</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">The three questions, in the order you'd naturally ask them.</span><span data-lang="ar">الأسئلة الثلاثة، بالترتيب الذي تطرحها به بشكل طبيعي.</span></figcaption>
+      </figure>
+
+      <div class="table-scroll active" data-lang="en">
+      <table>
+        <thead><tr><th>Type</th><th>Asks</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Descriptive</strong></td><td class="dim">Understand past &amp; current performance</td></tr>
+          <tr><td><strong>Predictive</strong></td><td class="dim">Detect patterns and extrapolate them forward</td></tr>
+          <tr><td><strong>Prescriptive</strong></td><td class="dim">Identify the best alternative to optimise an objective</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="table-scroll" data-lang="ar">
+      <table>
+        <thead><tr><th>النوع</th><th>يسأل</th></tr></thead>
+        <tbody>
+          <tr><td><strong>وصفي</strong></td><td class="dim">فهم الأداء الماضي والحالي</td></tr>
+          <tr><td><strong>تنبؤي</strong></td><td class="dim">اكتشاف الأنماط وامتدادها للمستقبل</td></tr>
+          <tr><td><strong>توجيهي</strong></td><td class="dim">تحديد أفضل بديل لتحقيق هدف معيّن</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="box keypoint">
+        <div data-lang="en" class="active">
+          <span class="box-label">Bridge from BA1</span>
+          <p>BA1 named a fourth type, <strong>diagnostic</strong> analytics — the "why," sitting between descriptive and predictive. It's still there; this framework just folds it into "understanding the business."</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">جسر من BA1</span>
+          <p>تناول BA1 نوعًا رابعًا هو التحليل <strong>التشخيصي</strong> — أي "لماذا"، ويقع بين الوصفي والتنبؤي. ما زال موجودًا؛ هذا الإطار فقط يدمجه ضمن "فهم العمل".</p>
+        </div>
+      </div>
+
+      <details class="selfcheck">
+        <summary><span data-lang="en" class="active">Self-check</span><span data-lang="ar">تحقق ذاتي</span></summary>
+        <div data-lang="en" class="active"><ol>
+          <li>Which of the three questions is hardest to answer well?</li>
+          <li>Give a predictive statement that still isn't a decision.</li>
+        </ol></div>
+        <div data-lang="ar"><ol>
+          <li>أي الأسئلة الثلاثة أصعب في الإجابة الجيدة عنه؟</li>
+          <li>اذكر جملة تنبؤية ما زالت ليست قرارًا.</li>
+        </ol></div>
+      </details>
+    </section>
+
+    <section id="worked">
+      <span class="sec-num"><span data-lang="en" class="active">Section 04</span><span data-lang="ar">القسم ٠٤</span></span>
+      <div data-lang="en" class="active">
+        <h2>Worked example: the seasonal markdown</h2>
+        <p class="standfirst">Same question, two ways to work through it.</p>
+        <div class="box example">
+          <span class="box-label">The scenario</span>
+          <p>When should a department store mark down winter coats, and by how much, to maximise total revenue on the stock still on the shelf?</p>
+        </div>
+      </div>
+      <div data-lang="ar">
+        <h2>مثال تطبيقي: تخفيض السعر الموسمي</h2>
+        <p class="standfirst">نفس السؤال، بطريقتين لحله.</p>
+        <div class="box example">
+          <span class="box-label">السيناريو</span>
+          <p>متى ينبغي لمتجر أن يخفّض سعر معاطف الشتاء، وبأي نسبة، لتحقيق أقصى إيراد من المخزون المتبقي؟</p>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab-heads">
+          <button class="tab-btn active" data-tab="noai">
+            <span data-lang="en" class="active">Without AI</span><span data-lang="ar">بدون ذكاء اصطناعي</span>
+          </button>
+          <button class="tab-btn" data-tab="ai">
+            <span data-lang="en" class="active">With AI co-pilot</span><span data-lang="ar">بمساعد ذكاء اصطناعي</span>
+          </button>
+        </div>
+        <div class="tab-panel active" data-panel="noai" data-print-label="Without AI">
+          <div class="fig-art"><svg viewBox="0 0 400 245" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The seasonal markdown question worked through descriptive, predictive and prescriptive analytics">
+<defs><marker id="q2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#8A93A0"/></marker></defs>
+<rect x="8" y="6" width="384" height="40" rx="6" fill="#F4F0E6" stroke="#DED6C4"/>
+<text x="200" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#1C2B3A">When should we mark down the winter coats,</text>
+<text x="200" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#1C2B3A">and by how much?</text>
+
+<rect x="8" y="60" width="115" height="88" rx="6" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.6"/>
+<text x="65" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0E6F7E">Descriptive</text>
+<polyline points="20,126 34,114 48,120 62,102 76,108 90,92 104,98" fill="none" stroke="#0E6F7E" stroke-width="2"/>
+<text x="65" y="141" text-anchor="middle" font-size="9.5" fill="#55606E">last year&#8217;s sales</text>
+
+<rect x="142" y="60" width="115" height="88" rx="6" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.6"/>
+<text x="199" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#6B4C9A">Predictive</text>
+<path d="M156,136 Q199,86 244,102" fill="none" stroke="#6B4C9A" stroke-width="2"/>
+<path d="M156,136 Q199,86 244,102" fill="none" stroke="#6B4C9A" stroke-width="8" opacity="0.15"/>
+<text x="199" y="141" text-anchor="middle" font-size="9.5" fill="#55606E">sales at each price</text>
+
+<rect x="276" y="60" width="116" height="88" rx="6" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.6"/>
+<text x="334" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#9A6B00">Prescriptive</text>
+<circle cx="334" cy="111" r="16" fill="none" stroke="#9A6B00" stroke-width="2"/>
+<circle cx="334" cy="111" r="3" fill="#9A6B00"/>
+<text x="334" y="141" text-anchor="middle" font-size="9.5" fill="#55606E">30% off, week 3</text>
+
+<line x1="123" y1="104" x2="142" y2="104" stroke="#8A93A0" stroke-width="1.6" marker-end="url(#q2)"/>
+<line x1="257" y1="104" x2="276" y2="104" stroke="#8A93A0" stroke-width="1.6" marker-end="url(#q2)"/>
+<text x="200" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">the answer is the price and the week &#8212; not just a forecast</text>
+</svg></div>
+        </div>
+        <div class="tab-panel" data-panel="ai" data-print-label="With AI co-pilot">
+          <div class="fig-art"><svg viewBox="0 0 400 182" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The markdown question takes far less time with an AI co-pilot handling the mechanical steps">
+<text x="8" y="35" font-size="11" font-weight="700" fill="#1C2B3A">Without AI</text>
+<rect x="88" y="24" width="120" height="22" fill="#0E6F7E" opacity="0.85"/>
+<text x="148" y="39" text-anchor="middle" font-size="8.5" fill="#fff">pull data</text>
+<rect x="208" y="24" width="130" height="22" fill="#6B4C9A" opacity="0.85"/>
+<text x="273" y="39" text-anchor="middle" font-size="8.5" fill="#fff">build model</text>
+<rect x="338" y="24" width="44" height="22" fill="#9A6B00" opacity="0.85"/>
+<text x="8" y="66" font-size="10" fill="#55606E">&#8776; 6 hours total</text>
+
+<text x="8" y="108" font-size="11" font-weight="700" fill="#1C2B3A">With AI</text>
+<rect x="88" y="97" width="20" height="22" fill="#0E6F7E" opacity="0.85"/>
+<rect x="108" y="97" width="22" height="22" fill="#6B4C9A" opacity="0.85"/>
+<rect x="130" y="97" width="10" height="22" fill="#9A6B00" opacity="0.85"/>
+<rect x="88" y="97" width="52" height="22" fill="none" stroke="#DED6C4"/>
+<text x="8" y="140" font-size="10" fill="#55606E">&#8776; 1 hour &#8212; same three steps, you still verify each one</text>
+
+<text x="200" y="164" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">less typing, the same amount of thinking</text>
+</svg></div>
+        </div>
+      </div>
+
+      <div data-lang="en" class="active">
+      <ul>
+        <li><strong>Pull the data</strong> — historical prices, units sold, advertising spend.</li>
+        <li><strong>Build the model</strong> — expected sales at each price point.</li>
+        <li><strong>Find the price</strong> — the combination that maximises revenue.</li>
+      </ul>
+      </div>
+      <div data-lang="ar">
+      <ul>
+        <li><strong>سحب البيانات</strong> — الأسعار السابقة، الوحدات المباعة، الإنفاق الإعلاني.</li>
+        <li><strong>بناء النموذج</strong> — المبيعات المتوقعة عند كل سعر.</li>
+        <li><strong>إيجاد السعر</strong> — التركيبة التي تحقق أقصى إيراد.</li>
+      </ul>
+      </div>
+
+      <div class="demo">
+        <div data-lang="en" class="active"><strong>Try it — drag the discount</strong></div>
+        <div data-lang="ar"><strong>جرّب بنفسك — اسحب نسبة الخصم</strong></div>
+        <div class="demo-row">
+          <span data-lang="en" class="active">0%</span><span data-lang="ar">٠٪</span>
+          <input type="range" min="0" max="60" value="20" id="discountSlider">
+          <span data-lang="en" class="active">60%</span><span data-lang="ar">٦٠٪</span>
+          <span class="readout" id="discountReadout">20%</span>
+        </div>
+        <div class="bar-track"><div class="bar-fill" id="revenueBar" style="width:70%"></div></div>
+        <div class="demo-out">
+          <span data-lang="en" class="active">Estimated revenue captured: <strong id="revenueOutEn">70%</strong> of full-price potential &#8212; this toy model peaks around 20&#8211;25% off.</span>
+          <span data-lang="ar">الإيراد التقديري المحقق: <strong id="revenueOutAr">٧٠٪</strong> من الإمكانية بالسعر الكامل — هذا النموذج التوضيحي يبلغ ذروته عند خصم ٢٠–٢٥٪.</span>
+        </div>
+      </div>
+
+      <div class="box example">
+        <div data-lang="en" class="active">
+          <span class="box-label">Reading this demo</span>
+          <p>"100% of full-price potential" is the ceiling you'd hit if every single unit sold at full price — no discount at all. The bar shows how much of that ceiling you actually capture once you account for a discount changing <em>how many</em> units sell.</p>
+          <p>The curve rises, then falls, because two effects pull in opposite directions: too small a discount barely moves any extra volume, so you're leaving the ceiling almost untouched but you're not selling much more either; too deep a discount sells a lot more units, but each one earns so little that total revenue drops anyway. Somewhere between those extremes — here, a toy 20&#8211;25% &#8212; the two effects roughly balance, and that's the peak.</p>
+          <p>This particular curve is a <strong>toy model</strong>: a shape picked to make the trade-off visible, not a real fitted result. In practice you'd build this curve from actual historical price/volume data using regression &#8212; the exact tool BA1 already gave you &#8212; which is what "the predictive step" in the workflow above is really doing.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">قراءة هذا العرض التوضيحي</span>
+          <p>"١٠٠٪ من الإمكانية بالسعر الكامل" هي السقف الذي تصله لو بيعت كل وحدة بالسعر الكامل دون أي خصم. يُظهر الشريط مقدار ما تحققه فعليًا من ذلك السقف بعد أن يغيّر الخصم <em>عدد</em> الوحدات المباعة.</p>
+          <p>يرتفع المنحنى ثم ينخفض لأن أثرين يتجاذبان في اتجاهين متعاكسين: خصم صغير جدًا لا يحرّك حجم مبيعات إضافي يُذكر، فتبقى بعيدًا عن السقف دون أن تبيع أكثر بكثير؛ وخصم عميق جدًا يبيع كمية أكبر بكثير، لكن كل وحدة تُربح القليل جدًا فينخفض الإيراد الإجمالي رغم ذلك. في مكان ما بين هذين الطرفين — هنا، خصم توضيحي ٢٠–٢٥٪ — يتوازن الأثران تقريبًا، وتلك هي الذروة.</p>
+          <p>هذا المنحنى تحديدًا <strong>نموذج توضيحي</strong>: شكل اختير لإظهار المفاضلة، وليس نتيجة حقيقية مبنية على بيانات. عمليًا، تُبنى هذه المنحنيات من بيانات السعر والمبيعات التاريخية الفعلية باستخدام الانحدار — الأداة نفسها التي تعلمتها في BA1 — وهذا فعليًا ما تقوم به "الخطوة التنبؤية" في سير العمل أعلاه.</p>
+        </div>
+      </div>
+
+      <div class="box mistake">
+        <div data-lang="en" class="active">
+          <span class="box-label">Common mistake</span>
+          <p>Picking "30% off in week one" as a guess dressed up as a strategy. The predictive step exists precisely to replace that guess.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">خطأ شائع</span>
+          <p>اختيار "خصم ٣٠٪ في الأسبوع الأول" كتخمين متنكر في هيئة استراتيجية. الخطوة التنبؤية موجودة لتحل محل ذلك التخمين بالتحديد.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="companies">
+      <span class="sec-num"><span data-lang="en" class="active">Section 05</span><span data-lang="ar">القسم ٠٥</span></span>
+      <div data-lang="en" class="active">
+        <h2>Who's already doing this</h2>
+        <p class="standfirst">Four companies running the exact pipeline above, at enormous scale — AI-augmented analytics before the term existed.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>من يستخدمها بالفعل</h2>
+        <p class="standfirst">أربع شركات تُشغّل نفس المسار أعلاه، على نطاق هائل — تحليلات معزّزة بالذكاء الاصطناعي قبل أن يظهر المصطلح.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 3</span><span data-lang="ar">الرسم ٣</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Raw data &#8594; analysis &#8594; decision</span><span data-lang="ar">بيانات خام &#8592; تحليل &#8592; قرار</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four companies turning raw data into a business decision through the same pipeline">
+<defs><marker id="q5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#8A93A0"/></marker></defs>
+<rect x="8" y="6" width="110" height="30" rx="6" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.6"/>
+<text x="63" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="#0E6F7E">Raw data</text>
+<line x1="118" y1="21" x2="146" y2="21" stroke="#8A93A0" stroke-width="1.6" marker-end="url(#q5)"/>
+<rect x="146" y="6" width="110" height="30" rx="6" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.6"/>
+<text x="201" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="#6B4C9A">Analysis</text>
+<line x1="256" y1="21" x2="284" y2="21" stroke="#8A93A0" stroke-width="1.6" marker-end="url(#q5)"/>
+<rect x="284" y="6" width="108" height="30" rx="6" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.6"/>
+<text x="338" y="26" text-anchor="middle" font-size="12" font-weight="700" fill="#9A6B00">Decision</text>
+
+<g font-size="10">
+<line x1="8" y1="52" x2="392" y2="52" stroke="#DED6C4"/>
+<text x="8" y="70" font-weight="700" fill="#1C2B3A">Amazon</text>
+<text x="8" y="86" fill="#55606E">purchase &amp; search history</text>
+<text x="8" y="102" fill="#55606E">&#8594; who buys what, together</text>
+<text x="8" y="118" fill="#1C2B3A" font-weight="700">&#8594; product recommendations</text>
+
+<line x1="8" y1="132" x2="392" y2="132" stroke="#DED6C4"/>
+<text x="8" y="150" font-weight="700" fill="#1C2B3A">Netflix</text>
+<text x="8" y="166" fill="#55606E">what you watch &amp; when you stop</text>
+<text x="8" y="182" fill="#55606E">&#8594; predicted genre preference</text>
+<text x="8" y="198" fill="#1C2B3A" font-weight="700">&#8594; what to show you next</text>
+
+<line x1="200" y1="132" x2="200" y2="230" stroke="#DED6C4"/>
+<text x="212" y="150" font-weight="700" fill="#1C2B3A">Uber</text>
+<text x="212" y="166" fill="#55606E">live location &amp; traffic</text>
+<text x="212" y="182" fill="#55606E">&#8594; predicted demand by area</text>
+<text x="212" y="198" fill="#1C2B3A" font-weight="700">&#8594; real-time price &amp; routing</text>
+</g>
+<text x="200" y="240" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1C2B3A">same three boxes, every time</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Different data, different companies, identical three-box structure.</span><span data-lang="ar">بيانات مختلفة، شركات مختلفة، نفس البنية الثلاثية.</span></figcaption>
+      </figure>
+
+      <div data-lang="en" class="active">
+      <ul>
+        <li><strong>Amazon</strong> analyses purchase &amp; search history to recommend products.</li>
+        <li><strong>Netflix</strong> analyses viewing data to recommend titles and shape new content.</li>
+        <li><strong>Uber</strong> analyses location &amp; traffic to price and route in real time.</li>
+        <li><strong>Google</strong> analyses search data to personalise results and target ads.</li>
+      </ul>
+      </div>
+      <div data-lang="ar">
+      <ul>
+        <li><strong>أمازون</strong> تحلّل سجل الشراء والبحث لاقتراح المنتجات.</li>
+        <li><strong>نتفليكس</strong> تحلّل بيانات المشاهدة لاقتراح المحتوى وصناعة أعمال جديدة.</li>
+        <li><strong>أوبر</strong> تحلّل الموقع وحركة المرور لتسعير الرحلات وتوجيهها فوريًا.</li>
+        <li><strong>جوجل</strong> تحلّل بيانات البحث لتخصيص النتائج واستهداف الإعلانات.</li>
+      </ul>
+      </div>
+
+      <details class="selfcheck">
+        <summary><span data-lang="en" class="active">Self-check</span><span data-lang="ar">تحقق ذاتي</span></summary>
+        <div data-lang="en" class="active"><ol><li>Pick one company. Which step is descriptive, predictive, prescriptive?</li></ol></div>
+        <div data-lang="ar"><ol><li>اختر شركة واحدة. أي خطوة وصفية، وأيها تنبؤية، وأيها توجيهية؟</li></ol></div>
+      </details>
+    </section>
+
+    <section id="checks">
+      <span class="sec-num"><span data-lang="en" class="active">Section 06 &#8212; AI layer</span><span data-lang="ar">القسم ٠٦ — طبقة الذكاء الاصطناعي</span></span>
+      <div data-lang="en" class="active">
+        <h2>The three checks</h2>
+        <p class="standfirst">One habit that makes every AI-assisted week in this course safe to run.</p>
+        <p>Before any AI-generated number, chart, query, or recommendation becomes part of your work, it passes three checks. Any "no" sends it back.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>الفحوصات الثلاثة</h2>
+        <p class="standfirst">عادة واحدة تجعل كل أسبوع مدعوم بالذكاء الاصطناعي آمنًا للتطبيق.</p>
+        <p>قبل أن يصبح أي رقم أو رسم أو استعلام أو توصية من إنتاج الذكاء الاصطناعي جزءًا من عملك، يمر بثلاثة فحوصات. أي إجابة "لا" تُعيده للعمل.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 4</span><span data-lang="ar">الرسم ٤</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Explain it. Verify it. Stand behind it.</span><span data-lang="ar">اشرحه. تحقق منه. اضمنه باسمك.</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI output passes through three checks before it becomes a decision, or loops back">
+<defs><marker id="g2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#55606E"/></marker>
+<marker id="g2r" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#A8322A"/></marker></defs>
+<rect x="8" y="30" width="80" height="40" rx="6" fill="#F4F0E6" stroke="#DED6C4"/>
+<text x="48" y="54" text-anchor="middle" font-size="11" font-weight="700" fill="#1C2B3A">AI output</text>
+<line x1="88" y1="50" x2="112" y2="50" stroke="#55606E" stroke-width="1.6" marker-end="url(#g2)"/>
+
+<circle cx="140" cy="50" r="26" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.8"/>
+<text x="140" y="47" text-anchor="middle" font-size="10" font-weight="700" fill="#0E6F7E">Explain</text>
+<text x="140" y="58" text-anchor="middle" font-size="8.5" fill="#0E6F7E">it?</text>
+<line x1="166" y1="50" x2="190" y2="50" stroke="#55606E" stroke-width="1.6" marker-end="url(#g2)"/>
+
+<circle cx="218" cy="50" r="26" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.8"/>
+<text x="218" y="47" text-anchor="middle" font-size="10" font-weight="700" fill="#6B4C9A">Verify</text>
+<text x="218" y="58" text-anchor="middle" font-size="8.5" fill="#6B4C9A">it?</text>
+<line x1="244" y1="50" x2="268" y2="50" stroke="#55606E" stroke-width="1.6" marker-end="url(#g2)"/>
+
+<circle cx="298" cy="50" r="30" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.8"/>
+<text x="298" y="46" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9A6B00">Stand</text>
+<text x="298" y="58" text-anchor="middle" font-size="9.5" font-weight="700" fill="#9A6B00">behind it?</text>
+<line x1="328" y1="50" x2="352" y2="50" stroke="#1F6B47" stroke-width="2" marker-end="url(#g2)"/>
+
+<rect x="352" y="30" width="42" height="40" rx="6" fill="#E4F2EA" stroke="#1F6B47"/>
+<text x="373" y="47" text-anchor="middle" font-size="9" font-weight="700" fill="#1F6B47">decision</text>
+<text x="373" y="59" text-anchor="middle" font-size="9" font-weight="700" fill="#1F6B47">made</text>
+
+<path d="M298,80 C298,140 140,140 140,80" fill="none" stroke="#A8322A" stroke-width="1.6" stroke-dasharray="5,4" marker-end="url(#g2r)"/>
+<text x="219" y="158" text-anchor="middle" font-size="10.5" fill="#A8322A" font-style="italic">any &#8220;no&#8221; sends it back to work</text>
+
+<text x="200" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">three honest yeses, or it isn&#8217;t finished</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Three honest yeses turn a draft into your decision.</span><span data-lang="ar">ثلاث إجابات صادقة بـ"نعم" تحوّل المسودة إلى قرارك.</span></figcaption>
+      </figure>
+
+      <div class="box analogy">
+        <div data-lang="en" class="active">
+          <span class="box-label">Analogy</span>
+          <p>The courtroom-witness test: not whether a statement <em>sounds</em> true, but whether you can explain how you know, whether it holds up under questioning, and whether you'll swear to it.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">تشبيه</span>
+          <p>اختبار الشاهد في المحكمة: ليس ما إذا كانت العبارة تبدو صحيحة، بل هل يمكنك شرح كيف عرفتها، وهل تصمد أمام الاستجواب، وهل ستقسم عليها.</p>
+        </div>
+      </div>
+
+      <div class="box mistake">
+        <div data-lang="en" class="active">
+          <span class="box-label">Common mistake</span>
+          <p>AI stating a confident, specific, entirely fabricated number. This is routine, not rare — exactly what "verify it" exists to catch.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">خطأ شائع</span>
+          <p>أن يذكر الذكاء الاصطناعي رقمًا واثقًا ومحددًا وملفّقًا تمامًا. هذا أمر روتيني وليس نادرًا — وهو بالضبط ما يهدف فحص "تحقق منه" إلى رصده.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="prompting">
+      <span class="sec-num"><span data-lang="en" class="active">Section 07 &#8212; AI layer</span><span data-lang="ar">القسم ٠٧ — طبقة الذكاء الاصطناعي</span></span>
+      <div data-lang="en" class="active">
+        <h2>Prompting basics</h2>
+        <p class="standfirst">A better question gets a better answer — this is a skill, not luck.</p>
+        <p>Three things turn a weak prompt into a useful one: <strong>context</strong> (what the data actually is), a <strong>specific ask</strong> (not "analyse this" but what decision it should support), and a <strong>request to show its work</strong> so you have something to verify.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>أساسيات كتابة الأوامر</h2>
+        <p class="standfirst">السؤال الأفضل يحصل على إجابة أفضل — هذه مهارة لا حظ.</p>
+        <p>ثلاثة أمور تحوّل الأمر الضعيف إلى أمر مفيد: <strong>السياق</strong> (ما هي البيانات فعليًا)، <strong>طلب محدد</strong> (ليس "حلّل هذا" بل ما القرار الذي يجب أن يخدمه)، و<strong>طلب إظهار طريقة العمل</strong> ليكون لديك ما تتحقق منه.</p>
+      </div>
+
+      <div class="tabs">
+        <div class="tab-heads">
+          <button class="tab-btn active" data-tab="weak">
+            <span data-lang="en" class="active">Weak prompt</span><span data-lang="ar">أمر ضعيف</span>
+          </button>
+          <button class="tab-btn" data-tab="strong">
+            <span data-lang="en" class="active">Strong prompt</span><span data-lang="ar">أمر جيد</span>
+          </button>
+        </div>
+        <div class="tab-panel active" data-panel="weak" data-print-label="Weak prompt">
+          <div data-lang="en" class="active">
+            <p style="font-style:italic; color:var(--ink-soft)">"Analyse this sales data."</p>
+            <p>No context, no goal, no way to check the answer. The AI will guess what you want.</p>
+          </div>
+          <div data-lang="ar">
+            <p style="font-style:italic; color:var(--ink-soft)">"حلّل بيانات المبيعات هذه."</p>
+            <p>لا سياق، ولا هدف، ولا طريقة للتحقق من الإجابة. سيخمّن الذكاء الاصطناعي ما تريده.</p>
+          </div>
+        </div>
+        <div class="tab-panel" data-panel="strong" data-print-label="Strong prompt">
+          <div data-lang="en" class="active">
+            <p style="font-style:italic; color:var(--ink-soft)">"This is weekly coat sales for 3 winters, columns are date/price/units. I need to decide the best markdown week. Show which weeks had the steepest price-to-units relationship, and the formula you used."</p>
+            <p>Context, a decision to support, and a request you can verify.</p>
+          </div>
+          <div data-lang="ar">
+            <p style="font-style:italic; color:var(--ink-soft)">"هذه مبيعات أسبوعية للمعاطف لثلاثة فصول شتاء، الأعمدة هي التاريخ/السعر/الوحدات. أحتاج تحديد أفضل أسبوع للتخفيض. أظهر أي الأسابيع كانت فيها العلاقة بين السعر والوحدات الأكثر انحدارًا، والمعادلة التي استخدمتها."</p>
+            <p>سياق، وقرار يجب دعمه، وطلب يمكنك التحقق منه.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="copilots">
+      <span class="sec-num"><span data-lang="en" class="active">Section 08 &#8212; AI layer</span><span data-lang="ar">القسم ٠٨ — طبقة الذكاء الاصطناعي</span></span>
+      <div data-lang="en" class="active">
+        <h2>Meet your co-pilots</h2>
+        <p class="standfirst">Different tools for different jobs.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>تعرّف على مساعديك</h2>
+        <p class="standfirst">أدوات مختلفة لمهام مختلفة.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 5</span><span data-lang="ar">الرسم ٥</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Four categories, four kinds of task</span><span data-lang="ar">أربع فئات، أربعة أنواع من المهام</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four categories of AI co-pilot tools, each suited to a different kind of task">
+<rect x="8" y="8" width="184" height="86" rx="6" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.4"/>
+<text x="20" y="28" font-size="11.5" font-weight="700" fill="#0E6F7E">Chat assistant</text>
+<text x="20" y="44" font-size="9.5" fill="#55606E">Claude, ChatGPT</text>
+<text x="20" y="62" font-size="9.5" fill="#55606E">best for: explaining,</text>
+<text x="20" y="76" font-size="9.5" fill="#55606E">summarising, first drafts</text>
+
+<rect x="208" y="8" width="184" height="86" rx="6" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.4"/>
+<text x="220" y="28" font-size="11.5" font-weight="700" fill="#6B4C9A">Spreadsheet co-pilot</text>
+<text x="220" y="44" font-size="9.5" fill="#55606E">Excel / Sheets AI</text>
+<text x="220" y="62" font-size="9.5" fill="#55606E">best for: formulas,</text>
+<text x="220" y="76" font-size="9.5" fill="#55606E">cleaning, quick charts</text>
+
+<rect x="8" y="106" width="184" height="86" rx="6" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.4"/>
+<text x="20" y="126" font-size="11.5" font-weight="700" fill="#9A6B00">No-code ML</text>
+<text x="20" y="142" font-size="9.5" fill="#55606E">e.g. built into your BI tool</text>
+<text x="20" y="160" font-size="9.5" fill="#55606E">best for: classification,</text>
+<text x="20" y="174" font-size="9.5" fill="#55606E">quick predictions</text>
+
+<rect x="208" y="106" width="184" height="86" rx="6" fill="#FBE9E7" stroke="#A8322A" stroke-width="1.4"/>
+<text x="220" y="126" font-size="11.5" font-weight="700" fill="#A8322A">BI co-pilot</text>
+<text x="220" y="142" font-size="9.5" fill="#55606E">Power BI / Tableau AI</text>
+<text x="220" y="160" font-size="9.5" fill="#55606E">best for: dashboards,</text>
+<text x="220" y="174" font-size="9.5" fill="#55606E">narrating a chart</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">You'll use all four across this course, often in the same assignment.</span><span data-lang="ar">ستستخدم الأربعة جميعًا خلال هذا المقرر، وغالبًا في نفس الواجب.</span></figcaption>
+      </figure>
+
+      <div class="box analogy">
+        <div data-lang="en" class="active">
+          <span class="box-label">Analogy</span>
+          <p>A mechanic doesn't use one tool for the whole car. Reaching for a chat assistant to build a dashboard is the equivalent of using a hammer on a screw.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">تشبيه</span>
+          <p>الميكانيكي لا يستخدم أداة واحدة للسيارة كلها. اللجوء إلى مساعد محادثة لبناء لوحة بيانات يشبه استخدام مطرقة على برغي.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="structure">
+      <span class="sec-num"><span data-lang="en" class="active">Section 09</span><span data-lang="ar">القسم ٠٩</span></span>
+      <div data-lang="en" class="active">
+        <h2>Types of data: how structured is it?</h2>
+        <p class="standfirst">Before analysing data, know what shape it's in.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>أنواع البيانات: ما مدى بنيتها؟</h2>
+        <p class="standfirst">قبل تحليل البيانات، اعرف شكلها.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 6</span><span data-lang="ar">الرسم ٦</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Structured, semi-structured, unstructured</span><span data-lang="ar">منظّمة، شبه منظّمة، غير منظّمة</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data splits into structured, semi-structured and unstructured, each with examples">
+<rect x="150" y="6" width="100" height="28" rx="6" fill="#1C2B3A"/>
+<text x="200" y="25" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">All data</text>
+<path d="M200,34 L200,48 L62,48 L62,58" fill="none" stroke="#8A93A0" stroke-width="1.6"/>
+<path d="M200,34 L200,58" fill="none" stroke="#8A93A0" stroke-width="1.6"/>
+<path d="M200,34 L200,48 L338,48 L338,58" fill="none" stroke="#8A93A0" stroke-width="1.6"/>
+
+<rect x="8" y="58" width="108" height="30" rx="6" fill="#E3F1F3" stroke="#0E6F7E" stroke-width="1.6"/>
+<text x="62" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0E6F7E">Structured</text>
+<rect x="146" y="58" width="108" height="30" rx="6" fill="#EFE9F7" stroke="#6B4C9A" stroke-width="1.6"/>
+<text x="200" y="78" text-anchor="middle" font-size="11" font-weight="700" fill="#6B4C9A">Semi-structured</text>
+<rect x="284" y="58" width="108" height="30" rx="6" fill="#FBF0D9" stroke="#9A6B00" stroke-width="1.6"/>
+<text x="338" y="78" text-anchor="middle" font-size="10.5" font-weight="700" fill="#9A6B00">Unstructured</text>
+
+<g font-size="10.5" fill="#55606E">
+<rect x="8" y="98" width="108" height="118" rx="6" fill="#fff" stroke="#DED6C4"/>
+<text x="18" y="116">&#8226; Excel sheets</text>
+<text x="18" y="136">&#8226; SQL databases</text>
+<text x="18" y="156">&#8226; CSV files</text>
+<text x="18" y="182" fill="#8A93A0" font-style="italic">rows &amp; columns,</text>
+<text x="18" y="198" fill="#8A93A0" font-style="italic">fixed fields</text>
+
+<rect x="146" y="98" width="108" height="118" rx="6" fill="#fff" stroke="#DED6C4"/>
+<text x="156" y="116">&#8226; JSON / XML</text>
+<text x="156" y="136">&#8226; Web pages</text>
+<text x="156" y="156">&#8226; Chat logs</text>
+<text x="156" y="182" fill="#8A93A0" font-style="italic">tagged, but</text>
+<text x="156" y="198" fill="#8A93A0" font-style="italic">no fixed schema</text>
+
+<rect x="284" y="98" width="108" height="118" rx="6" fill="#fff" stroke="#DED6C4"/>
+<text x="294" y="116">&#8226; Photos, video</text>
+<text x="294" y="136">&#8226; Social posts</text>
+<text x="294" y="156">&#8226; Audio, PDFs</text>
+<text x="294" y="182" fill="#8A93A0" font-style="italic">no predefined</text>
+<text x="294" y="198" fill="#8A93A0" font-style="italic">structure at all</text>
+</g>
+<text x="200" y="240" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">structure is a spectrum, not a switch</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Structure is a spectrum: fixed rows and columns at one end, nothing predefined at the other.</span><span data-lang="ar">البنية طيف: صفوف وأعمدة ثابتة في طرف، ولا شيء محدد مسبقًا في الطرف الآخر.</span></figcaption>
+      </figure>
+
+      <div class="box keypoint">
+        <div data-lang="en" class="active">
+          <span class="box-label">Why this matters for AI</span>
+          <p>Roughly 80&#8211;90% of business data is unstructured &#8212; emails, PDFs, calls, images. Excel and SQL are built for the structured minority. The unstructured majority is exactly where AI tools add the most value, because they can read what a spreadsheet never could.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">لماذا يهم هذا في عصر الذكاء الاصطناعي</span>
+          <p>نحو ٨٠–٩٠٪ من بيانات الأعمال غير منظّمة — رسائل، ملفات PDF، مكالمات، صور. برامج مثل Excel وSQL مصمّمة للأقلية المنظّمة. الأغلبية غير المنظّمة هي بالضبط حيث تضيف أدوات الذكاء الاصطناعي أكبر قيمة، لأنها تستطيع قراءة ما لم يستطع أي جدول بيانات قراءته.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="shape">
+      <span class="sec-num"><span data-lang="en" class="active">Section 10</span><span data-lang="ar">القسم ١٠</span></span>
+      <div data-lang="en" class="active">
+        <h2>Types of data: discrete or continuous?</h2>
+        <p class="standfirst">A second, independent way to classify the same data.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>أنواع البيانات: منفصلة أم متصلة؟</h2>
+        <p class="standfirst">طريقة ثانية ومستقلة لتصنيف نفس البيانات.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 7</span><span data-lang="ar">الرسم ٧</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Counted vs. measured</span><span data-lang="ar">معدود مقابل مقاس</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 175" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Discrete data is counted in whole steps, continuous data can take any value">
+<text x="10" y="20" font-size="12" font-weight="700" fill="#0E6F7E">Discrete &#8212; counting people through a door</text>
+<line x1="20" y1="55" x2="380" y2="55" stroke="#55606E" stroke-width="1.5"/>
+<g fill="#0E6F7E">
+<circle cx="50" cy="55" r="6"/><circle cx="95" cy="55" r="6"/><circle cx="140" cy="55" r="6"/>
+<circle cx="185" cy="55" r="6"/><circle cx="230" cy="55" r="6"/><circle cx="275" cy="55" r="6"/>
+</g>
+<g font-size="10" fill="#55606E" text-anchor="middle">
+<text x="50" y="72">0</text><text x="95" y="72">1</text><text x="140" y="72">2</text>
+<text x="185" y="72">3</text><text x="230" y="72">4</text><text x="275" y="72">5</text>
+</g>
+<text x="200" y="90" text-anchor="middle" font-size="10.5" fill="#8A93A0" font-style="italic">only whole numbers exist &#8212; 2.5 people is meaningless</text>
+
+<text x="10" y="122" font-size="12" font-weight="700" fill="#6B4C9A">Continuous &#8212; measuring how long they stayed</text>
+<line x1="20" y1="150" x2="380" y2="150" stroke="#6B4C9A" stroke-width="4"/>
+<text x="200" y="168" text-anchor="middle" font-size="10.5" fill="#8A93A0" font-style="italic">any value in between is possible &#8212; 4.37 minutes is real</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Discrete comes from counting. Continuous comes from measuring on a scale.</span><span data-lang="ar">المنفصل ينتج عن العدّ. المتصل ينتج عن القياس على مقياس.</span></figcaption>
+      </figure>
+    </section>
+
+    <section id="roadmap">
+      <span class="sec-num"><span data-lang="en" class="active">Section 11</span><span data-lang="ar">القسم ١١</span></span>
+      <div data-lang="en" class="active">
+        <h2>The 12-week map</h2>
+        <p class="standfirst">One continuous thread, in three phases.</p>
+      </div>
+      <div data-lang="ar">
+        <h2>خريطة الأسابيع الاثني عشر</h2>
+        <p class="standfirst">خيط واحد متواصل، على ثلاث مراحل.</p>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-lang="en" class="active">Diagram 8</span><span data-lang="ar">الرسم ٨</span></div>
+        <div class="fig-title"><span data-lang="en" class="active">Query &#8594; model &amp; specialise &#8594; ship</span><span data-lang="ar">استعلام &#8592; نمذجة وتخصص &#8592; إنجاز</span></div>
+        <div class="fig-art"><svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The BA2 roadmap across four phases and twelve weeks">
+<line x1="20" y1="70" x2="380" y2="70" stroke="#DED6C4" stroke-width="4"/>
+<g font-size="9" fill="#1C2B3A" text-anchor="middle">
+<circle cx="30" cy="70" r="5" fill="#1C2B3A"/><text x="30" y="52">0</text>
+<circle cx="75" cy="70" r="5" fill="#0E6F7E"/><circle cx="115" cy="70" r="5" fill="#0E6F7E"/>
+<circle cx="155" cy="70" r="5" fill="#6B4C9A"/><circle cx="195" cy="70" r="5" fill="#6B4C9A"/>
+<circle cx="235" cy="70" r="5" fill="#6B4C9A"/><circle cx="275" cy="70" r="5" fill="#6B4C9A"/>
+<circle cx="315" cy="70" r="5" fill="#6B4C9A"/><circle cx="355" cy="70" r="5" fill="#6B4C9A"/>
+</g>
+<circle cx="30" cy="70" r="7" fill="none" stroke="#1C2B3A" stroke-width="1.6"/>
+
+<rect x="55" y="92" width="80" height="26" rx="4" fill="#E3F1F3" stroke="#0E6F7E"/>
+<text x="95" y="109" text-anchor="middle" font-size="10" font-weight="700" fill="#0E6F7E">Query</text>
+<text x="95" y="132" text-anchor="middle" font-size="8.5" fill="#55606E">wks 1&#8211;2 &#183; SQL</text>
+
+<rect x="145" y="92" width="180" height="26" rx="4" fill="#EFE9F7" stroke="#6B4C9A"/>
+<text x="235" y="109" text-anchor="middle" font-size="10" font-weight="700" fill="#6B4C9A">Model &amp; specialise</text>
+<text x="235" y="132" text-anchor="middle" font-size="8.5" fill="#55606E">wks 3&#8211;9 &#183; ML, domains, forecasting, trust</text>
+
+<rect x="335" y="92" width="45" height="26" rx="4" fill="#FBF0D9" stroke="#9A6B00"/>
+<text x="357" y="109" text-anchor="middle" font-size="9" font-weight="700" fill="#9A6B00">Ship</text>
+<text x="357" y="132" text-anchor="middle" font-size="8" fill="#55606E">10&#8211;12</text>
+
+<text x="200" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#1C2B3A">twelve weeks, one continuous thread</text>
+</svg></div>
+        <figcaption><span data-lang="en" class="active">Each phase builds directly on the one before it.</span><span data-lang="ar">كل مرحلة تُبنى مباشرة على التي قبلها.</span></figcaption>
+      </figure>
+    </section>
+
+    <section id="rules">
+      <span class="sec-num"><span data-lang="en" class="active">Section 12</span><span data-lang="ar">القسم ١٢</span></span>
+      <div data-lang="en" class="active">
+        <h2>Ground rules</h2>
+        <ul>
+          <li><strong>AI is a co-pilot, not an autopilot.</strong> Use it for every assignment. Never submit its output unchecked.</li>
+          <li><strong>You still need to do it without AI.</strong> Every accelerated skill is one you must understand well enough to catch when it's wrong.</li>
+        </ul>
+      </div>
+      <div data-lang="ar">
+        <h2>القواعد الأساسية</h2>
+        <ul>
+          <li><strong>الذكاء الاصطناعي مساعد، لا طيار آلي.</strong> استخدمه في كل واجب. لا تسلّم مخرجاته دون تحقق.</li>
+          <li><strong>ما زلت بحاجة لإتقانها دون ذكاء اصطناعي.</strong> كل مهارة مُسرَّعة يجب أن تفهمها جيدًا بما يكفي لتكتشف خطأها.</li>
+        </ul>
+      </div>
+
+      <div class="box mistake">
+        <div data-lang="en" class="active">
+          <span class="box-label">Common mistake, the other direction</span>
+          <p>Refusing to use AI at all, out of caution. That's not safe &#8212; it's slow. The skill is disciplined use, not avoidance.</p>
+        </div>
+        <div data-lang="ar">
+          <span class="box-label">خطأ شائع، بالاتجاه المعاكس</span>
+          <p>رفض استخدام الذكاء الاصطناعي كليًا بدافع الحذر. هذا ليس أمانًا — بل بطء. المهارة هي الاستخدام المنضبط، لا التجنب.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="before">
+      <span class="sec-num"><span data-lang="en" class="active">Section 13</span><span data-lang="ar">القسم ١٣</span></span>
+      <div data-lang="en" class="active">
+        <h2>Before Week 1</h2>
+        <ul>
+          <li>Skim the <strong>BA1 Recap</strong> if any term here felt shaky.</li>
+          <li>Have a chat-based AI assistant ready to use.</li>
+          <li>Bring one real business question you'd like to answer by Week 12.</li>
+        </ul>
+      </div>
+      <div data-lang="ar">
+        <h2>قبل الأسبوع 1</h2>
+        <ul>
+          <li>راجع <strong>ملخّص BA1</strong> إن شعرت بعدم يقين تجاه أي مصطلح هنا.</li>
+          <li>جهّز مساعد ذكاء اصطناعي قائم على المحادثة جاهزًا للاستخدام.</li>
+          <li>أحضر سؤال عمل حقيقي واحد تودّ الإجابة عنه بحلول الأسبوع ١٢.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <span data-lang="en" class="active">BA2 &#183; Week 0 &#183; Introduction to Business Analytics &#8212; See you in Week 1.</span>
+      <span data-lang="ar">تحليلات الأعمال 2 · الأسبوع 0 · مقدمة في تحليلات الأعمال — نراكم في الأسبوع 1.</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-lang]').forEach(function(el){
+    el.classList.toggle('active', el.dataset.lang === lang);
+  });
+  document.querySelectorAll('.langbar button').forEach(function(b){
+    b.classList.toggle('active', b.dataset.setlang === lang);
+  });
+}
+document.querySelectorAll('.langbar button').forEach(function(b){
+  b.addEventListener('click', function(){ setLang(b.dataset.setlang); });
+});
+
+document.querySelectorAll('.tabs').forEach(function(tabgroup){
+  var heads = tabgroup.querySelectorAll('.tab-btn');
+  var panels = tabgroup.querySelectorAll('.tab-panel');
+  heads.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      heads.forEach(function(h){ h.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      tabgroup.querySelector('[data-panel="'+btn.dataset.tab+'"]').classList.add('active');
+    });
+  });
+});
+
+var slider = document.getElementById('discountSlider');
+if(slider){
+  slider.addEventListener('input', function(){
+    var v = parseInt(slider.value,10);
+    document.getElementById('discountReadout').textContent = v + '%';
+    // toy peak-shaped model, peak near 22%
+    var x = v/100;
+    var peak = 0.22;
+    var val = Math.max(0, 100 - Math.pow((x-peak)*140,2));
+    val = Math.round(val);
+    document.getElementById('revenueBar').style.width = val + '%';
+    document.getElementById('revenueOutEn').textContent = val + '%';
+    document.getElementById('revenueOutAr').textContent = String(val).split('').map(function(d){
+      return '٠١٢٣٤٥٦٧٨٩'[parseInt(d,10)];
+    }).join('') + '٪';
+  });
+}
+
+// Scrollspy: highlight the sidebar link for whichever section is near the top of the viewport
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main.main section[id]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.sidebar nav a[href^="#"]'));
+  if(!sections.length || !navLinks.length || !('IntersectionObserver' in window)) return;
+  function setCurrent(id){
+    navLinks.forEach(function(a){
+      a.classList.toggle('current', a.getAttribute('href') === '#' + id);
+    });
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ setCurrent(entry.target.id); }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
+
+</body>
+</html>

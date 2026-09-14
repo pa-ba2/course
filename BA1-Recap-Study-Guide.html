@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BA1 Recap — Your Analytics Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FDFBF7;
@@ -23,6 +25,7 @@
     --red-bg:#FBE9E7;
     --green:#1F6B47;
     --green-bg:#E4F2EA;
+    --sidebar-w:260px;
   }
 
   *{ box-sizing:border-box; }
@@ -33,20 +36,34 @@
     margin:0;
     background:var(--paper);
     color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;
-    font-size:20px;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:19px;
     line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
 
-  .wrap{
-    max-width:34rem;      /* ~60 characters */
-    margin:0 auto;
-    padding:2rem 1.25rem 4rem 1.25rem;
+  /* ---------- LAYOUT ---------- */
+  .shell{ display:flex; min-height:100vh; max-width:1180px; margin:0 auto; }
+  .sidebar{
+    width:var(--sidebar-w); flex-shrink:0; position:sticky; top:0; height:100vh;
+    overflow-y:auto; padding:28px 18px; border-inline-end:1px solid var(--rule);
   }
+  .sidebar .brand{ font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:4px; }
+  .sidebar .brand-sub{ font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:22px; line-height:1.35; }
+  .sidebar nav a{
+    display:block; padding:8px 10px; margin-bottom:2px; border-radius:6px;
+    color:var(--ink-soft); text-decoration:none; font-size:14px; line-height:1.4;
+  }
+  .sidebar nav a:hover{ background:var(--paper-2); color:var(--ink); }
+  .sidebar nav a.current{ background:var(--teal-bg); color:var(--teal); font-weight:700; }
+  .sidebar .grp-label{ font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint); margin:18px 0 6px 4px; }
+  .sidebar .grp-label:first-of-type{ margin-top:0; }
+
+  .main{ flex:1; min-width:0; padding:2rem 3rem 4rem 3rem; }
 
   /* ---------- COVER ---------- */
   .cover{
+    max-width:720px;
     padding:3rem 0 2.5rem 0;
     border-bottom:2px solid var(--rule);
     margin-bottom:2.5rem;
@@ -73,8 +90,9 @@
     margin:0;
   }
 
-  /* ---------- TOC ---------- */
+  /* ---------- TOC (mobile fallback only — sidebar handles nav at desktop widths) ---------- */
   nav.toc{
+    display:none;
     background:var(--paper-2);
     border:1px solid var(--rule);
     border-radius:10px;
@@ -108,7 +126,7 @@
   }
 
   /* ---------- SECTIONS ---------- */
-  section{ margin-bottom:3.5rem; scroll-margin-top:1rem; }
+  section{ margin-bottom:3.5rem; scroll-margin-top:1.5rem; max-width:720px; }
 
   .sec-num{
     display:inline-block;
@@ -363,27 +381,73 @@
   @media print{
     @page{ size:A4; margin:16mm 15mm; }
     body{ background:#fff; font-size:12pt; line-height:1.55; }
-    .wrap{ max-width:100%; padding:0; }
-    nav.toc{ page-break-after:always; }
+    .sidebar{ display:none; }
+    .shell{ display:block; max-width:100%; }
+    .main{ max-width:100%; padding:0; }
+    section{ max-width:100%; }
+    nav.toc{ display:block; page-break-after:always; }
     section{ page-break-inside:auto; margin-bottom:2rem; }
     h2{ page-break-after:avoid; font-size:18pt; }
     h3,h4{ page-break-after:avoid; }
     .box,.diagram,.formula,.selfcheck,blockquote,table{ page-break-inside:avoid; }
     .diagram .drop{ min-height:5rem; }
     .top-link{ display:none; }
-    .cover{ page-break-after:always; }
+    .cover{ page-break-after:always; max-width:100%; }
     a{ color:var(--ink); text-decoration:none; }
   }
 
   @media (min-width:48rem){
-    body{ font-size:21px; }
-    .wrap{ padding:3rem 2rem 5rem 2rem; }
+    body{ font-size:20px; }
     .cover h1{ font-size:3rem; }
+  }
+
+  @media (max-width:900px){
+    .sidebar{ display:none; }
+    .shell{ display:block; max-width:100%; }
+    .main{ max-width:100%; padding:2rem 1.25rem 4rem 1.25rem; }
+    nav.toc{ display:block; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">Business Analytics 1</div>
+    <div class="brand-sub">Recap — Your Analytics Field Guide</div>
+    <nav>
+      <a href="#how-to-use" class="current">How to use this guide</a>
+      <div class="grp-label">Foundations</div>
+      <a href="#ped">The PED framework</a>
+      <a href="#levels">The four levels of analytics</a>
+      <div class="grp-label">Descriptive &amp; diagnostic</div>
+      <a href="#kpi">KPIs vs. metrics</a>
+      <a href="#centre">Finding the centre</a>
+      <a href="#spread">Measuring the spread</a>
+      <a href="#charts">Choosing the right chart</a>
+      <div class="grp-label">Communication &amp; process</div>
+      <a href="#story">Telling the story</a>
+      <a href="#systems">Systems thinking</a>
+      <div class="grp-label">Data quality &amp; ethics</div>
+      <a href="#governance">Data governance &amp; ethics</a>
+      <a href="#cleaning">Cleaning dirty data</a>
+      <div class="grp-label">Inferential &amp; predictive</div>
+      <a href="#normal">Probability &amp; the normal curve</a>
+      <a href="#sampling">Samples, CLT &amp; confidence</a>
+      <a href="#regression">Simple linear regression</a>
+      <a href="#multiple">Multiple regression</a>
+      <a href="#timeseries">Time series &amp; growth</a>
+      <div class="grp-label">Prescriptive</div>
+      <a href="#optimisation">Optimisation &amp; Solver</a>
+      <div class="grp-label">Reference</div>
+      <a href="#excel">Excel reference</a>
+      <a href="#glossary">Glossary</a>
+      <a href="#bridge">Where BA2 picks up</a>
+      <a href="#panic">The panic sheet</a>
+    </nav>
+  </aside>
+
+  <main class="main">
 
 <!-- ============ COVER ============ -->
 <header class="cover" id="top">
@@ -1638,6 +1702,27 @@
   See you in Week 0.
 </footer>
 
+  </main>
 </div>
+
+<script>
+// Scrollspy: highlight the sidebar link for whichever section is near the top of the viewport
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main.main section[id]'));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.sidebar nav a[href^="#"]'));
+  if(!sections.length || !navLinks.length || !('IntersectionObserver' in window)) return;
+  function setCurrent(id){
+    navLinks.forEach(function(a){
+      a.classList.toggle('current', a.getAttribute('href') === '#' + id);
+    });
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){ setCurrent(entry.target.id); }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+  sections.forEach(function(s){ observer.observe(s); });
+})();
+</script>
 </body>
 </html>
