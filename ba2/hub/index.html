@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Analytics 2 — Course Hub</title>
+<title>Business Analytics — Course Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FDFBF7; --paper-2:#F4F0E6; --paper-3:#EDE7D9; --ink:#1C2B3A;
     --ink-soft:#55606E; --ink-faint:#8A93A0; --rule:#DED6C4;
     --teal:#0E6F7E; --teal-bg:#E3F1F3; --lav:#6B4C9A; --lav-bg:#EFE9F7;
+    --pa-blue:#1785C9; --pa-blue-bg:#E6F2FA;
   }
   *{box-sizing:border-box;}
   body{
@@ -18,17 +19,26 @@
     line-height:1.5;
   }
   main{max-width:840px; margin:0 auto; padding:56px 24px 80px;}
+  .logo-row{ display:flex; align-items:center; gap:12px; margin-bottom:28px; }
+  .logo-row img{ height:32px; width:auto; display:block; }
   header{margin-bottom:40px;}
   .kicker{color:var(--teal); font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:.8rem;}
   h1{font-size:2rem; margin:.4em 0 .2em;}
   p.lede{color:var(--ink-soft); font-size:1.05rem; max-width:60ch;}
+  .credit{
+    display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:.85rem; font-weight:600;
+    color:var(--pa-blue); background:var(--pa-blue-bg); padding:5px 12px; border-radius:999px; text-decoration:none;
+  }
+  .credit:hover{ text-decoration:underline; }
   ul.weeks{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
   li.week{
     border:1px solid var(--rule); background:var(--paper-2); border-radius:10px;
     padding:16px 18px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    transition:border-color .15s;
   }
+  li.week:hover{ border-color:var(--pa-blue); }
   li.week a{color:var(--ink); text-decoration:none; font-weight:600;}
-  li.week a:hover{color:var(--teal);}
+  li.week a:hover{color:var(--pa-blue);}
   .badge{
     font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em;
     padding:3px 9px; border-radius:999px; background:var(--lav-bg); color:var(--lav); white-space:nowrap;
@@ -38,10 +48,16 @@
 </head>
 <body>
 <main>
+  <div class="logo-row">
+    <a href="https://paper-airplanes.org" target="_blank" rel="noopener">
+      <img src="../../_shared/branding/paper-airplanes-logo.png" alt="Paper Airplanes">
+    </a>
+  </div>
   <header>
-    <div class="kicker">Business Analytics 2</div>
+    <div class="kicker">Business Analytics</div>
     <h1>Course Hub</h1>
-    <p class="lede">Live cohort sessions, advanced &amp; AI-augmented analytics. Weeks appear here as they're published.</p>
+    <p class="lede">Live cohort sessions, tutor + mentor model. Weeks appear here as they're published.</p>
+    <a class="credit" href="https://paper-airplanes.org" target="_blank" rel="noopener">A Paper Airplanes Women in Tech program &#8594;</a>
   </header>
   <ul class="weeks" id="weekList"></ul>
   <p class="empty" id="emptyMsg" hidden>No weeks published yet — check back soon.</p>
@@ -56,12 +72,18 @@
       document.getElementById('emptyMsg').hidden = false;
       return;
     }
+    function hrefFor(w){
+      // w.href is repo-root-relative; the hub lives 2 levels under the repo root
+      // (ba2/hub/index.html), so it needs "../../" prepended.
+      return w.href ? ('../../' + w.href) : ('../study-guides/' + w.id + '/index.html');
+    }
+
     published.forEach(function(w){
       var li = document.createElement('li');
       li.className = 'week';
       li.innerHTML =
-        '<a href="../study-guides/' + w.id + '/index.html">' + w.title + '</a>' +
-        '<span class="badge">' + w.id.replace('-', ' ') + '</span>';
+        '<a href="' + hrefFor(w) + '">' + w.title + '</a>' +
+        '<span class="badge">' + w.id.replace(/-/g, ' ') + '</span>';
       list.appendChild(li);
     });
   })();
