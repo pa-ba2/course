@@ -14,20 +14,52 @@ function manifestHrefFor(w){
   return w.href ? (ROOT_PREFIX + w.href) : (ROOT_PREFIX + 'ba2/study-guides/' + w.id + '/index.html');
 }
 
+/* ---------- Back-to-hub button ---------- */
+var backBtn = document.getElementById('backBtn');
+if(backBtn){ backBtn.href = ROOT_PREFIX + 'ba2/hub/index.html'; }
+
+/* ---------- Dark mode toggle ----------
+   Preference is stored in localStorage so it persists across pages/reloads; falls back to the
+   OS-level prefers-color-scheme on first visit. See the html[data-theme="dark"] variable overrides
+   in _shared/styles/week.css for the actual palette swap. */
+(function(){
+  var STORAGE_KEY = 'ba-theme';
+  var toggle = document.getElementById('themeToggle');
+  function applyTheme(theme){
+    document.documentElement.dataset.theme = theme;
+    if(toggle){
+      toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+      toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+  }
+  var stored = null;
+  try{ stored = localStorage.getItem(STORAGE_KEY); }catch(e){}
+  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try{ localStorage.setItem(STORAGE_KEY, next); }catch(e){}
+    });
+  }
+})();
+
 /* ---------- Language toggle (EN / AR / FA) ---------- */
 var RTL_LANGS = ['ar', 'fa'];
 
 function setLang(lang){
+  if(!lang) return;
   document.documentElement.lang = lang;
   document.documentElement.dir = RTL_LANGS.indexOf(lang) !== -1 ? 'rtl' : 'ltr';
   document.querySelectorAll('[data-lang]').forEach(function(el){
     el.classList.toggle('active', el.dataset.lang === lang);
   });
-  document.querySelectorAll('.langbar button').forEach(function(b){
+  document.querySelectorAll('.langbar button[data-setlang]').forEach(function(b){
     b.classList.toggle('active', b.dataset.setlang === lang);
   });
 }
-document.querySelectorAll('.langbar button').forEach(function(b){
+document.querySelectorAll('.langbar button[data-setlang]').forEach(function(b){
   b.addEventListener('click', function(){ setLang(b.dataset.setlang); });
 });
 

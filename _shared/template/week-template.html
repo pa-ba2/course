@@ -11,14 +11,20 @@
 <body data-week-id="week-00" data-root-prefix="../../../">
 
 <div class="langbar">
+  <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">&#127769;</button>
   <button data-setlang="en" class="active">EN</button>
   <button data-setlang="ar">AR</button>
   <button data-setlang="fa">FA</button>
 </div>
 
-<button type="button" class="contents-btn" id="contentsBtn">
-  &#9776; <span data-lang="en" class="active">Course contents</span><span data-lang="ar">محتوى المقرر</span><span data-lang="fa">محتوای دوره</span>
-</button>
+<div class="topbar-start">
+  <a class="pill-btn back-btn" id="backBtn" href="../../hub/index.html">
+    &#8592; <span data-lang="en" class="active">Back to hub</span><span data-lang="ar">العودة إلى المقرر</span><span data-lang="fa">بازگشت به دوره</span>
+  </a>
+  <button type="button" class="pill-btn contents-btn" id="contentsBtn">
+    &#9776; <span data-lang="en" class="active">Course contents</span><span data-lang="ar">محتوى المقرر</span><span data-lang="fa">محتوای دوره</span>
+  </button>
+</div>
 <div class="contents-overlay" id="contentsOverlay" hidden></div>
 <div class="contents-panel" id="contentsPanel" hidden>
   <div class="contents-panel-head">
