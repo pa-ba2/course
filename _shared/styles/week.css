@@ -295,7 +295,18 @@ footer{ margin-top:16px; padding-top:20px; border-top:2px solid var(--rule); fon
   /* Top padding cleared to sit below the fixed langbar/contents-btn (~16px top + ~40px tall) — previously 32px left
      their bottom edge overlapping the first ~20px of the cover title. */
   .main{ padding:76px 20px 80px 20px; }
-  .back-btn span{ display:none; }
-  .contents-btn span{ display:none; }
+  /* !important needed: these spans also match span[data-lang].active (higher specificity), which would
+     otherwise win over a plain ".back-btn span" rule and keep the label text showing. */
+  .back-btn span, .contents-btn span{ display:none !important; }
   .pill-btn{ padding:9px 12px; }
+}
+
+@media (max-width:480px){
+  /* Below ~480px, the icon-only back/contents buttons and the langbar (theme toggle + EN/AR/FA) no
+     longer both fit on one row at full size — shrink both so they stop overlapping. */
+  .topbar-start{ gap:6px; }
+  .pill-btn{ padding:8px 9px; font-size:12.5px; }
+  .langbar{ gap:2px; padding:3px; }
+  .langbar button{ padding:6px 9px; font-size:12px; }
+  .theme-toggle{ padding:6px 7px; font-size:13px; }
 }
