@@ -211,6 +211,33 @@ strong{ font-weight:700; }
   .tab-panel::before{ content:attr(data-print-label); display:block; font-weight:800; color:var(--teal); font-size:12px; text-transform:uppercase; letter-spacing:.06em; padding:12px 20px 0 20px; }
 }
 
+/* ---------- CODE BLOCKS (SQL snippets etc.), always LTR ---------- */
+.code-block{
+  position:relative; background:#1C2B3A; border-radius:10px; margin:20px 0;
+  direction:ltr; text-align:start; overflow:hidden;
+}
+.code-block pre{ margin:0; padding:18px 76px 18px 18px; overflow-x:auto; }
+.code-block code{
+  font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  font-size:.88rem; line-height:1.6; color:#E3F1F3; white-space:pre;
+}
+.code-copy-btn{
+  position:absolute; top:10px; inset-inline-end:10px;
+  border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#E3F1F3;
+  font-family:inherit; font-size:11.5px; font-weight:700; letter-spacing:.03em;
+  padding:5px 11px; border-radius:100px; cursor:pointer;
+}
+.code-copy-btn:hover{ background:rgba(255,255,255,.16); }
+.code-copy-btn.copied{ background:var(--teal); border-color:var(--teal); color:#fff; }
+@media print{ .code-copy-btn{ display:none; } }
+
+/* Inline code/mono references outside a .code-block (function names, cell refs, table values) */
+p code, li code, td code, .mono{
+  font-family:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  font-size:.92em; color:var(--teal); background:var(--teal-bg);
+  padding:.1em .35em; border-radius:4px; direction:ltr; unicode-bidi:embed;
+}
+
 /* ---------- DIAGRAMS (always LTR, direction-neutral) ---------- */
 /* Diagram artwork is baked-in SVG calibrated for a white backdrop, so this card — and all its text/border
    colors below — stay pinned to their light-theme values in dark mode too, instead of following

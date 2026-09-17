@@ -30,6 +30,9 @@
     color:var(--pa-blue); background:var(--pa-blue-bg); padding:5px 12px; border-radius:999px; text-decoration:none;
   }
   .credit:hover{ text-decoration:underline; }
+  .about-link{ margin:14px 0 0 0; }
+  .about-link a{ color:var(--ink-soft); font-size:.85rem; text-decoration:underline; }
+  .about-link a:hover{ color:var(--ink); }
   ul.weeks{list-style:none; margin:0; padding:0; display:grid; gap:12px;}
   li.week{
     border:1px solid var(--rule); background:var(--paper-2); border-radius:10px;
@@ -44,6 +47,28 @@
     padding:3px 9px; border-radius:999px; background:var(--lav-bg); color:var(--lav); white-space:nowrap;
   }
   .empty{color:var(--ink-faint); font-style:italic; padding:24px 0;}
+
+  .gate-box{
+    border:1px solid var(--rule); background:var(--paper-2); border-radius:10px;
+    padding:22px 22px 24px 22px; max-width:360px;
+  }
+  .gate-box .gate-title{ font-weight:700; margin-bottom:4px; }
+  .gate-box .gate-sub{ color:var(--ink-soft); font-size:.9rem; margin-bottom:16px; }
+  .gate-input{
+    display:block; width:100%; box-sizing:border-box;
+    border:1px solid var(--rule); border-radius:8px;
+    padding:10px 13px; font-size:1rem; font-family:inherit;
+    margin-bottom:12px;
+  }
+  .gate-input:focus{ outline:none; border-color:var(--teal); }
+  .gate-submit{
+    border:none; border-radius:8px; padding:10px 18px;
+    background:var(--teal); color:#fff; font-weight:700; font-size:.9rem;
+    cursor:pointer; font-family:inherit;
+  }
+  .gate-submit:hover{ opacity:.9; }
+  .gate-error{ margin-top:12px; font-size:.85rem; font-weight:600; color:#A8322A; }
+  .gate-welcome{ font-weight:700; margin-bottom:20px; }
 </style>
 </head>
 <body>
@@ -58,34 +83,114 @@
     <h1>Course Hub</h1>
     <p class="lede">Live cohort sessions, tutor + mentor model. Weeks appear here as they're published.</p>
     <a class="credit" href="https://paper-airplanes.org" target="_blank" rel="noopener">A Paper Airplanes Women in Tech program &#8594;</a>
+    <p class="about-link"><a href="../about/index.html">About the teacher & mentors</a></p>
   </header>
-  <ul class="weeks" id="weekList"></ul>
-  <p class="empty" id="emptyMsg" hidden>No weeks published yet — check back soon.</p>
+  <div class="gate-box" id="gateBox">
+    <div class="gate-title">Enter your student number</div>
+    <div class="gate-sub">This course is for enrolled students only. Enter your number to see this week's content.</div>
+    <input type="text" class="gate-input" id="gateInput" inputmode="numeric" autocomplete="off" placeholder="Student number">
+    <button type="button" class="gate-submit" id="gateSubmit">Continue</button>
+    <div class="gate-error" id="gateError" hidden>That number isn&rsquo;t recognized. Please try again.</div>
+  </div>
+  <div id="weeksSection" hidden>
+    <p class="gate-welcome" id="gateWelcome"></p>
+    <ul class="weeks" id="weekList"></ul>
+    <p class="empty" id="emptyMsg" hidden>No weeks published yet — check back soon.</p>
+  </div>
 </main>
 <script src="../manifest.js"></script>
 <script>
   (function(){
-    var data = window.BA2_MANIFEST || { weeks: [] };
-    var list = document.getElementById('weekList');
-    var published = data.weeks.filter(function(w){ return w.published; });
-    if(!published.length){
-      document.getElementById('emptyMsg').hidden = false;
-      return;
-    }
-    function hrefFor(w){
-      // w.href is repo-root-relative; the hub lives 2 levels under the repo root
-      // (ba2/hub/index.html), so it needs "../../" prepended.
-      return w.href ? ('../../' + w.href) : ('../study-guides/' + w.id + '/index.html');
+    var STORAGE_KEY = 'ba-student';
+    var gateBox = document.getElementById('gateBox');
+    var weeksSection = document.getElementById('weeksSection');
+    var input = document.getElementById('gateInput');
+    var submitBtn = document.getElementById('gateSubmit');
+    var errorEl = document.getElementById('gateError');
+    var welcomeEl = document.getElementById('gateWelcome');
+
+    function renderWeeks(){
+      var data = window.BA2_MANIFEST || { weeks: [] };
+      var list = document.getElementById('weekList');
+      var published = data.weeks.filter(function(w){ return w.published; });
+      if(!published.length){
+        document.getElementById('emptyMsg').hidden = false;
+        return;
+      }
+      function hrefFor(w){
+        // w.href is repo-root-relative; the hub lives 2 levels under the repo root
+        // (ba2/hub/index.html), so it needs "../../" prepended.
+        return w.href ? ('../../' + w.href) : ('../study-guides/' + w.id + '/index.html');
+      }
+      published.forEach(function(w){
+        var li = document.createElement('li');
+        li.className = 'week';
+        li.innerHTML =
+          '<a href="' + hrefFor(w) + '">' + w.title + '</a>' +
+          '<span class="badge">' + w.id.replace(/-/g, ' ') + '</span>';
+        list.appendChild(li);
+      });
     }
 
-    published.forEach(function(w){
-      var li = document.createElement('li');
-      li.className = 'week';
-      li.innerHTML =
-        '<a href="' + hrefFor(w) + '">' + w.title + '</a>' +
-        '<span class="badge">' + w.id.replace(/-/g, ' ') + '</span>';
-      list.appendChild(li);
-    });
+    function unlock(name){
+      welcomeEl.textContent = 'Welcome, ' + name + ' — here’s this week’s content:';
+      gateBox.hidden = true;
+      weeksSection.hidden = false;
+    }
+
+    function getStored(){
+      try{
+        var raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      }catch(e){ return null; }
+    }
+
+    function store(student){
+      try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(student)); }catch(e){}
+    }
+
+    renderWeeks();
+
+    fetch('../../_shared/students.json')
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        var roster = (data && data.students) || [];
+        function findById(id){
+          for(var i = 0; i < roster.length; i++){
+            if(roster[i].id === id) return roster[i];
+          }
+          return null;
+        }
+
+        var stored = getStored();
+        if(stored && findById(stored.id)){
+          unlock(stored.name);
+          return;
+        }
+
+        function attempt(){
+          var value = input.value.trim();
+          if(!value) return;
+          var match = findById(value);
+          if(!match){
+            errorEl.hidden = false;
+            input.value = '';
+            input.focus();
+            return;
+          }
+          store(match);
+          unlock(match.name);
+        }
+        submitBtn.addEventListener('click', attempt);
+        input.addEventListener('keydown', function(e){
+          if(e.key === 'Enter') attempt();
+        });
+      })
+      .catch(function(){
+        gateBox.querySelector('.gate-sub').textContent = 'Couldn’t load the student list. Please refresh the page.';
+        input.hidden = true;
+        submitBtn.hidden = true;
+      });
   })();
 </script>
 </body>
