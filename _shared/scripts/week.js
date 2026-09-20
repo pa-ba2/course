@@ -77,6 +77,12 @@ function setLang(lang){
 document.querySelectorAll('.langbar button[data-setlang]').forEach(function(b){
   b.addEventListener('click', function(){ setLang(b.dataset.setlang); });
 });
+/* data-i18n placeholders (unlike data-lang siblings) have no content until JS fills them in,
+   so run fillI18n once at load for whichever language starts active (default "en"). */
+(function(){
+  var activeBtn = document.querySelector('.langbar button[data-setlang].active');
+  fillI18n(activeBtn ? activeBtn.dataset.setlang : 'en');
+})();
 
 /* ---------- Tabs ---------- */
 document.querySelectorAll('.tabs').forEach(function(tabgroup){
