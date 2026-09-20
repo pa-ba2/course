@@ -278,6 +278,40 @@ document.querySelectorAll('.tabs').forEach(function(tabgroup){
   nav.appendChild(makeBtn(next, 'next'));
 })();
 
+/* ---------- Copy-to-clipboard for code blocks ----------
+   Each code block is authored as:
+     <div class="code-block"><pre><code>SELECT ...</code></pre><button class="code-copy-btn" type="button">Copy</button></div>
+   Harmless no-op on pages without any .code-block elements. */
+document.querySelectorAll('.code-block').forEach(function(block){
+  var btn = block.querySelector('.code-copy-btn');
+  var code = block.querySelector('code');
+  if(!btn || !code) return;
+  var originalLabel = btn.textContent;
+  btn.addEventListener('click', function(){
+    var text = code.textContent;
+    function showCopied(){
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function(){
+        btn.textContent = originalLabel;
+        btn.classList.remove('copied');
+      }, 1500);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(showCopied).catch(function(){});
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); showCopied(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+});
+
 /* ---------- Discount-slider demo (week-00 specific; harmless no-op on pages without it) ---------- */
 (function(){
   var slider = document.getElementById('discountSlider');

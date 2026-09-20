@@ -1,0 +1,53 @@
+/* Student-number entry gate — overlay, card, and "Welcome, {name}" chip (used by study-guide pages;
+   the hub has its own inline version of this instead of a popup).
+   Reuses the --paper/--ink/--teal/etc. custom properties already defined by whichever page loads
+   this (_shared/styles/week.css's :root), so this file doesn't redeclare a palette of its own. */
+
+body.gate-locked{ overflow:hidden; }
+
+.gate-overlay{
+  position:fixed; inset:0; z-index:1000;
+  background:rgba(28,43,58,.55);
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+.gate-box{
+  background:var(--paper, #FDFBF7); color:var(--ink, #1C2B3A);
+  border-radius:14px; padding:32px 28px; max-width:360px; width:100%;
+  box-shadow:0 12px 40px rgba(28,43,58,.25);
+  text-align:center; font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+.gate-title{ font-size:1.15rem; font-weight:800; margin-bottom:8px; }
+.gate-sub{ font-size:.92rem; color:var(--ink-soft, #55606E); margin-bottom:20px; }
+.gate-input{
+  display:block; width:100%; box-sizing:border-box;
+  border:1px solid var(--rule, #DED6C4); border-radius:8px;
+  padding:11px 14px; font-size:1rem; font-family:inherit;
+  margin-bottom:14px; text-align:center;
+}
+.gate-input:focus{ outline:none; border-color:var(--teal, #0E6F7E); }
+.gate-submit{
+  width:100%; border:none; border-radius:8px; padding:11px 14px;
+  background:var(--teal, #0E6F7E); color:#fff; font-weight:700; font-size:.95rem;
+  cursor:pointer; font-family:inherit;
+}
+.gate-submit:hover{ opacity:.9; }
+.gate-error{
+  margin-top:14px; font-size:.85rem; font-weight:600;
+  color:var(--red, #A8322A);
+}
+
+.gate-greeting{
+  display:flex; align-items:center;
+  background:var(--surface, #fff); border:1px solid var(--rule, #DED6C4);
+  border-radius:100px; padding:9px 16px; font-size:13.5px; font-weight:700;
+  color:var(--ink-soft, #55606E); white-space:nowrap;
+}
+.gate-greeting-standalone{
+  position:fixed; inset-inline-start:20px; top:16px; z-index:50;
+  box-shadow:0 2px 8px rgba(28,43,58,.08);
+}
+
+@media print{
+  .gate-overlay, .gate-greeting{ display:none !important; }
+}
