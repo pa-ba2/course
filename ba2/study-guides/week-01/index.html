@@ -20,16 +20,16 @@
 
 <div class="topbar-start">
   <a class="pill-btn back-btn" id="backBtn" href="../../hub/index.html">
-    &#8592; <span data-i18n="topbar.1"></span>
+    &#8592; <span data-i18n="topbar.1">Back to hub</span>
   </a>
   <button type="button" class="pill-btn contents-btn" id="contentsBtn">
-    &#9776; <span data-i18n="topbar.2"></span>
+    &#9776; <span data-i18n="topbar.2">Course contents</span>
   </button>
 </div>
 <div class="contents-overlay" id="contentsOverlay" hidden></div>
 <div class="contents-panel" id="contentsPanel" hidden>
   <div class="contents-panel-head">
-    <span data-i18n="contents.1"></span>
+    <span data-i18n="contents.1">Course contents</span>
     <button type="button" class="contents-close" id="contentsClose" aria-label="Close">&times;</button>
   </div>
   <ul class="contents-list" id="contentsList"></ul>
@@ -38,13 +38,33 @@
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">
-      <span data-i18n="sidebar.1"></span>
+      <span data-i18n="sidebar.1">Business Analytics 2</span>
     </div>
     <div class="brand-sub">
-      <span data-i18n="sidebar.2"></span>
+      <span data-i18n="sidebar.2">Week 1 — Statistics at Scale</span>
     </div>
     <nav>
-      <div data-i18n="sidebar.3"></div>
+      <div data-i18n="sidebar.3">
+        <a href="#welcome" class="current">Welcome</a>
+        <a href="#sampling">Choosing your sample</a>
+        <div class="grp-label">Core aggregates</div>
+        <a href="#avg-count-sum">AVG, COUNT, SUM</a>
+        <a href="#stddev">Standard deviation</a>
+        <div class="grp-label">Distributions</div>
+        <a href="#groupby-freq">Frequency distribution</a>
+        <a href="#median">Median</a>
+        <div class="grp-label">Diagnostic layer</div>
+        <a href="#groupby-segment">Comparing segments</a>
+        <div class="grp-label">AI layer</div>
+        <a href="#ai-corner">AI co-pilot corner</a>
+        <div class="grp-label">Applied</div>
+        <a href="#worked-example">Worked example</a>
+        <div class="grp-label">Reference</div>
+        <a href="#common-mistakes">Common mistakes</a>
+        <div class="grp-label">Homework</div>
+        <a href="#homework">Homework</a>
+        <a href="#before-week-2">Before Week 2</a>
+      </div>
     </nav>
   </aside>
 
@@ -52,47 +72,79 @@
 
     <header class="cover" id="top">
       <div class="kicker">
-        <span data-i18n="cover.1"></span>
+        <span data-i18n="cover.1">Business Analytics 2 &#183; Week 1</span>
       </div>
-      <div data-i18n="cover.2"></div>
+      <div data-i18n="cover.2">
+        <h1>Statistics at Scale:<em>Computing What You Already Understand</em></h1>
+        <p class="lede">You already know what a mean, a median, and a standard deviation are &#8212; BA1 covered that. This week is about a different problem entirely: computing them when your data lives in a database with millions of rows, not a spreadsheet you can see all of at once.</p>
+      </div>
 
       <div class="cover-tools">
         <a class="tool-btn" href="../../../ba-source-materials/Business%20Analytics%202/Week%201_%20Statistics%20Overview%20.pdf" target="_blank" rel="noopener">
-          <span data-i18n="cover.3"></span>
+          <span data-i18n="cover.3">View original slides</span>
         </a>
         <button type="button" class="tool-btn" onclick="window.print()">
-          <span data-i18n="cover.4"></span>
+          <span data-i18n="cover.4">Save as PDF</span>
         </button>
         <span class="total-time">
-          &#9201; <span data-i18n="cover.5"></span>
+          &#9201; <span data-i18n="cover.5">&#8776; 55 min &#183; reading + SQL practice</span>
         </span>
       </div>
       <div class="box keypoint" style="margin-top:18px;">
-        <div data-i18n="cover.6"></div>
+        <div data-i18n="cover.6">
+          <span class="box-label">A note on the slides above</span>
+          <p>The original deck covers the statistics half of this week faithfully. The SQL half is new &#8212; it doesn't exist in the original slides, because BA2 didn't originally teach SQL this early. This page merges both.</p>
+        </div>
       </div>
     </header>
 
     <!-- ============ 1 WELCOME ============ -->
     <section id="welcome">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="welcome.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="welcome.2"></span></span>
+        <span class="sec-num"><span data-i18n="welcome.1">Section 01</span></span>
+        <span class="time-est">&#9201; <span data-i18n="welcome.2">8 min</span></span>
       </div>
-      <div data-i18n="welcome.3"></div>
+      <div data-i18n="welcome.3">
+        <h2>Welcome: same numbers, new instrument</h2>
+        <p class="standfirst">Nothing about what a mean or a standard deviation <em>means</em> has changed. What's changed is the tool you reach for.</p>
+      </div>
 
       <div class="objectives">
-        <div data-i18n="welcome.4"></div>
+        <div data-i18n="welcome.4">
+          <div class="obj-label">By the end, you'll be able to</div>
+          <ul>
+            <li>Explain why a live company database calls for SQL instead of Excel</li>
+            <li>Set up a free, no-signup PostgreSQL sandbox and load a real dataset into it</li>
+            <li>Recognize that every statistic BA1 taught you still applies &#8212; only the computation method changes</li>
+          </ul>
+        </div>
       </div>
 
-      <div data-i18n="welcome.5"></div>
+      <div data-i18n="welcome.5">
+        <p>In BA1, "the data" meant a table you could open in Excel, scroll through, and see in its entirety. Real company data doesn't work that way. A retail chain's sales history lives in a database with millions of rows, updated every minute, shared by dozens of systems at once. You can't email someone a spreadsheet of it. You can't even open all of it in Excel &#8212; most spreadsheet software caps out around a million rows, and even under that cap, formulas that scan every row get painfully slow.</p>
+        <p>SQL (Structured Query Language) is how you talk to a database instead. This week doesn't teach you new statistics &#8212; it teaches you to ask a database for the same mean, median, and standard deviation you already know how to interpret, using a different set of hands.</p>
+      </div>
 
-      <div data-i18n="welcome.6"></div>
+      <div data-i18n="welcome.6">
+        <p>Here's the situation you're stepping into: a winter-coat retail chain ran the same clearance sale across four regions &#8212; North, South, East, and West &#8212; each store manager choosing their own discount depth. The data from all 28 sales now sits in one live table, and the regional director wants an answer to one concrete question: <strong>did any region's discount strategy clearly outperform the others, and if so, should the whole chain copy it next season?</strong> Answering that honestly means computing an average, a spread, and a median for each region and comparing them &#8212; not eyeballing a printout. That's what Sections 2 through 9 build toward, and Section 9 comes back to this exact question with the real numbers.</p>
+      </div>
 
       <div class="box analogy">
-        <div data-i18n="welcome.7"></div>
+        <div data-i18n="welcome.7">
+          <span class="box-label">Analogy</span>
+          <p>Excel is a kitchen counter &#8212; everything you're working with is laid out in front of you, and you can reach any of it directly. A database is a warehouse the size of a city, with millions of items, other people constantly moving things in and out of it while you work. You don't walk the whole warehouse to find what you need &#8212; you send a precise request to the person running it, and SQL is how you phrase that request.</p>
+        </div>
       </div>
 
-      <div data-i18n="welcome.8"></div>
+      <div data-i18n="welcome.8">
+        <h3>Setting up your sandbox</h3>
+        <p>You don't need to install anything. The <strong>Aiven PostgreSQL Playground</strong> runs a real Postgres database directly in your browser &#8212; no signup, nothing to install. It resets when you close the tab, which is fine: you'll re-run the setup script below at the start of each exercise.</p>
+        <ol class="steps">
+          <li><strong>Open the playground</strong> &#8212; Go to <span class="mono">aiven.io/tools/pg-playground</span> in a new tab.</li>
+          <li><strong>Paste the setup script</strong> &#8212; Copy the code block below and run it. It creates one table, <span class="mono">clearance_sales</span>, and fills it with 28 rows of real-looking winter-coat clearance data &#8212; the same seasonal-markdown story from Week 0, now with a full table to compute real statistics on.</li>
+          <li><strong>Keep the tab open</strong> &#8212; Every exercise this week queries this same table. If you accidentally close the tab, just re-paste the script.</li>
+        </ol>
+      </div>
 
       <div class="code-block">
         <pre><code>CREATE TABLE clearance_sales (
@@ -136,7 +188,10 @@ INSERT INTO clearance_sales (id, region, discount_pct, units_sold, revenue) VALU
       </div>
 
       <div class="box keypoint">
-        <div data-i18n="welcome.9"></div>
+        <div data-i18n="welcome.9">
+          <span class="box-label">Alternative: Supabase</span>
+          <p>The Aiven Playground resets on tab close &#8212; fine for this week's exercises, but if you want a database that persists across all 12 weeks of this course, <a href="https://supabase.com" target="_blank" rel="noopener">Supabase's free tier</a> gives you a real, permanent PostgreSQL database with a similar in-browser SQL editor. Either is a correct choice; this page assumes the Aiven Playground for simplicity.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="welcome"></div>
@@ -145,18 +200,23 @@ INSERT INTO clearance_sales (id, region, discount_pct, units_sold, revenue) VALU
     <!-- ============ 2 SAMPLING ============ -->
     <section id="sampling">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="sampling.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="sampling.2"></span></span>
+        <span class="sec-num"><span data-i18n="sampling.1">Section 02</span></span>
+        <span class="time-est">&#9201; <span data-i18n="sampling.2">5 min</span></span>
       </div>
-      <div data-i18n="sampling.3"></div>
+      <div data-i18n="sampling.3">
+        <h2>SELECT / FROM / WHERE: choosing your sample</h2>
+        <p class="standfirst">BA1 taught you that a sample is a deliberate choice, not an accident. In SQL, that choice has a name: <code class="mono">WHERE</code>.</p>
+      </div>
 
-      <div data-i18n="sampling.4"></div>
+      <div data-i18n="sampling.4">
+        <p>Every SQL query that reads data follows the same skeleton: <code class="mono">SELECT</code> which columns you want, <code class="mono">FROM</code> which table, and optionally <code class="mono">WHERE</code> to narrow the rows down. That last clause is doing exactly what BA1 called sampling &#8212; deliberately choosing a subset of the whole population to work with, instead of assuming "all of it" is the right answer by default.</p>
+      </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="sampling.5"></span></div>
-        <div class="fig-title"><span data-i18n="sampling.6"></span></div>
+        <div class="fig"><span data-i18n="sampling.5">Diagram 1</span></div>
+        <div class="fig-title"><span data-i18n="sampling.6">WHERE narrows the population to your sample</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-01.svg" alt="A full table of rows, with WHERE narrowing it down to a highlighted subset"></div>
-        <figcaption><span data-i18n="sampling.7"></span></figcaption>
+        <figcaption><span data-i18n="sampling.7">Exactly the same idea as BA1's sampling frame &#8212; just written as a clause instead of a decision on paper.</span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -167,7 +227,10 @@ WHERE region = 'North';</code></pre>
       </div>
 
       <div class="box mistake">
-        <div data-i18n="sampling.8"></div>
+        <div data-i18n="sampling.8">
+          <span class="box-label">Common mistake</span>
+          <p>Forgetting <code class="mono">WHERE</code> entirely and assuming a query without it is somehow "neutral." A query with no <code class="mono">WHERE</code> clause samples <em>everything</em> &#8212; which is itself a sampling choice, and not always the right one. "All the data" is a decision, not a default that avoids one.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="sampling"></div>
@@ -176,16 +239,21 @@ WHERE region = 'North';</code></pre>
     <!-- ============ 3 AVG COUNT SUM ============ -->
     <section id="avg-count-sum">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="avg-count-sum.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="avg-count-sum.2"></span></span>
+        <span class="sec-num"><span data-i18n="avg-count-sum.1">Section 03</span></span>
+        <span class="time-est">&#9201; <span data-i18n="avg-count-sum.2">5 min</span></span>
       </div>
-      <div data-i18n="avg-count-sum.3"></div>
+      <div data-i18n="avg-count-sum.3">
+        <h2>AVG(), COUNT(), SUM()</h2>
+        <p class="standfirst">Three functions. One of them is secretly just the other two.</p>
+      </div>
 
-      <div data-i18n="avg-count-sum.4"></div>
+      <div data-i18n="avg-count-sum.4">
+        <p><code class="mono">SUM()</code> adds up a column. <code class="mono">COUNT()</code> counts rows. And <code class="mono">AVG()</code> &#8212; the function that computes BA1's mean &#8212; isn't doing anything new at all.</p>
+      </div>
 
       <div class="formula">
         <span class="eq">AVG(x) = SUM(x) / COUNT(x)</span>
-        <span class="note"><span data-i18n="avg-count-sum.5"></span></span>
+        <span class="note"><span data-i18n="avg-count-sum.5">Literally. There is no separate "averaging" logic &#8212; it's a sum divided by a count, exactly like BA1 taught you.</span></span>
       </div>
 
       <div class="code-block">
@@ -204,7 +272,10 @@ FROM clearance_sales;
       </div>
 
       <div class="box mistake">
-        <div data-i18n="avg-count-sum.6"></div>
+        <div data-i18n="avg-count-sum.6">
+          <span class="box-label">Common mistake</span>
+          <p><code class="mono">COUNT(column)</code> and <code class="mono">COUNT(*)</code> are not always the same. <code class="mono">COUNT(*)</code> counts every row. <code class="mono">COUNT(column)</code> only counts rows where that column isn't <code class="mono">NULL</code>. If <code class="mono">revenue</code> had missing values, <code class="mono">AVG(revenue)</code> would quietly divide by a smaller count than the row total &#8212; correct behaviour, but only if you know it's happening.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="avg-count-sum"></div>
@@ -213,23 +284,38 @@ FROM clearance_sales;
     <!-- ============ 4 STDDEV ============ -->
     <section id="stddev">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="stddev.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="stddev.2"></span></span>
+        <span class="sec-num"><span data-i18n="stddev.1">Section 04</span></span>
+        <span class="time-est">&#9201; <span data-i18n="stddev.2">10 min</span></span>
       </div>
-      <div data-i18n="stddev.3"></div>
+      <div data-i18n="stddev.3">
+        <h2>Standard deviation: build it, then trust the function</h2>
+        <p class="standfirst">BA1's four-step recipe &#8212; deviate, square, average, root &#8212; translates into SQL almost line for line.</p>
+      </div>
 
-      <div data-i18n="stddev.4"></div>
+      <div data-i18n="stddev.4">
+        <p>Before reaching for the built-in function, build it by hand once in SQL &#8212; so when you use the shortcut later, you know exactly what it's doing.</p>
+      </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="stddev.5"></span></div>
-        <div class="fig-title"><span data-i18n="stddev.6"></span></div>
+        <div class="fig"><span data-i18n="stddev.5">Diagram 2</span></div>
+        <div class="fig-title"><span data-i18n="stddev.6">Standard deviation, one step at a time</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-02.svg" alt="Standard deviation by hand: deviations, squared, averaged, then square-rooted"></div>
-        <figcaption><span data-i18n="stddev.7"></span></figcaption>
+        <figcaption><span data-i18n="stddev.7">Worked using the North region's 7 sales &#8212; the same four steps BA1 described, now in SQL.</span></figcaption>
       </figure>
 
-      <div data-i18n="stddev.8"></div>
+      <div data-i18n="stddev.8">
+        <h3>What each of the four steps is actually doing</h3>
+        <ol class="steps">
+          <li><strong>Deviate</strong> &#8212; subtract the mean from each sale's revenue. This just asks "how far off from typical was this one?" for every row. A sale right at the mean deviates by 0; a sale far above or below it gets a large positive or negative number.</li>
+          <li><strong>Square</strong> &#8212; multiply each deviation by itself. Two things happen at once: negative deviations (below the mean) turn positive, so they stop cancelling out the positive ones when you add everything up; and bigger misses get punished disproportionately &#8212; a deviation of $500 becomes 250,000, four times the 62,500 you get from a $250 deviation, not just double. That's the same "large errors matter more" logic behind a store manager caring more about one wildly-off sale than several mildly-off ones.</li>
+          <li><strong>Average</strong> &#8212; sum the squared deviations and divide by the count (n&#8722;1 for a sample, as below). This collapses 7 individual squared-deviation numbers into one number representing typical squared spread &#8212; on its own it's called the <em>variance</em>, but it's in dollars-squared, which isn't a unit anyone can picture.</li>
+          <li><strong>Root</strong> &#8212; take the square root to undo the squaring from step 2 and bring the units back to plain dollars. That final number is the standard deviation: roughly how far a typical sale strays from the mean, in the same units the data started in.</li>
+        </ol>
+      </div>
 
-      <div data-i18n="stddev.9"></div>
+      <div data-i18n="stddev.9">
+        <h3>Step 1&#8211;3: the mean, the squared deviations, the average</h3>
+      </div>
 
       <div class="code-block">
         <pre><code>-- Step 1: get the mean first (as a subquery, since SQL needs it before it can deviate anything from it)
@@ -247,7 +333,10 @@ WHERE region = 'North';
         <button type="button" class="code-copy-btn">Copy</button>
       </div>
 
-      <div data-i18n="stddev.10"></div>
+      <div data-i18n="stddev.10">
+        <h3>Now the built-in functions</h3>
+        <p>PostgreSQL ships both versions of the formula &#8212; because BA1 also taught you there are two: sample and population.</p>
+      </div>
 
       <div class="code-block">
         <pre><code>SELECT
@@ -262,7 +351,10 @@ WHERE region = 'North';
       </div>
 
       <div class="box keypoint">
-        <div data-i18n="stddev.11"></div>
+        <div data-i18n="stddev.11">
+          <span class="box-label">Sample vs. population, in this dataset</span>
+          <p>These 7 North-region sales are a sample of North's clearance history, not literally every winter-coat sale the region has ever run &#8212; so <code class="mono">STDDEV_SAMP()</code> (dividing by n&#8722;1) is the right choice here, and almost always the right choice in business analytics. You'd only reach for <code class="mono">STDDEV_POP()</code> if your rows genuinely were the entire population with nothing left out.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="stddev"></div>
@@ -271,18 +363,23 @@ WHERE region = 'North';
     <!-- ============ 5 GROUPBY FREQ ============ -->
     <section id="groupby-freq">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="groupby-freq.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="groupby-freq.2"></span></span>
+        <span class="sec-num"><span data-i18n="groupby-freq.1">Section 05</span></span>
+        <span class="time-est">&#9201; <span data-i18n="groupby-freq.2">6 min</span></span>
       </div>
-      <div data-i18n="groupby-freq.3"></div>
+      <div data-i18n="groupby-freq.3">
+        <h2>GROUP BY + COUNT as a frequency distribution</h2>
+        <p class="standfirst">BA1's frequency table, in one query.</p>
+      </div>
 
-      <div data-i18n="groupby-freq.4"></div>
+      <div data-i18n="groupby-freq.4">
+        <p><code class="mono">GROUP BY</code> collapses rows sharing a value into one row per group, and any aggregate function in the <code class="mono">SELECT</code> list (like <code class="mono">COUNT(*)</code>) then runs per group instead of over the whole table. Bucket a numeric column into ranges first, and this becomes exactly BA1's frequency distribution &#8212; a histogram, expressed as a table.</p>
+      </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="groupby-freq.5"></span></div>
-        <div class="fig-title"><span data-i18n="groupby-freq.6"></span></div>
+        <div class="fig"><span data-i18n="groupby-freq.5">Diagram 3</span></div>
+        <div class="fig-title"><span data-i18n="groupby-freq.6">GROUP BY, drawn as a histogram</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-03.svg" alt="GROUP BY revenue bucket, COUNT star, drawn as a histogram: 2, 5, 7, 9, 3, 2"></div>
-        <figcaption><span data-i18n="groupby-freq.7"></span></figcaption>
+        <figcaption><span data-i18n="groupby-freq.7">Every clearance sale, bucketed by revenue. Same shape you'd get pivoting this in Excel &#8212; just computed inside the database.</span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -310,7 +407,10 @@ ORDER BY revenue_bucket;
       </div>
 
       <div class="box mistake">
-        <div data-i18n="groupby-freq.8"></div>
+        <div data-i18n="groupby-freq.8">
+          <span class="box-label">Common mistake</span>
+          <p>Adding a column to <code class="mono">SELECT</code> without adding it to <code class="mono">GROUP BY</code> (or wrapping it in an aggregate). PostgreSQL refuses to run a query like that &#8212; it raises an error rather than guessing which row's value you meant, which is safer than databases that silently pick one at random.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="groupby-freq"></div>
@@ -319,18 +419,23 @@ ORDER BY revenue_bucket;
     <!-- ============ 6 MEDIAN ============ -->
     <section id="median">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="median.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="median.2"></span></span>
+        <span class="sec-num"><span data-i18n="median.1">Section 06</span></span>
+        <span class="time-est">&#9201; <span data-i18n="median.2">6 min</span></span>
       </div>
-      <div data-i18n="median.3"></div>
+      <div data-i18n="median.3">
+        <h2>Median: the one that needs everything sorted first</h2>
+        <p class="standfirst">Why doesn't Postgres just have <code class="mono">MEDIAN()</code> the way it has <code class="mono">AVG()</code>?</p>
+      </div>
 
-      <div data-i18n="median.4"></div>
+      <div data-i18n="median.4">
+        <p><code class="mono">SUM</code>, <code class="mono">COUNT</code>, and <code class="mono">AVG</code> are all <strong>single-pass</strong>: the database can read the rows once, in whatever order they arrive, keeping a running total as it goes, and never look at a row twice. The median can't work that way. To find "the middle value," you first need to know what "the middle" even is &#8212; which requires every value to be sorted into order first. That's a fundamentally more expensive operation, which is exactly why BA1 called the median more robust to outliers but more work to compute by hand.</p>
+      </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="median.5"></span></div>
-        <div class="fig-title"><span data-i18n="median.6"></span></div>
+        <div class="fig"><span data-i18n="median.5">Diagram 4</span></div>
+        <div class="fig-title"><span data-i18n="median.6">Single-pass vs. sort-required</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-04.svg" alt="SUM, AVG and STDDEV read the table once in a single pass; MEDIAN needs every row sorted first"></div>
-        <figcaption><span data-i18n="median.7"></span></figcaption>
+        <figcaption><span data-i18n="median.7">This is the exact reason Postgres has no plain MEDIAN() function &#8212; it isn't an oversight.</span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -342,7 +447,10 @@ FROM clearance_sales;
       </div>
 
       <div class="box analogy">
-        <div data-i18n="median.8"></div>
+        <div data-i18n="median.8">
+          <span class="box-label">Analogy</span>
+          <p><code class="mono">PERCENTILE_CONT(0.5)</code> literally means "the value at the 50th percentile" &#8212; the median is just one specific percentile. Swap <span class="mono">0.5</span> for <span class="mono">0.25</span> or <span class="mono">0.75</span> and you've computed BA1's quartiles with the exact same function.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="median"></div>
@@ -351,12 +459,17 @@ FROM clearance_sales;
     <!-- ============ 7 GROUPBY SEGMENT ============ -->
     <section id="groupby-segment">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="groupby-segment.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="groupby-segment.2"></span></span>
+        <span class="sec-num"><span data-i18n="groupby-segment.1">Section 07</span></span>
+        <span class="time-est">&#9201; <span data-i18n="groupby-segment.2">6 min</span></span>
       </div>
-      <div data-i18n="groupby-segment.3"></div>
+      <div data-i18n="groupby-segment.3">
+        <h2>GROUP BY for per-segment stats</h2>
+        <p class="standfirst">One query, one stat per region &#8212; this is where descriptive statistics starts turning diagnostic.</p>
+      </div>
 
-      <div data-i18n="groupby-segment.4"></div>
+      <div data-i18n="groupby-segment.4">
+        <p><code class="mono">GROUP BY</code> isn't limited to counting. Any aggregate &#8212; <code class="mono">AVG</code>, <code class="mono">STDDEV_SAMP</code>, <code class="mono">PERCENTILE_CONT</code> &#8212; can run per group. That turns "what's the average revenue?" (descriptive) into "which region's average is different, and by how much?" (diagnostic) &#8212; exactly the shift BA1 described between the two levels.</p>
+      </div>
 
       <div class="code-block">
         <pre><code>SELECT
@@ -384,7 +497,10 @@ ORDER BY avg_revenue DESC;</code></pre>
       </div>
 
       <div class="box keypoint">
-        <div data-i18n="groupby-segment.5"></div>
+        <div data-i18n="groupby-segment.5">
+          <span class="box-label">Reading this like BA1 taught you</span>
+          <p>East isn't just highest on average &#8212; it also has the highest spread (stddev 1344.36, well above South's 923.22). Two regions can have different means for entirely different reasons: East might just run bigger sales days, or it might be one enormous outlier sale dragging its own average up. The mean alone can't tell you which &#8212; you'd need to look at the underlying rows, exactly as BA1's "the mean describes nobody in the room" warning taught you.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="groupby-segment"></div>
@@ -393,22 +509,27 @@ ORDER BY avg_revenue DESC;</code></pre>
     <!-- ============ 8 AI CORNER ============ -->
     <section id="ai-corner">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="ai-corner.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="ai-corner.2"></span></span>
+        <span class="sec-num"><span data-i18n="ai-corner.1">Section 08 &#8212; AI layer</span></span>
+        <span class="time-est">&#9201; <span data-i18n="ai-corner.2">7 min</span></span>
       </div>
-      <div data-i18n="ai-corner.3"></div>
+      <div data-i18n="ai-corner.3">
+        <h2>AI co-pilot corner: SQL written by AI still needs Week 0's three checks</h2>
+        <p class="standfirst">An AI assistant will happily write you a syntactically perfect query that's statistically wrong.</p>
+      </div>
 
       <div class="tabs">
         <div class="tab-heads">
           <button class="tab-btn active" data-tab="weak">
-            <span data-i18n="ai-corner.4"></span>
+            <span data-i18n="ai-corner.4">Weak prompt</span>
           </button>
           <button class="tab-btn" data-tab="strong">
-            <span data-i18n="ai-corner.5"></span>
+            <span data-i18n="ai-corner.5">Strong prompt</span>
           </button>
         </div>
         <div class="tab-panel active" data-panel="weak" data-print-label="Weak prompt">
-          <div data-i18n="ai-corner.6"></div>
+          <div data-i18n="ai-corner.6">
+            <p><strong>Prompt:</strong> "Write a SQL query to get the standard deviation of revenue."</p>
+          </div>
           <div class="code-block">
             <pre><code>-- What the assistant hands back:
 SELECT SQRT(
@@ -418,10 +539,14 @@ FROM clearance_sales,
      (SELECT AVG(revenue) AS avg_rev FROM clearance_sales) t;</code></pre>
             <button type="button" class="code-copy-btn">Copy</button>
           </div>
-          <div data-i18n="ai-corner.7"></div>
+          <div data-i18n="ai-corner.7">
+            <p>It runs. It returns a number. The number is <strong>wrong for this use case</strong> &#8212; it silently divides by <code class="mono">n</code> (population formula) when these rows are a sample, because the prompt never said which one mattered, and the assistant guessed.</p>
+          </div>
         </div>
         <div class="tab-panel" data-panel="strong" data-print-label="Strong prompt">
-          <div data-i18n="ai-corner.8"></div>
+          <div data-i18n="ai-corner.8">
+            <p><strong>Prompt:</strong> "Write a PostgreSQL query that computes the <em>sample</em> standard deviation (n&#8722;1 denominator) of the revenue column in clearance_sales, using STDDEV_SAMP, and explain in a comment why sample vs. population matters here."</p>
+          </div>
           <div class="code-block">
             <pre><code>-- These 28 rows are a sample of the store's clearance history,
 -- not the entire population of every sale ever made, so we divide by n-1.
@@ -435,14 +560,17 @@ FROM clearance_sales;
       </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="ai-corner.9"></span></div>
-        <div class="fig-title"><span data-i18n="ai-corner.10"></span></div>
+        <div class="fig"><span data-i18n="ai-corner.9">Diagram 5</span></div>
+        <div class="fig-title"><span data-i18n="ai-corner.10">The three checks, for SQL this time</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-05.svg" alt="AI-generated SQL passes through three checks before it becomes a decision, or loops back"></div>
-        <figcaption><span data-i18n="ai-corner.11"></span></figcaption>
+        <figcaption><span data-i18n="ai-corner.11">"Verify it" is exactly the check that catches the n-vs-n&#8722;1 mistake &#8212; a syntactically valid query is not the same as a correct one.</span></figcaption>
       </figure>
 
       <div class="box mistake">
-        <div data-i18n="ai-corner.12"></div>
+        <div data-i18n="ai-corner.12">
+          <span class="box-label">Common mistake</span>
+          <p>Accepting an AI-generated statistic because the query ran without an error. A query with zero syntax errors and one wrong assumption produces a confident, clean-looking, wrong number &#8212; which is far more dangerous than a query that fails to run at all.</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="ai-corner"></div>
@@ -451,34 +579,52 @@ FROM clearance_sales;
     <!-- ============ 9 WORKED EXAMPLE ============ -->
     <section id="worked-example">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="worked-example.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="worked-example.2"></span></span>
+        <span class="sec-num"><span data-i18n="worked-example.1">Section 09</span></span>
+        <span class="time-est">&#9201; <span data-i18n="worked-example.2">8 min</span></span>
       </div>
-      <div data-i18n="worked-example.3"></div>
-
-      <div data-i18n="worked-example.4"></div>
-
-      <div class="box example">
-        <div data-i18n="worked-example.5"></div>
+      <div data-i18n="worked-example.3">
+        <h2>Worked example: the winter-coat clearance, in full</h2>
+        <p class="standfirst">Week 0 introduced this decision conceptually. Now you have the real table and the real numbers behind it.</p>
       </div>
 
-      <div class="box example">
-        <div data-i18n="worked-example.6"></div>
+      <div data-i18n="worked-example.4">
+        <p>A department store ran winter-coat clearance sales across four regions, at discounts from 10% to 40%. The store's leadership wants one question answered: <strong>which region's approach should the others copy?</strong></p>
+        <p>Four queries answer it &#8212; the same four ideas this whole page has covered, run in sequence:</p>
       </div>
 
       <div class="box example">
-        <div data-i18n="worked-example.7"></div>
+        <div data-i18n="worked-example.5">
+          <span class="box-label">1. The overall picture (mean &amp; spread)</span>
+          <p>Across all 28 sales: mean revenue <strong>$2,931.57</strong>, sample standard deviation <strong>$1,191.15</strong>. That spread is large relative to the mean &#8212; a single region-level number would hide a lot.</p>
+        </div>
+      </div>
+
+      <div class="box example">
+        <div data-i18n="worked-example.6">
+          <span class="box-label">2. The frequency distribution</span>
+          <p>Section 5's histogram already showed most sales cluster in the $2,000&#8211;$3,999 range (7 + 9 = 16 of 28 sales), with only 4 sales making it past $4,000. Most clearance revenue is unremarkable &#8212; a handful of high-discount, high-volume days do the heavy lifting.</p>
+        </div>
+      </div>
+
+      <div class="box example">
+        <div data-i18n="worked-example.7">
+          <span class="box-label">3. The regional comparison</span>
+          <p>Section 7's <code class="mono">GROUP BY region</code> table, visualized:</p>
+        </div>
       </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-i18n="worked-example.8"></span></div>
-        <div class="fig-title"><span data-i18n="worked-example.9"></span></div>
+        <div class="fig"><span data-i18n="worked-example.8">Diagram 6</span></div>
+        <div class="fig-title"><span data-i18n="worked-example.9">Average revenue and spread, by region</span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-06.svg" alt="Average clearance revenue by region: North 3130.86, South 2497.14, East 3658.29, West 2440.00, with spread shown as an error bar on each"></div>
-        <figcaption><span data-i18n="worked-example.10"></span></figcaption>
+        <figcaption><span data-i18n="worked-example.10">East leads on average &#8212; but also has the widest whiskers, meaning the least consistent results.</span></figcaption>
       </figure>
 
       <div class="box keypoint">
-        <div data-i18n="worked-example.11"></div>
+        <div data-i18n="worked-example.11">
+          <span class="box-label">4. The decision</span>
+          <p>East's approach earns the most on average &#8212; but the same data shows East is also the least predictable region, with a standard deviation nearly 46% higher than South's. Copying East's discount strategy chain-wide is a bet on volatility, not just revenue. The recommendation: pilot East's approach in one more region first, and specifically check whether East's high average is broad-based or driven by one or two outlier sale days, before rolling it out everywhere. Exactly like Week 0's markdown question, the analysis isn't finished until it produces a decision &#8212; and here, the honest decision is "test further," not "copy East."</p>
+        </div>
       </div>
 
       <div class="exercise" data-question-id="worked-example"></div>
@@ -487,15 +633,22 @@ FROM clearance_sales;
     <!-- ============ 10 COMMON MISTAKES ============ -->
     <section id="common-mistakes">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="common-mistakes.1"></span></span>
-        <span class="time-est">&#9201; <span data-i18n="common-mistakes.2"></span></span>
+        <span class="sec-num"><span data-i18n="common-mistakes.1">Section 10</span></span>
+        <span class="time-est">&#9201; <span data-i18n="common-mistakes.2">4 min</span></span>
       </div>
-      <div data-i18n="common-mistakes.3"></div>
+      <div data-i18n="common-mistakes.3">
+        <h2>Common mistakes, gathered in one place</h2>
+        <p class="standfirst">Everything this page warned about, as a single reference.</p>
+      </div>
 
       <div class="table-scroll">
       <table>
-        <thead><tr><th><span data-i18n="common-mistakes.4"></span></th><th><span data-i18n="common-mistakes.5"></span></th></tr></thead>
-        <tbody data-i18n="common-mistakes.6"></tbody>
+        <thead><tr><th><span data-i18n="common-mistakes.4">Mistake</span></th><th><span data-i18n="common-mistakes.5">Why it matters</span></th></tr></thead>
+        <tbody data-i18n="common-mistakes.6">
+          <tr><td><strong>STDDEV_POP instead of STDDEV_SAMP</strong></td><td>Dividing by n instead of n&#8722;1 understates the true spread whenever your rows are a sample, not the full population &#8212; which is almost always.</td></tr>
+          <tr><td><strong>Assuming COUNT(*) = COUNT(column)</strong></td><td><code class="mono">COUNT(column)</code> silently skips NULLs. If you want the row count regardless of missing values, use <code class="mono">COUNT(*)</code>.</td></tr>
+          <tr><td><strong>A SELECT column missing from GROUP BY</strong></td><td>Postgres errors instead of guessing &#8212; every non-aggregated column in SELECT must appear in GROUP BY too.</td></tr>
+        </tbody>
       </table>
       </div>
     </section>
@@ -503,29 +656,46 @@ FROM clearance_sales;
     <!-- ============ 11 HOMEWORK ============ -->
     <section id="homework">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="homework.1"></span></span>
+        <span class="sec-num"><span data-i18n="homework.1">Section 11</span></span>
       </div>
-      <div data-i18n="homework.2"></div>
+      <div data-i18n="homework.2">
+        <h2>Homework: write your report to the regional director</h2>
+        <p class="standfirst">You're the analyst. The regional director from Section 1 is waiting on your answer. Write it up as a short report, in your own words, and email it to me &#8212; each section below is small on its own; answer them in order.</p>
+      </div>
 
       <div class="box keypoint">
-        <div data-i18n="homework.3"></div>
+        <div data-i18n="homework.3">
+          <span class="box-label">Write your report, section by section, in order</span>
+          <ol class="steps">
+            <li><strong>Set the scene</strong> &#8212; In 2&#8211;3 sentences, describe the dataset (what it is, where it lives) and the business question the regional director actually wants answered.</li>
+            <li><strong>Why SQL, not Excel</strong> &#8212; In your own words, explain why this couldn't just be done by opening a spreadsheet.</li>
+            <li><strong>The center and the spread</strong> &#8212; What did <span class="mono">AVG</span>, <span class="mono">COUNT</span>, and <span class="mono">SUM</span> tell you about the data? Then explain the standard deviation: what it means, how you built it by hand, and what the built-in function confirmed.</li>
+            <li><strong>The shape of the data</strong> &#8212; What did grouping the sales into buckets and counting them show you about how the discounts are distributed? What did the median add that the mean alone didn't?</li>
+            <li><strong>Comparing regions</strong> &#8212; Which region had the highest average revenue per sale? Which was the most volatile (least predictable)? Why does knowing both matter more than knowing just one? <strong>Paste the actual SQL query you ran and its result</strong> &#8212; your report needs to show the evidence, not just state the conclusion.</li>
+            <li><strong>Working with AI</strong> &#8212; Describe a moment from this week where you'd need to explain, verify, or stand behind a SQL query an AI assistant wrote for you. What could go wrong if you skipped that step?</li>
+            <li><strong>The decision</strong> &#8212; Should the chain roll out the best-performing region's discount strategy everywhere next season? Give your recommendation and justify it with the actual numbers, not a guess.</li>
+          </ol>
+        </div>
       </div>
     </section>
 
     <!-- ============ 12 BEFORE WEEK 2 ============ -->
     <section id="before-week-2">
       <div class="sec-head">
-        <span class="sec-num"><span data-i18n="before-week-2.1"></span></span>
+        <span class="sec-num"><span data-i18n="before-week-2.1">Section 12</span></span>
       </div>
-      <div data-i18n="before-week-2.2"></div>
+      <div data-i18n="before-week-2.2">
+        <h2>Before Week 2</h2>
+        <p>Every query this week read from one table. Week 2 introduces <code class="mono">JOIN</code> &#8212; combining rows from two tables at once &#8212; but that's next week's problem, not this one's.</p>
+      </div>
 
-      <a class="top-link" href="#top"><span data-i18n="before-week-2.3"></span></a>
+      <a class="top-link" href="#top"><span data-i18n="before-week-2.3">Back to top &#8593;</span></a>
     </section>
 
     <nav class="week-nav" id="weekNav"></nav>
 
     <footer>
-      <span data-i18n="footer.1"></span>
+      <span data-i18n="footer.1">BA2 Week 1 &#183; Statistics at Scale</span>
     </footer>
 
   </main>
