@@ -1,8 +1,7 @@
-// BA2 Week 1 — exercise question bank (EN / AR — this week intentionally skips Persian).
+// BA2 Week 1 — exercise question bank (EN / AR / FA).
 // Loaded via <script src>, consumed by _shared/scripts/week.js.
-// Persian (fa) is deliberately omitted for this week; the ar content is a solid-faith draft
-// translation, like the rest of this course's ar content — it should get a native-speaker
-// review pass before real students see it.
+// The ar/fa content is a solid-faith draft translation, like the rest of this course's ar/fa
+// content — it should get a native-speaker review pass before real students see it.
 window.WEEK_QUESTIONS = {
 
   welcome: {
@@ -22,6 +21,14 @@ window.WEEK_QUESTIONS = {
         "يحمّل Excel كامل البيانات في الذاكرة وليس مصمماً للاستعلام عن قاعدة بيانات حية ومتغيرة باستمرار",
         "لا يدعم Excel دالة AVERAGE على البيانات الكبيرة"
       ]
+    },
+    fa: {
+      q: "چرا Excel نمی‌تواند وقتی داده‌های فروش یک شرکت در پایگاه داده‌ای زنده با میلیون‌ها ردیف زندگی می‌کند، کار را ادامه دهد؟",
+      options: [
+        "Excel نمی‌تواند اعداد منفی را نمایش دهد",
+        "Excel کل داده را در حافظه بارگذاری می‌کند و برای پرس‌وجو از پایگاه داده‌ای زنده و همواره در حال تغییر ساخته نشده",
+        "Excel از تابع AVERAGE روی داده‌های بزرگ پشتیبانی نمی‌کند"
+      ]
     }
   },
 
@@ -33,6 +40,10 @@ window.WEEK_QUESTIONS = {
     },
     ar: {
       q: "في SQL، أي عبارة تلعب نفس دور فكرة BA1 عن \"اختيار عيّنتك\"؟",
+      options: ["SELECT", "FROM", "WHERE"]
+    },
+    fa: {
+      q: "در SQL، کدام عبارت همان نقش ایدهٔ BA1 دربارهٔ «انتخاب نمونه‌ات» را بازی می‌کند؟",
       options: ["SELECT", "FROM", "WHERE"]
     }
   },
@@ -46,6 +57,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "ما الذي تحسبه AVG(revenue) فعليًا تحت الغطاء؟",
       options: ["SUM(revenue) / COUNT(revenue)", "COUNT(revenue) / SUM(revenue)", "SUM(revenue) / COUNT(*) دائمًا، حتى مع القيم NULL"]
+    },
+    fa: {
+      q: "AVG(revenue) در پشت صحنه واقعاً چه چیزی را محاسبه می‌کند؟",
+      options: ["SUM(revenue) / COUNT(revenue)", "COUNT(revenue) / SUM(revenue)", "SUM(revenue) / COUNT(*) همیشه، حتی با مقادیر NULL"]
     }
   },
 
@@ -58,6 +73,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "تحسب انحرافًا معياريًا من عيّنة من المبيعات السابقة (وليس كامل مجتمع كل المبيعات على الإطلاق). أي دالة يجب أن تستخدم؟",
       options: ["STDDEV_POP()", "STDDEV_SAMP()", "تُعيدان دائمًا نفس الرقم"]
+    },
+    fa: {
+      q: "می‌خواهی انحراف معیار را از یک نمونهٔ فروش‌های گذشته محاسبه کنی (نه کل جامعهٔ همهٔ فروش‌ها). از کدام تابع باید استفاده کنی؟",
+      options: ["STDDEV_POP()", "STDDEV_SAMP()", "هر دو همیشه همان عدد را برمی‌گردانند"]
     }
   },
 
@@ -70,6 +89,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "تنتج GROUP BY revenue_bucket, COUNT(*) جدولاً من الفئات وأعدادها. ما الذي يعادله هذا في SQL؟",
       options: ["توزيع تكراري / رسم بياني (هيستوغرام)", "انحراف معياري", "عملية JOIN"]
+    },
+    fa: {
+      q: "GROUP BY revenue_bucket, COUNT(*) جدولی از بازه‌ها و شمارش‌ها تولید می‌کند. این معادل SQLایِ چه چیزی است؟",
+      options: ["توزیع فراوانی / هیستوگرام", "انحراف معیار", "یک عملیات JOIN"]
     }
   },
 
@@ -90,6 +113,14 @@ window.WEEK_QUESTIONS = {
         "لا يمكن حساب الوسيط إلا على الأعداد الصحيحة",
         "يتطلب الوسيط ترتيب البيانات بالكامل أولاً، بخلاف الدوال التجميعية أحادية المرور مثل SUM/AVG"
       ]
+    },
+    fa: {
+      q: "چرا PostgreSQL تابع سادهٔ MEDIAN() را همان‌طور که AVG() را دارد، ارائه نمی‌دهد؟",
+      options: [
+        "PostgreSQL میانه را آماری بی‌معنا می‌داند",
+        "میانه فقط روی اعداد صحیح قابل محاسبه است",
+        "میانه ابتدا نیاز دارد داده کاملاً مرتب شود، برخلاف توابع تجمیعی تک‌گذر مثل SUM/AVG"
+      ]
     }
   },
 
@@ -102,6 +133,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "تجميع بيانات التخفيضات حسب المنطقة ومقارنة متوسط إيراد كل منطقة أقرب إلى أي مستوى من مستويات BA1 التحليلية؟",
       options: ["وصفي — ماذا حدث", "تشخيصي — لماذا حدث، عبر مقارنة الفئات", "توجيهي — ماذا نفعل تاليًا"]
+    },
+    fa: {
+      q: "گروه‌بندی داده‌های تسویه بر اساس منطقه و مقایسهٔ میانگین درآمد هر منطقه، به کدام سطح تحلیلی BA1 نزدیک‌تر است؟",
+      options: ["توصیفی — چه اتفاقی افتاد", "تشخیصی — چرا اتفاق افتاد، با مقایسهٔ بخش‌ها", "تجویزی — بعد چه باید کرد"]
     }
   },
 
@@ -114,6 +149,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "يكتب مساعد ذكاء اصطناعي استعلام STDDEV يقسم مجموع مربعات الانحرافات على n بدلاً من n-1. أي من الفحوصات الثلاثة يرصد هذا؟",
       options: ["تحقق منه", "اشرحه", "اضمنه باسمك"]
+    },
+    fa: {
+      q: "یک دستیار هوش مصنوعی پرس‌وجوی STDDEV ای می‌نویسد که مجموع انحراف‌های به‌توان‌رسیده را بر n به‌جای n-1 تقسیم می‌کند. کدام یک از سه فحص این را می‌گیرد؟",
+      options: ["تأییدش کن", "توضیحش بده", "پشتش بایست"]
     }
   },
 
@@ -126,6 +165,10 @@ window.WEEK_QUESTIONS = {
     ar: {
       q: "عبر المناطق الأربع للمتجر، أي منها كان لديها أعلى متوسط إيراد للبيع الواحد وأعلى تشتت في آن؟",
       options: ["الشمال", "الجنوب", "الشرق"]
+    },
+    fa: {
+      q: "در میان چهار منطقهٔ فروشگاه، کدام‌یک هم بالاترین میانگین درآمد به‌ازای هر فروش و هم بیشترین پراکندگی را داشت؟",
+      options: ["شمال", "جنوب", "شرق"]
     }
   }
 
