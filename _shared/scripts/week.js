@@ -48,6 +48,20 @@ if(backBtn){ backBtn.href = ROOT_PREFIX + 'ba2/hub/index.html'; }
 /* ---------- Language toggle (EN / AR / FA) ---------- */
 var RTL_LANGS = ['ar', 'fa'];
 
+/* Externalized-strings i18n pilot (currently week-01 only): pages that load a
+   _shared/i18n/<page>.strings.js file set window.PAGE_I18N_STRINGS = { key: {en,ar,fa}, ... }
+   and mark placeholders with data-i18n="key" instead of the data-lang sibling-div pattern.
+   No-op on every other page (querySelectorAll finds nothing there), so this is safe to call
+   unconditionally from setLang(). Falls back to English if a language is missing for a key. */
+function fillI18n(lang){
+  if(!window.PAGE_I18N_STRINGS) return;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var entry = window.PAGE_I18N_STRINGS[el.dataset.i18n];
+    if(!entry) return;
+    el.innerHTML = entry[lang] || entry.en || '';
+  });
+}
+
 function setLang(lang){
   if(!lang) return;
   document.documentElement.lang = lang;
@@ -58,6 +72,7 @@ function setLang(lang){
   document.querySelectorAll('.langbar button[data-setlang]').forEach(function(b){
     b.classList.toggle('active', b.dataset.setlang === lang);
   });
+  fillI18n(lang);
 }
 document.querySelectorAll('.langbar button[data-setlang]').forEach(function(b){
   b.addEventListener('click', function(){ setLang(b.dataset.setlang); });

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BA2 Week 1 — Statistics at Scale: Computing What You Already Understand</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Vazirmatn:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../../_shared/styles/week.css">
 <link rel="stylesheet" href="../../../_shared/styles/auth-gate.css">
 </head>
@@ -15,20 +15,21 @@
   <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">&#127769;</button>
   <button data-setlang="en" class="active">EN</button>
   <button data-setlang="ar">AR</button>
+  <button data-setlang="fa">FA</button>
 </div>
 
 <div class="topbar-start">
   <a class="pill-btn back-btn" id="backBtn" href="../../hub/index.html">
-    &#8592; <span data-lang="en" class="active">Back to hub</span><span data-lang="ar">العودة إلى المقرر</span>
+    &#8592; <span data-i18n="topbar.1"></span>
   </a>
   <button type="button" class="pill-btn contents-btn" id="contentsBtn">
-    &#9776; <span data-lang="en" class="active">Course contents</span><span data-lang="ar">محتوى المقرر</span>
+    &#9776; <span data-i18n="topbar.2"></span>
   </button>
 </div>
 <div class="contents-overlay" id="contentsOverlay" hidden></div>
 <div class="contents-panel" id="contentsPanel" hidden>
   <div class="contents-panel-head">
-    <span data-lang="en" class="active">Course contents</span><span data-lang="ar">محتوى المقرر</span>
+    <span data-i18n="contents.1"></span>
     <button type="button" class="contents-close" id="contentsClose" aria-label="Close">&times;</button>
   </div>
   <ul class="contents-list" id="contentsList"></ul>
@@ -37,56 +38,13 @@
 <div class="shell">
   <aside class="sidebar">
     <div class="brand">
-      <span data-lang="en" class="active">Business Analytics 2</span>
-      <span data-lang="ar">تحليلات الأعمال 2</span>
+      <span data-i18n="sidebar.1"></span>
     </div>
     <div class="brand-sub">
-      <span data-lang="en" class="active">Week 1 — Statistics at Scale</span>
-      <span data-lang="ar">الأسبوع 1 — الإحصاء على نطاق واسع</span>
+      <span data-i18n="sidebar.2"></span>
     </div>
     <nav>
-      <div data-lang="en" class="active">
-        <a href="#welcome" class="current">Welcome</a>
-        <a href="#sampling">Choosing your sample</a>
-        <div class="grp-label">Core aggregates</div>
-        <a href="#avg-count-sum">AVG, COUNT, SUM</a>
-        <a href="#stddev">Standard deviation</a>
-        <div class="grp-label">Distributions</div>
-        <a href="#groupby-freq">Frequency distribution</a>
-        <a href="#median">Median</a>
-        <div class="grp-label">Diagnostic layer</div>
-        <a href="#groupby-segment">Comparing segments</a>
-        <div class="grp-label">AI layer</div>
-        <a href="#ai-corner">AI co-pilot corner</a>
-        <div class="grp-label">Applied</div>
-        <a href="#worked-example">Worked example</a>
-        <div class="grp-label">Reference</div>
-        <a href="#common-mistakes">Common mistakes</a>
-        <div class="grp-label">Homework</div>
-        <a href="#homework">Homework</a>
-        <a href="#before-week-2">Before Week 2</a>
-      </div>
-      <div data-lang="ar">
-        <a href="#welcome" class="current">ترحيب</a>
-        <a href="#sampling">اختيار عيّنتك</a>
-        <div class="grp-label">التجميعات الأساسية</div>
-        <a href="#avg-count-sum"><span dir="ltr">AVG, COUNT, SUM</span></a>
-        <a href="#stddev">الانحراف المعياري</a>
-        <div class="grp-label">التوزيعات</div>
-        <a href="#groupby-freq">التوزيع التكراري</a>
-        <a href="#median">الوسيط</a>
-        <div class="grp-label">الطبقة التشخيصية</div>
-        <a href="#groupby-segment">مقارنة الفئات</a>
-        <div class="grp-label">طبقة الذكاء الاصطناعي</div>
-        <a href="#ai-corner">ركن مساعد الذكاء الاصطناعي</a>
-        <div class="grp-label">تطبيقي</div>
-        <a href="#worked-example">مثال تطبيقي</a>
-        <div class="grp-label">مرجع</div>
-        <a href="#common-mistakes">أخطاء شائعة</a>
-        <div class="grp-label">الواجب</div>
-        <a href="#homework">الواجب</a>
-        <a href="#before-week-2">قبل الأسبوع 2</a>
-      </div>
+      <div data-i18n="sidebar.3"></div>
     </nav>
   </aside>
 
@@ -94,123 +52,47 @@
 
     <header class="cover" id="top">
       <div class="kicker">
-        <span data-lang="en" class="active">Business Analytics 2 &#183; Week 1</span>
-        <span data-lang="ar">تحليلات الأعمال 2 &#183; الأسبوع 1</span>
+        <span data-i18n="cover.1"></span>
       </div>
-      <div data-lang="en" class="active">
-        <h1>Statistics at Scale:<em>Computing What You Already Understand</em></h1>
-        <p class="lede">You already know what a mean, a median, and a standard deviation are &#8212; BA1 covered that. This week is about a different problem entirely: computing them when your data lives in a database with millions of rows, not a spreadsheet you can see all of at once.</p>
-      </div>
-      <div data-lang="ar">
-        <h1>الإحصاء على نطاق واسع:<em>حساب ما تعرفه بالفعل</em></h1>
-        <p class="lede">أنت تعرف بالفعل ما هو المتوسط والوسيط والانحراف المعياري — BA1 غطّى ذلك. هذا الأسبوع يتناول مشكلة مختلفة تمامًا: حساب هذه القيم عندما تعيش بياناتك في قاعدة بيانات بملايين الصفوف، لا في جدول بيانات يمكنك رؤيته كاملاً دفعة واحدة.</p>
-      </div>
+      <div data-i18n="cover.2"></div>
 
       <div class="cover-tools">
         <a class="tool-btn" href="../../../ba-source-materials/Business%20Analytics%202/Week%201_%20Statistics%20Overview%20.pdf" target="_blank" rel="noopener">
-          <span data-lang="en" class="active">View original slides</span>
-          <span data-lang="ar">عرض الشرائح الأصلية</span>
+          <span data-i18n="cover.3"></span>
         </a>
         <button type="button" class="tool-btn" onclick="window.print()">
-          <span data-lang="en" class="active">Save as PDF</span>
-          <span data-lang="ar">حفظ كملف PDF</span>
+          <span data-i18n="cover.4"></span>
         </button>
         <span class="total-time">
-          &#9201; <span data-lang="en" class="active">&#8776; 55 min &#183; reading + SQL practice</span>
-          <span data-lang="ar">&#8776; ٥٥ دقيقة &#183; قراءة وتدريب SQL</span>
+          &#9201; <span data-i18n="cover.5"></span>
         </span>
       </div>
       <div class="box keypoint" style="margin-top:18px;">
-        <div data-lang="en" class="active">
-          <span class="box-label">A note on the slides above</span>
-          <p>The original deck covers the statistics half of this week faithfully. The SQL half is new &#8212; it doesn't exist in the original slides, because BA2 didn't originally teach SQL this early. This page merges both.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">ملاحظة حول الشرائح أعلاه</span>
-          <p>تغطي الشرائح الأصلية نصف الإحصاء من هذا الأسبوع بأمانة. أما نصف SQL فهو جديد تمامًا — لم يكن موجودًا في الشرائح الأصلية، لأن BA2 لم يكن يعلّم SQL في هذه المرحلة المبكرة أصلاً. هذه الصفحة تدمج الاثنين معًا.</p>
-        </div>
+        <div data-i18n="cover.6"></div>
       </div>
     </header>
 
     <!-- ============ 1 WELCOME ============ -->
     <section id="welcome">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 01</span><span data-lang="ar">القسم ٠١</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">8 min</span><span data-lang="ar">٨ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="welcome.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="welcome.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Welcome: same numbers, new instrument</h2>
-        <p class="standfirst">Nothing about what a mean or a standard deviation <em>means</em> has changed. What's changed is the tool you reach for.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>ترحيب: نفس الأرقام، أداة جديدة</h2>
-        <p class="standfirst">لا شيء تغيّر في معنى المتوسط أو الانحراف المعياري. ما تغيّر هو الأداة التي تلجأ إليها.</p>
-      </div>
+      <div data-i18n="welcome.3"></div>
 
       <div class="objectives">
-        <div data-lang="en" class="active">
-          <div class="obj-label">By the end, you'll be able to</div>
-          <ul>
-            <li>Explain why a live company database calls for SQL instead of Excel</li>
-            <li>Set up a free, no-signup PostgreSQL sandbox and load a real dataset into it</li>
-            <li>Recognize that every statistic BA1 taught you still applies &#8212; only the computation method changes</li>
-          </ul>
-        </div>
-        <div data-lang="ar">
-          <div class="obj-label">بنهاية هذا القسم ستكون قادرًا على</div>
-          <ul>
-            <li>توضيح سبب حاجة قاعدة بيانات الشركة الحية إلى SQL بدلاً من Excel</li>
-            <li>إعداد بيئة PostgreSQL تجريبية مجانية دون تسجيل، وتحميل بيانات حقيقية إليها</li>
-            <li>إدراك أن كل إحصاء علّمك إياه BA1 ما زال ساريًا — فقط طريقة الحساب هي التي تتغيّر</li>
-          </ul>
-        </div>
+        <div data-i18n="welcome.4"></div>
       </div>
 
-      <div data-lang="en" class="active">
-        <p>In BA1, "the data" meant a table you could open in Excel, scroll through, and see in its entirety. Real company data doesn't work that way. A retail chain's sales history lives in a database with millions of rows, updated every minute, shared by dozens of systems at once. You can't email someone a spreadsheet of it. You can't even open all of it in Excel &#8212; most spreadsheet software caps out around a million rows, and even under that cap, formulas that scan every row get painfully slow.</p>
-        <p>SQL (Structured Query Language) is how you talk to a database instead. This week doesn't teach you new statistics &#8212; it teaches you to ask a database for the same mean, median, and standard deviation you already know how to interpret, using a different set of hands.</p>
-      </div>
-      <div data-lang="ar">
-        <p>في BA1، كانت "البيانات" تعني جدولاً يمكنك فتحه في Excel، والتمرير خلاله، ورؤيته كاملاً. بيانات الشركات الحقيقية لا تعمل هكذا. سجل مبيعات سلسلة متاجر تجزئة يعيش في قاعدة بيانات بملايين الصفوف، تُحدَّث كل دقيقة، وتشاركها عشرات الأنظمة في آن واحد. لا يمكنك إرسال جدول بيانات لها بالبريد الإلكتروني. لا يمكنك حتى فتحها كاملة في Excel — معظم برامج جداول البيانات تتوقف عند حوالي مليون صف، وحتى دون هذا الحد، تصبح الصيغ التي تفحص كل صف بطيئة بشكل مؤلم.</p>
-        <p>SQL (لغة الاستعلام البنيوية) هي طريقتك للتحدث مع قاعدة البيانات بدلاً من ذلك. هذا الأسبوع لا يعلّمك إحصاءً جديدًا — بل يعلّمك أن تطلب من قاعدة البيانات نفس المتوسط والوسيط والانحراف المعياري الذي تعرف بالفعل كيف تفسره، لكن بأدوات مختلفة.</p>
-      </div>
+      <div data-i18n="welcome.5"></div>
 
-      <div data-lang="en" class="active">
-        <p>Here's the situation you're stepping into: a winter-coat retail chain ran the same clearance sale across four regions &#8212; North, South, East, and West &#8212; each store manager choosing their own discount depth. The data from all 28 sales now sits in one live table, and the regional director wants an answer to one concrete question: <strong>did any region's discount strategy clearly outperform the others, and if so, should the whole chain copy it next season?</strong> Answering that honestly means computing an average, a spread, and a median for each region and comparing them &#8212; not eyeballing a printout. That's what Sections 2 through 9 build toward, and Section 9 comes back to this exact question with the real numbers.</p>
-      </div>
-      <div data-lang="ar">
-        <p>إليك الموقف الذي تدخل إليه: أدارت سلسلة متاجر معاطف شتوية نفس تخفيضات التصفية عبر أربع مناطق — الشمال والجنوب والشرق والغرب — واختار كل مدير متجر عمق الخصم بنفسه. تجلس بيانات المبيعات الـ٢٨ جميعها الآن في جدول حي واحد، ويريد المدير الإقليمي إجابة عن سؤال محدد واحد: <strong>هل تفوقت استراتيجية خصم أي منطقة بوضوح على البقية، وإن كان الأمر كذلك، هل ينبغي أن تنسخها السلسلة بأكملها الموسم القادم؟</strong> الإجابة الصادقة عن هذا تعني حساب متوسط وتشتت ووسيط لكل منطقة ومقارنتها — لا تخمين ذلك من نظرة سريعة على البيانات المطبوعة. هذا ما تبنيه الأقسام من ٢ إلى ٩، ويعود القسم ٩ إلى هذا السؤال بالذات مع الأرقام الحقيقية.</p>
-      </div>
+      <div data-i18n="welcome.6"></div>
 
       <div class="box analogy">
-        <div data-lang="en" class="active">
-          <span class="box-label">Analogy</span>
-          <p>Excel is a kitchen counter &#8212; everything you're working with is laid out in front of you, and you can reach any of it directly. A database is a warehouse the size of a city, with millions of items, other people constantly moving things in and out of it while you work. You don't walk the whole warehouse to find what you need &#8212; you send a precise request to the person running it, and SQL is how you phrase that request.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">تشبيه</span>
-          <p>Excel هو منضدة مطبخ — كل ما تعمل عليه موضوع أمامك، ويمكنك الوصول إلى أي جزء منه مباشرة. قاعدة البيانات هي مستودع بحجم مدينة، فيه ملايين العناصر، وأشخاص آخرون ينقلون أشياء داخله وخارجه باستمرار أثناء عملك. أنت لا تمشي عبر المستودع بأكمله لتجد ما تحتاجه — بل ترسل طلبًا دقيقًا للشخص الذي يديره، وSQL هي طريقتك لصياغة ذلك الطلب.</p>
-        </div>
+        <div data-i18n="welcome.7"></div>
       </div>
 
-      <div data-lang="en" class="active">
-        <h3>Setting up your sandbox</h3>
-        <p>You don't need to install anything. The <strong>Aiven PostgreSQL Playground</strong> runs a real Postgres database directly in your browser &#8212; no signup, nothing to install. It resets when you close the tab, which is fine: you'll re-run the setup script below at the start of each exercise.</p>
-        <ol class="steps">
-          <li><strong>Open the playground</strong> &#8212; Go to <span class="mono">aiven.io/tools/pg-playground</span> in a new tab.</li>
-          <li><strong>Paste the setup script</strong> &#8212; Copy the code block below and run it. It creates one table, <span class="mono">clearance_sales</span>, and fills it with 28 rows of real-looking winter-coat clearance data &#8212; the same seasonal-markdown story from Week 0, now with a full table to compute real statistics on.</li>
-          <li><strong>Keep the tab open</strong> &#8212; Every exercise this week queries this same table. If you accidentally close the tab, just re-paste the script.</li>
-        </ol>
-      </div>
-      <div data-lang="ar">
-        <h3>إعداد بيئتك التجريبية</h3>
-        <p>لست بحاجة لتثبيت أي شيء. تُشغّل <strong>Aiven PostgreSQL Playground</strong> قاعدة بيانات Postgres حقيقية مباشرة في متصفحك — دون تسجيل، ودون أي تثبيت. تُعاد تهيئتها عند إغلاق التبويب، وهذا لا بأس به: ستُعيد تشغيل نص الإعداد أدناه في بداية كل تمرين.</p>
-        <ol class="steps">
-          <li><strong>افتح البيئة التجريبية</strong> — اذهب إلى <span class="mono">aiven.io/tools/pg-playground</span> في تبويب جديد.</li>
-          <li><strong>الصق نص الإعداد</strong> — انسخ كتلة الشيفرة أدناه وشغّلها. تنشئ جدولاً واحدًا، <span class="mono">clearance_sales</span>، وتملؤه بـ٢٨ صفًا من بيانات تخفيضات معاطف شتوية واقعية — نفس قصة التخفيض الموسمي من الأسبوع صفر، لكن بجدول كامل هذه المرة لحساب إحصاءات حقيقية عليه.</li>
-          <li><strong>أبقِ التبويب مفتوحًا</strong> — كل تمرين هذا الأسبوع يستعلم عن نفس هذا الجدول. إن أغلقت التبويب عن طريق الخطأ، أعد لصق النص فحسب.</li>
-        </ol>
-      </div>
+      <div data-i18n="welcome.8"></div>
 
       <div class="code-block">
         <pre><code>CREATE TABLE clearance_sales (
@@ -254,14 +136,7 @@ INSERT INTO clearance_sales (id, region, discount_pct, units_sold, revenue) VALU
       </div>
 
       <div class="box keypoint">
-        <div data-lang="en" class="active">
-          <span class="box-label">Alternative: Supabase</span>
-          <p>The Aiven Playground resets on tab close &#8212; fine for this week's exercises, but if you want a database that persists across all 12 weeks of this course, <a href="https://supabase.com" target="_blank" rel="noopener">Supabase's free tier</a> gives you a real, permanent PostgreSQL database with a similar in-browser SQL editor. Either is a correct choice; this page assumes the Aiven Playground for simplicity.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">بديل: Supabase</span>
-          <p>تُعاد تهيئة بيئة Aiven التجريبية عند إغلاق التبويب — وهذا مناسب لتمارين هذا الأسبوع، لكن إن أردت قاعدة بيانات تستمر طوال الأسابيع الاثني عشر لهذا المقرر، توفر <a href="https://supabase.com" target="_blank" rel="noopener">النسخة المجانية من Supabase</a> قاعدة بيانات PostgreSQL حقيقية ودائمة مع محرر SQL مشابه داخل المتصفح. كلاهما خيار صحيح؛ تفترض هذه الصفحة استخدام Aiven Playground للتبسيط.</p>
-        </div>
+        <div data-i18n="welcome.9"></div>
       </div>
 
       <div class="exercise" data-question-id="welcome"></div>
@@ -270,30 +145,18 @@ INSERT INTO clearance_sales (id, region, discount_pct, units_sold, revenue) VALU
     <!-- ============ 2 SAMPLING ============ -->
     <section id="sampling">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 02</span><span data-lang="ar">القسم ٠٢</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">5 min</span><span data-lang="ar">٥ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="sampling.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="sampling.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>SELECT / FROM / WHERE: choosing your sample</h2>
-        <p class="standfirst">BA1 taught you that a sample is a deliberate choice, not an accident. In SQL, that choice has a name: <code class="mono">WHERE</code>.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>SELECT / FROM / WHERE: اختيار عيّنتك</h2>
-        <p class="standfirst">علّمك BA1 أن العيّنة اختيار متعمّد، لا مصادفة. في SQL، لهذا الاختيار اسم: <code class="mono">WHERE</code>.</p>
-      </div>
+      <div data-i18n="sampling.3"></div>
 
-      <div data-lang="en" class="active">
-        <p>Every SQL query that reads data follows the same skeleton: <code class="mono">SELECT</code> which columns you want, <code class="mono">FROM</code> which table, and optionally <code class="mono">WHERE</code> to narrow the rows down. That last clause is doing exactly what BA1 called sampling &#8212; deliberately choosing a subset of the whole population to work with, instead of assuming "all of it" is the right answer by default.</p>
-      </div>
-      <div data-lang="ar">
-        <p>كل استعلام SQL يقرأ بيانات يتبع نفس الهيكل: <code class="mono">SELECT</code> لتحديد الأعمدة التي تريدها، <code class="mono">FROM</code> لتحديد الجدول، و<code class="mono">WHERE</code> اختياريًا لتضييق الصفوف. هذه العبارة الأخيرة تفعل بالضبط ما أسماه BA1 أخذ العيّنات — اختيار جزء من المجتمع الكامل بشكل متعمّد للعمل عليه، بدلاً من افتراض أن "كل شيء" هو الإجابة الصحيحة افتراضيًا.</p>
-      </div>
+      <div data-i18n="sampling.4"></div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 1</span><span data-lang="ar">الرسم ١</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">WHERE narrows the population to your sample</span><span data-lang="ar">WHERE يضيّق المجتمع إلى عيّنتك</span></div>
+        <div class="fig"><span data-i18n="sampling.5"></span></div>
+        <div class="fig-title"><span data-i18n="sampling.6"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-01.svg" alt="A full table of rows, with WHERE narrowing it down to a highlighted subset"></div>
-        <figcaption><span data-lang="en" class="active">Exactly the same idea as BA1's sampling frame &#8212; just written as a clause instead of a decision on paper.</span><span data-lang="ar">نفس فكرة إطار العيّنة في BA1 تمامًا — لكنها مكتوبة كعبارة برمجية بدلاً من قرار على الورق.</span></figcaption>
+        <figcaption><span data-i18n="sampling.7"></span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -304,14 +167,7 @@ WHERE region = 'North';</code></pre>
       </div>
 
       <div class="box mistake">
-        <div data-lang="en" class="active">
-          <span class="box-label">Common mistake</span>
-          <p>Forgetting <code class="mono">WHERE</code> entirely and assuming a query without it is somehow "neutral." A query with no <code class="mono">WHERE</code> clause samples <em>everything</em> &#8212; which is itself a sampling choice, and not always the right one. "All the data" is a decision, not a default that avoids one.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">خطأ شائع</span>
-          <p>نسيان <code class="mono">WHERE</code> تمامًا وافتراض أن الاستعلام بدونها "محايد" بطريقة ما. الاستعلام بلا عبارة <code class="mono">WHERE</code> يأخذ عيّنة من <em>كل شيء</em> — وهذا بحد ذاته اختيار لعيّنة، وليس دائمًا الاختيار الصحيح. "كل البيانات" قرار، لا افتراض يتجنب اتخاذ قرار.</p>
-        </div>
+        <div data-i18n="sampling.8"></div>
       </div>
 
       <div class="exercise" data-question-id="sampling"></div>
@@ -320,28 +176,16 @@ WHERE region = 'North';</code></pre>
     <!-- ============ 3 AVG COUNT SUM ============ -->
     <section id="avg-count-sum">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 03</span><span data-lang="ar">القسم ٠٣</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">5 min</span><span data-lang="ar">٥ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="avg-count-sum.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="avg-count-sum.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>AVG(), COUNT(), SUM()</h2>
-        <p class="standfirst">Three functions. One of them is secretly just the other two.</p>
-      </div>
-      <div data-lang="ar">
-        <h2><span dir="ltr">AVG(), COUNT(), SUM()</span></h2>
-        <p class="standfirst">ثلاث دوال. إحداها في الحقيقة ليست سوى الأخريين مجتمعتين.</p>
-      </div>
+      <div data-i18n="avg-count-sum.3"></div>
 
-      <div data-lang="en" class="active">
-        <p><code class="mono">SUM()</code> adds up a column. <code class="mono">COUNT()</code> counts rows. And <code class="mono">AVG()</code> &#8212; the function that computes BA1's mean &#8212; isn't doing anything new at all.</p>
-      </div>
-      <div data-lang="ar">
-        <p><code class="mono">SUM()</code> تجمع قيم عمود. <code class="mono">COUNT()</code> تعدّ الصفوف. أما <code class="mono">AVG()</code> — الدالة التي تحسب متوسط BA1 — فهي لا تفعل شيئًا جديدًا على الإطلاق.</p>
-      </div>
+      <div data-i18n="avg-count-sum.4"></div>
 
       <div class="formula">
         <span class="eq">AVG(x) = SUM(x) / COUNT(x)</span>
-        <span class="note"><span data-lang="en" class="active">Literally. There is no separate "averaging" logic &#8212; it's a sum divided by a count, exactly like BA1 taught you.</span><span data-lang="ar">حرفيًا. لا يوجد منطق منفصل لـ"حساب المتوسط" — إنه مجموع مقسوم على عدد، تمامًا كما علّمك BA1.</span></span>
+        <span class="note"><span data-i18n="avg-count-sum.5"></span></span>
       </div>
 
       <div class="code-block">
@@ -360,14 +204,7 @@ FROM clearance_sales;
       </div>
 
       <div class="box mistake">
-        <div data-lang="en" class="active">
-          <span class="box-label">Common mistake</span>
-          <p><code class="mono">COUNT(column)</code> and <code class="mono">COUNT(*)</code> are not always the same. <code class="mono">COUNT(*)</code> counts every row. <code class="mono">COUNT(column)</code> only counts rows where that column isn't <code class="mono">NULL</code>. If <code class="mono">revenue</code> had missing values, <code class="mono">AVG(revenue)</code> would quietly divide by a smaller count than the row total &#8212; correct behaviour, but only if you know it's happening.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">خطأ شائع</span>
-          <p><code class="mono">COUNT(column)</code> و<code class="mono">COUNT(*)</code> ليستا متطابقتين دائمًا. تعدّ <code class="mono">COUNT(*)</code> كل صف. أما <code class="mono">COUNT(column)</code> فتعدّ فقط الصفوف التي لا تكون فيها قيمة ذلك العمود <code class="mono">NULL</code>. لو كان لعمود <code class="mono">revenue</code> قيم مفقودة، فستقسم <code class="mono">AVG(revenue)</code> بصمت على عدد أصغر من إجمالي الصفوف — وهذا سلوك صحيح، لكن فقط إن كنت تعرف أنه يحدث.</p>
-        </div>
+        <div data-i18n="avg-count-sum.6"></div>
       </div>
 
       <div class="exercise" data-question-id="avg-count-sum"></div>
@@ -376,57 +213,23 @@ FROM clearance_sales;
     <!-- ============ 4 STDDEV ============ -->
     <section id="stddev">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 04</span><span data-lang="ar">القسم ٠٤</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">10 min</span><span data-lang="ar">١٠ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="stddev.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="stddev.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Standard deviation: build it, then trust the function</h2>
-        <p class="standfirst">BA1's four-step recipe &#8212; deviate, square, average, root &#8212; translates into SQL almost line for line.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>الانحراف المعياري: ابنِه أولاً، ثم ثق بالدالة</h2>
-        <p class="standfirst">وصفة BA1 المكوّنة من أربع خطوات — انحرف، ربّع، توسّط، جذّر — تُترجم إلى SQL شبه سطرًا بسطر.</p>
-      </div>
+      <div data-i18n="stddev.3"></div>
 
-      <div data-lang="en" class="active">
-        <p>Before reaching for the built-in function, build it by hand once in SQL &#8212; so when you use the shortcut later, you know exactly what it's doing.</p>
-      </div>
-      <div data-lang="ar">
-        <p>قبل اللجوء إلى الدالة الجاهزة، ابنِها يدويًا مرة واحدة في SQL — حتى تعرف بالضبط ماذا تفعل عندما تستخدم الاختصار لاحقًا.</p>
-      </div>
+      <div data-i18n="stddev.4"></div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 2</span><span data-lang="ar">الرسم ٢</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">Standard deviation, one step at a time</span><span data-lang="ar">الانحراف المعياري، خطوة بخطوة</span></div>
+        <div class="fig"><span data-i18n="stddev.5"></span></div>
+        <div class="fig-title"><span data-i18n="stddev.6"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-02.svg" alt="Standard deviation by hand: deviations, squared, averaged, then square-rooted"></div>
-        <figcaption><span data-lang="en" class="active">Worked using the North region's 7 sales &#8212; the same four steps BA1 described, now in SQL.</span><span data-lang="ar">مُحسوبة باستخدام مبيعات منطقة الشمال السبعة — نفس الخطوات الأربع التي وصفها BA1، والآن بلغة SQL.</span></figcaption>
+        <figcaption><span data-i18n="stddev.7"></span></figcaption>
       </figure>
 
-      <div data-lang="en" class="active">
-        <h3>What each of the four steps is actually doing</h3>
-        <ol class="steps">
-          <li><strong>Deviate</strong> &#8212; subtract the mean from each sale's revenue. This just asks "how far off from typical was this one?" for every row. A sale right at the mean deviates by 0; a sale far above or below it gets a large positive or negative number.</li>
-          <li><strong>Square</strong> &#8212; multiply each deviation by itself. Two things happen at once: negative deviations (below the mean) turn positive, so they stop cancelling out the positive ones when you add everything up; and bigger misses get punished disproportionately &#8212; a deviation of $500 becomes 250,000, four times the 62,500 you get from a $250 deviation, not just double. That's the same "large errors matter more" logic behind a store manager caring more about one wildly-off sale than several mildly-off ones.</li>
-          <li><strong>Average</strong> &#8212; sum the squared deviations and divide by the count (n&#8722;1 for a sample, as below). This collapses 7 individual squared-deviation numbers into one number representing typical squared spread &#8212; on its own it's called the <em>variance</em>, but it's in dollars-squared, which isn't a unit anyone can picture.</li>
-          <li><strong>Root</strong> &#8212; take the square root to undo the squaring from step 2 and bring the units back to plain dollars. That final number is the standard deviation: roughly how far a typical sale strays from the mean, in the same units the data started in.</li>
-        </ol>
-      </div>
-      <div data-lang="ar">
-        <h3>ما الذي تفعله كل خطوة من الخطوات الأربع فعليًا</h3>
-        <ol class="steps">
-          <li><strong>انحرف (Deviate)</strong> — اطرح المتوسط من إيراد كل عملية بيع. هذا يسأل ببساطة "كم ابتعدت هذه القيمة عن المعتاد؟" لكل صف. البيع المطابق للمتوسط تمامًا ينحرف بمقدار صفر؛ والبيع البعيد عنه صعودًا أو هبوطًا يحصل على رقم كبير موجب أو سالب.</li>
-          <li><strong>ربّع (Square)</strong> — اضرب كل انحراف في نفسه. يحدث أمران معًا: الانحرافات السالبة (تحت المتوسط) تصبح موجبة، فتتوقف عن إلغاء الانحرافات الموجبة عند جمعها؛ والانحرافات الكبيرة تُعاقَب بشكل غير متناسب — انحراف بقيمة ٥٠٠ دولار يصبح ٢٥٠,٠٠٠، أي أربعة أضعاف الـ٦٢,٥٠٠ الناتجة عن انحراف بقيمة ٢٥٠ دولارًا، وليس ضعفها فقط. هذا نفس منطق "الأخطاء الكبيرة أهم" الذي يجعل مدير المتجر يهتم بعملية بيع واحدة شاذة تمامًا أكثر من اهتمامه بعدة عمليات بيع منحرفة قليلاً.</li>
-          <li><strong>توسّط (Average)</strong> — اجمع الانحرافات المربّعة واقسمها على العدد (n&#8722;1 للعيّنة، كما في المثال أدناه). هذا يختزل سبعة أرقام منفصلة من الانحرافات المربّعة في رقم واحد يمثل التشتت المربّع المعتاد — يُسمى هذا الرقم وحده <em>التباين (variance)</em>، لكنه بوحدة "دولار تربيع" التي لا يمكن لأحد تخيّلها.</li>
-          <li><strong>جذّر (Root)</strong> — خذ الجذر التربيعي لإلغاء التربيع من الخطوة الثانية وإعادة الوحدات إلى دولارات عادية. هذا الرقم النهائي هو الانحراف المعياري: تقريبًا، كم يبتعد البيع المعتاد عن المتوسط، بنفس وحدة البيانات الأصلية.</li>
-        </ol>
-      </div>
+      <div data-i18n="stddev.8"></div>
 
-      <div data-lang="en" class="active">
-        <h3>Step 1&#8211;3: the mean, the squared deviations, the average</h3>
-      </div>
-      <div data-lang="ar">
-        <h3>الخطوات ١–٣: المتوسط، الانحرافات المربّعة، متوسطها</h3>
-      </div>
+      <div data-i18n="stddev.9"></div>
 
       <div class="code-block">
         <pre><code>-- Step 1: get the mean first (as a subquery, since SQL needs it before it can deviate anything from it)
@@ -444,14 +247,7 @@ WHERE region = 'North';
         <button type="button" class="code-copy-btn">Copy</button>
       </div>
 
-      <div data-lang="en" class="active">
-        <h3>Now the built-in functions</h3>
-        <p>PostgreSQL ships both versions of the formula &#8212; because BA1 also taught you there are two: sample and population.</p>
-      </div>
-      <div data-lang="ar">
-        <h3>والآن الدوال الجاهزة</h3>
-        <p>يوفر PostgreSQL نسختي الصيغة كلتيهما — لأن BA1 علّمك أيضًا أن هناك نسختين: عيّنة ومجتمع.</p>
-      </div>
+      <div data-i18n="stddev.10"></div>
 
       <div class="code-block">
         <pre><code>SELECT
@@ -466,14 +262,7 @@ WHERE region = 'North';
       </div>
 
       <div class="box keypoint">
-        <div data-lang="en" class="active">
-          <span class="box-label">Sample vs. population, in this dataset</span>
-          <p>These 7 North-region sales are a sample of North's clearance history, not literally every winter-coat sale the region has ever run &#8212; so <code class="mono">STDDEV_SAMP()</code> (dividing by n&#8722;1) is the right choice here, and almost always the right choice in business analytics. You'd only reach for <code class="mono">STDDEV_POP()</code> if your rows genuinely were the entire population with nothing left out.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">العيّنة مقابل المجتمع، في هذه البيانات</span>
-          <p>هذه المبيعات السبع لمنطقة الشمال هي عيّنة من تاريخ تخفيضات الشمال، وليست حرفيًا كل عملية بيع معطف شتوي جرت في المنطقة على الإطلاق — لذا فإن <code class="mono">STDDEV_SAMP()</code> (القسمة على n&#8722;1) هي الخيار الصحيح هنا، وهي الخيار الصحيح غالبًا في تحليلات الأعمال. لا تلجأ إلى <code class="mono">STDDEV_POP()</code> إلا إن كانت صفوفك تمثل المجتمع بأكمله دون استثناء أي شيء.</p>
-        </div>
+        <div data-i18n="stddev.11"></div>
       </div>
 
       <div class="exercise" data-question-id="stddev"></div>
@@ -482,30 +271,18 @@ WHERE region = 'North';
     <!-- ============ 5 GROUPBY FREQ ============ -->
     <section id="groupby-freq">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 05</span><span data-lang="ar">القسم ٠٥</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">6 min</span><span data-lang="ar">٦ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="groupby-freq.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="groupby-freq.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>GROUP BY + COUNT as a frequency distribution</h2>
-        <p class="standfirst">BA1's frequency table, in one query.</p>
-      </div>
-      <div data-lang="ar">
-        <h2><span dir="ltr">GROUP BY + COUNT</span> كتوزيع تكراري</h2>
-        <p class="standfirst">جدول التكرار من BA1، في استعلام واحد.</p>
-      </div>
+      <div data-i18n="groupby-freq.3"></div>
 
-      <div data-lang="en" class="active">
-        <p><code class="mono">GROUP BY</code> collapses rows sharing a value into one row per group, and any aggregate function in the <code class="mono">SELECT</code> list (like <code class="mono">COUNT(*)</code>) then runs per group instead of over the whole table. Bucket a numeric column into ranges first, and this becomes exactly BA1's frequency distribution &#8212; a histogram, expressed as a table.</p>
-      </div>
-      <div data-lang="ar">
-        <p>تدمج <code class="mono">GROUP BY</code> الصفوف التي تشترك في قيمة معيّنة إلى صف واحد لكل مجموعة، وأي دالة تجميعية في قائمة <code class="mono">SELECT</code> (مثل <code class="mono">COUNT(*)</code>) تعمل حينها لكل مجموعة بدلاً من الجدول بأكمله. قسّم عمودًا رقميًا إلى نطاقات أولاً، وهذا يصبح بالضبط التوزيع التكراري من BA1 — رسم بياني (هيستوغرام) مُعبَّر عنه كجدول.</p>
-      </div>
+      <div data-i18n="groupby-freq.4"></div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 3</span><span data-lang="ar">الرسم ٣</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">GROUP BY, drawn as a histogram</span><span data-lang="ar">GROUP BY، مرسومة كرسم بياني</span></div>
+        <div class="fig"><span data-i18n="groupby-freq.5"></span></div>
+        <div class="fig-title"><span data-i18n="groupby-freq.6"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-03.svg" alt="GROUP BY revenue bucket, COUNT star, drawn as a histogram: 2, 5, 7, 9, 3, 2"></div>
-        <figcaption><span data-lang="en" class="active">Every clearance sale, bucketed by revenue. Same shape you'd get pivoting this in Excel &#8212; just computed inside the database.</span><span data-lang="ar">كل عملية تخفيض، مقسّمة حسب الإيراد. نفس الشكل الذي كنت لتحصل عليه بجدول محوري في Excel — لكن محسوب داخل قاعدة البيانات.</span></figcaption>
+        <figcaption><span data-i18n="groupby-freq.7"></span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -533,14 +310,7 @@ ORDER BY revenue_bucket;
       </div>
 
       <div class="box mistake">
-        <div data-lang="en" class="active">
-          <span class="box-label">Common mistake</span>
-          <p>Adding a column to <code class="mono">SELECT</code> without adding it to <code class="mono">GROUP BY</code> (or wrapping it in an aggregate). PostgreSQL refuses to run a query like that &#8212; it raises an error rather than guessing which row's value you meant, which is safer than databases that silently pick one at random.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">خطأ شائع</span>
-          <p>إضافة عمود إلى <code class="mono">SELECT</code> دون إضافته إلى <code class="mono">GROUP BY</code> (أو تضمينه داخل دالة تجميعية). يرفض PostgreSQL تشغيل استعلام كهذا — فيُصدر خطأً بدلاً من تخمين قيمة أي صف تقصد، وهو أكثر أمانًا من قواعد البيانات التي تختار صفًا عشوائيًا بصمت.</p>
-        </div>
+        <div data-i18n="groupby-freq.8"></div>
       </div>
 
       <div class="exercise" data-question-id="groupby-freq"></div>
@@ -549,30 +319,18 @@ ORDER BY revenue_bucket;
     <!-- ============ 6 MEDIAN ============ -->
     <section id="median">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 06</span><span data-lang="ar">القسم ٠٦</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">6 min</span><span data-lang="ar">٦ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="median.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="median.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Median: the one that needs everything sorted first</h2>
-        <p class="standfirst">Why doesn't Postgres just have <code class="mono">MEDIAN()</code> the way it has <code class="mono">AVG()</code>?</p>
-      </div>
-      <div data-lang="ar">
-        <h2>الوسيط: الإحصاء الذي يحتاج ترتيب كل شيء أولاً</h2>
-        <p class="standfirst">لماذا لا يمتلك Postgres دالة <code class="mono">MEDIAN()</code> ببساطة كما يمتلك <code class="mono">AVG()</code>؟</p>
-      </div>
+      <div data-i18n="median.3"></div>
 
-      <div data-lang="en" class="active">
-        <p><code class="mono">SUM</code>, <code class="mono">COUNT</code>, and <code class="mono">AVG</code> are all <strong>single-pass</strong>: the database can read the rows once, in whatever order they arrive, keeping a running total as it goes, and never look at a row twice. The median can't work that way. To find "the middle value," you first need to know what "the middle" even is &#8212; which requires every value to be sorted into order first. That's a fundamentally more expensive operation, which is exactly why BA1 called the median more robust to outliers but more work to compute by hand.</p>
-      </div>
-      <div data-lang="ar">
-        <p>تعتبر <code class="mono">SUM</code> و<code class="mono">COUNT</code> و<code class="mono">AVG</code> جميعها <strong>أحادية المرور</strong>: يمكن لقاعدة البيانات قراءة الصفوف مرة واحدة، بأي ترتيب تصل به، مع الاحتفاظ بمجموع متراكم أثناء ذلك، دون النظر إلى أي صف مرتين. لا يمكن للوسيط أن يعمل هكذا. لإيجاد "القيمة الوسطى"، تحتاج أولاً لمعرفة ما هي "الوسط" أصلاً — وهذا يتطلب ترتيب كل القيم أولاً. هذه عملية أكثر كلفة بشكل جوهري، وهذا بالضبط سبب وصف BA1 للوسيط بأنه أكثر مقاومة للقيم المتطرفة لكنه أصعب في الحساب اليدوي.</p>
-      </div>
+      <div data-i18n="median.4"></div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 4</span><span data-lang="ar">الرسم ٤</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">Single-pass vs. sort-required</span><span data-lang="ar">أحادي المرور مقابل ما يتطلب ترتيبًا</span></div>
+        <div class="fig"><span data-i18n="median.5"></span></div>
+        <div class="fig-title"><span data-i18n="median.6"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-04.svg" alt="SUM, AVG and STDDEV read the table once in a single pass; MEDIAN needs every row sorted first"></div>
-        <figcaption><span data-lang="en" class="active">This is the exact reason Postgres has no plain MEDIAN() function &#8212; it isn't an oversight.</span><span data-lang="ar">هذا هو السبب الدقيق وراء عدم امتلاك Postgres دالة MEDIAN() بسيطة — وليس إغفالاً.</span></figcaption>
+        <figcaption><span data-i18n="median.7"></span></figcaption>
       </figure>
 
       <div class="code-block">
@@ -584,14 +342,7 @@ FROM clearance_sales;
       </div>
 
       <div class="box analogy">
-        <div data-lang="en" class="active">
-          <span class="box-label">Analogy</span>
-          <p><code class="mono">PERCENTILE_CONT(0.5)</code> literally means "the value at the 50th percentile" &#8212; the median is just one specific percentile. Swap <span class="mono">0.5</span> for <span class="mono">0.25</span> or <span class="mono">0.75</span> and you've computed BA1's quartiles with the exact same function.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">تشبيه</span>
-          <p><code class="mono">PERCENTILE_CONT(0.5)</code> تعني حرفيًا "القيمة عند المئين الخمسين" — الوسيط ما هو إلا مئين محدد واحد. استبدل <span class="mono">0.5</span> بـ<span class="mono">0.25</span> أو <span class="mono">0.75</span> وتكون قد حسبت أرباعيات BA1 بنفس الدالة تمامًا.</p>
-        </div>
+        <div data-i18n="median.8"></div>
       </div>
 
       <div class="exercise" data-question-id="median"></div>
@@ -600,24 +351,12 @@ FROM clearance_sales;
     <!-- ============ 7 GROUPBY SEGMENT ============ -->
     <section id="groupby-segment">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 07</span><span data-lang="ar">القسم ٠٧</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">6 min</span><span data-lang="ar">٦ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="groupby-segment.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="groupby-segment.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>GROUP BY for per-segment stats</h2>
-        <p class="standfirst">One query, one stat per region &#8212; this is where descriptive statistics starts turning diagnostic.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>GROUP BY لإحصاءات كل فئة</h2>
-        <p class="standfirst">استعلام واحد، إحصاء واحد لكل منطقة — هنا يبدأ الإحصاء الوصفي بالتحوّل إلى تشخيصي.</p>
-      </div>
+      <div data-i18n="groupby-segment.3"></div>
 
-      <div data-lang="en" class="active">
-        <p><code class="mono">GROUP BY</code> isn't limited to counting. Any aggregate &#8212; <code class="mono">AVG</code>, <code class="mono">STDDEV_SAMP</code>, <code class="mono">PERCENTILE_CONT</code> &#8212; can run per group. That turns "what's the average revenue?" (descriptive) into "which region's average is different, and by how much?" (diagnostic) &#8212; exactly the shift BA1 described between the two levels.</p>
-      </div>
-      <div data-lang="ar">
-        <p>لا تقتصر <code class="mono">GROUP BY</code> على العدّ. يمكن لأي دالة تجميعية — <code class="mono">AVG</code> و<code class="mono">STDDEV_SAMP</code> و<code class="mono">PERCENTILE_CONT</code> — أن تعمل لكل مجموعة. هذا يحوّل "ما متوسط الإيراد؟" (وصفي) إلى "أي منطقة يختلف متوسطها، وبكم؟" (تشخيصي) — بالضبط التحول الذي وصفه BA1 بين المستويين.</p>
-      </div>
+      <div data-i18n="groupby-segment.4"></div>
 
       <div class="code-block">
         <pre><code>SELECT
@@ -645,14 +384,7 @@ ORDER BY avg_revenue DESC;</code></pre>
       </div>
 
       <div class="box keypoint">
-        <div data-lang="en" class="active">
-          <span class="box-label">Reading this like BA1 taught you</span>
-          <p>East isn't just highest on average &#8212; it also has the highest spread (stddev 1344.36, well above South's 923.22). Two regions can have different means for entirely different reasons: East might just run bigger sales days, or it might be one enormous outlier sale dragging its own average up. The mean alone can't tell you which &#8212; you'd need to look at the underlying rows, exactly as BA1's "the mean describes nobody in the room" warning taught you.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">قراءة هذا كما علّمك BA1</span>
-          <p>الشرق ليس فقط الأعلى في المتوسط — بل لديه أيضًا أعلى تشتت (انحراف معياري 1344.36، أعلى بكثير من 923.22 في الجنوب). يمكن لمنطقتين أن يكون لديهما متوسطان مختلفان لأسباب مختلفة تمامًا: ربما يشهد الشرق أيامًا أكبر للمبيعات، أو ربما تكون عملية بيع استثنائية ضخمة واحدة هي التي ترفع متوسطه. المتوسط وحده لا يستطيع إخبارك أيهما — ستحتاج للنظر في الصفوف الأساسية، تمامًا كما علّمك تحذير BA1 "المتوسط لا يصف أحدًا في الغرفة".</p>
-        </div>
+        <div data-i18n="groupby-segment.5"></div>
       </div>
 
       <div class="exercise" data-question-id="groupby-segment"></div>
@@ -661,34 +393,22 @@ ORDER BY avg_revenue DESC;</code></pre>
     <!-- ============ 8 AI CORNER ============ -->
     <section id="ai-corner">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 08 &#8212; AI layer</span><span data-lang="ar">القسم ٠٨ — طبقة الذكاء الاصطناعي</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">7 min</span><span data-lang="ar">٧ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="ai-corner.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="ai-corner.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>AI co-pilot corner: SQL written by AI still needs Week 0's three checks</h2>
-        <p class="standfirst">An AI assistant will happily write you a syntactically perfect query that's statistically wrong.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>ركن مساعد الذكاء الاصطناعي: SQL المكتوب بالذكاء الاصطناعي ما زال يحتاج فحوصات الأسبوع صفر الثلاثة</h2>
-        <p class="standfirst">سيكتب لك مساعد الذكاء الاصطناعي بكل سرور استعلامًا سليمًا نحويًا لكنه خاطئ إحصائيًا.</p>
-      </div>
+      <div data-i18n="ai-corner.3"></div>
 
       <div class="tabs">
         <div class="tab-heads">
           <button class="tab-btn active" data-tab="weak">
-            <span data-lang="en" class="active">Weak prompt</span><span data-lang="ar">طلب ضعيف</span>
+            <span data-i18n="ai-corner.4"></span>
           </button>
           <button class="tab-btn" data-tab="strong">
-            <span data-lang="en" class="active">Strong prompt</span><span data-lang="ar">طلب قوي</span>
+            <span data-i18n="ai-corner.5"></span>
           </button>
         </div>
         <div class="tab-panel active" data-panel="weak" data-print-label="Weak prompt">
-          <div data-lang="en" class="active">
-            <p><strong>Prompt:</strong> "Write a SQL query to get the standard deviation of revenue."</p>
-          </div>
-          <div data-lang="ar">
-            <p><strong>الطلب:</strong> "اكتب استعلام SQL لحساب الانحراف المعياري للإيراد."</p>
-          </div>
+          <div data-i18n="ai-corner.6"></div>
           <div class="code-block">
             <pre><code>-- What the assistant hands back:
 SELECT SQRT(
@@ -698,20 +418,10 @@ FROM clearance_sales,
      (SELECT AVG(revenue) AS avg_rev FROM clearance_sales) t;</code></pre>
             <button type="button" class="code-copy-btn">Copy</button>
           </div>
-          <div data-lang="en" class="active">
-            <p>It runs. It returns a number. The number is <strong>wrong for this use case</strong> &#8212; it silently divides by <code class="mono">n</code> (population formula) when these rows are a sample, because the prompt never said which one mattered, and the assistant guessed.</p>
-          </div>
-          <div data-lang="ar">
-            <p>يعمل. يُعيد رقمًا. الرقم <strong>خاطئ لهذا الاستخدام</strong> — فهو يقسم بصمت على <code class="mono">n</code> (صيغة المجتمع) بينما هذه الصفوف عيّنة، لأن الطلب لم يحدد أيهما المقصود، فخمّن المساعد.</p>
-          </div>
+          <div data-i18n="ai-corner.7"></div>
         </div>
         <div class="tab-panel" data-panel="strong" data-print-label="Strong prompt">
-          <div data-lang="en" class="active">
-            <p><strong>Prompt:</strong> "Write a PostgreSQL query that computes the <em>sample</em> standard deviation (n&#8722;1 denominator) of the revenue column in clearance_sales, using STDDEV_SAMP, and explain in a comment why sample vs. population matters here."</p>
-          </div>
-          <div data-lang="ar">
-            <p><strong>الطلب:</strong> "اكتب استعلام PostgreSQL يحسب الانحراف المعياري <em>للعيّنة</em> (بمقام n&#8722;1) لعمود الإيراد في clearance_sales، باستخدام STDDEV_SAMP، واشرح في تعليق سبب أهمية التفريق بين العيّنة والمجتمع هنا."</p>
-          </div>
+          <div data-i18n="ai-corner.8"></div>
           <div class="code-block">
             <pre><code>-- These 28 rows are a sample of the store's clearance history,
 -- not the entire population of every sale ever made, so we divide by n-1.
@@ -725,21 +435,14 @@ FROM clearance_sales;
       </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 5</span><span data-lang="ar">الرسم ٥</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">The three checks, for SQL this time</span><span data-lang="ar">الفحوصات الثلاثة، لـSQL هذه المرة</span></div>
+        <div class="fig"><span data-i18n="ai-corner.9"></span></div>
+        <div class="fig-title"><span data-i18n="ai-corner.10"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-05.svg" alt="AI-generated SQL passes through three checks before it becomes a decision, or loops back"></div>
-        <figcaption><span data-lang="en" class="active">"Verify it" is exactly the check that catches the n-vs-n&#8722;1 mistake &#8212; a syntactically valid query is not the same as a correct one.</span><span data-lang="ar">"تحقق منه" هو بالضبط الفحص الذي يرصد خطأ n مقابل n&#8722;1 — الاستعلام السليم نحويًا ليس بالضرورة صحيحًا.</span></figcaption>
+        <figcaption><span data-i18n="ai-corner.11"></span></figcaption>
       </figure>
 
       <div class="box mistake">
-        <div data-lang="en" class="active">
-          <span class="box-label">Common mistake</span>
-          <p>Accepting an AI-generated statistic because the query ran without an error. A query with zero syntax errors and one wrong assumption produces a confident, clean-looking, wrong number &#8212; which is far more dangerous than a query that fails to run at all.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">خطأ شائع</span>
-          <p>قبول إحصاء أنتجه الذكاء الاصطناعي لمجرد أن الاستعلام عمل دون خطأ. استعلام بلا أخطاء نحوية وبافتراض واحد خاطئ ينتج رقمًا واثقًا وأنيق المظهر لكنه خاطئ — وهذا أخطر بكثير من استعلام يفشل في العمل من الأساس.</p>
-        </div>
+        <div data-i18n="ai-corner.12"></div>
       </div>
 
       <div class="exercise" data-question-id="ai-corner"></div>
@@ -748,76 +451,34 @@ FROM clearance_sales;
     <!-- ============ 9 WORKED EXAMPLE ============ -->
     <section id="worked-example">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 09</span><span data-lang="ar">القسم ٠٩</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">8 min</span><span data-lang="ar">٨ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="worked-example.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="worked-example.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Worked example: the winter-coat clearance, in full</h2>
-        <p class="standfirst">Week 0 introduced this decision conceptually. Now you have the real table and the real numbers behind it.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>مثال تطبيقي: تخفيض المعاطف الشتوية، كاملاً</h2>
-        <p class="standfirst">قدّم الأسبوع صفر هذا القرار من الناحية المفاهيمية. الآن لديك الجدول الحقيقي والأرقام الحقيقية خلفه.</p>
-      </div>
+      <div data-i18n="worked-example.3"></div>
 
-      <div data-lang="en" class="active">
-        <p>A department store ran winter-coat clearance sales across four regions, at discounts from 10% to 40%. The store's leadership wants one question answered: <strong>which region's approach should the others copy?</strong></p>
-        <p>Four queries answer it &#8212; the same four ideas this whole page has covered, run in sequence:</p>
-      </div>
-      <div data-lang="ar">
-        <p>أجرى متجر كبير تخفيضات على معاطف شتوية عبر أربع مناطق، بخصومات من ١٠٪ إلى ٤٠٪. تريد إدارة المتجر إجابة سؤال واحد: <strong>أي نهج من مناطق يجب أن تنسخه البقية؟</strong></p>
-        <p>أربعة استعلامات تجيب عن هذا — نفس الأفكار الأربع التي غطتها هذه الصفحة كاملة، مُشغّلة بالترتيب:</p>
+      <div data-i18n="worked-example.4"></div>
+
+      <div class="box example">
+        <div data-i18n="worked-example.5"></div>
       </div>
 
       <div class="box example">
-        <div data-lang="en" class="active">
-          <span class="box-label">1. The overall picture (mean &amp; spread)</span>
-          <p>Across all 28 sales: mean revenue <strong>$2,931.57</strong>, sample standard deviation <strong>$1,191.15</strong>. That spread is large relative to the mean &#8212; a single region-level number would hide a lot.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">١. الصورة الإجمالية (المتوسط والتشتت)</span>
-          <p>عبر جميع المبيعات الـ٢٨: متوسط الإيراد <strong>٢٬٩٣١.٥٧ دولار</strong>، والانحراف المعياري للعيّنة <strong>١٬١٩١.١٥ دولار</strong>. هذا التشتت كبير نسبةً إلى المتوسط — رقم واحد على مستوى كل المناطق كان سيخفي الكثير.</p>
-        </div>
+        <div data-i18n="worked-example.6"></div>
       </div>
 
       <div class="box example">
-        <div data-lang="en" class="active">
-          <span class="box-label">2. The frequency distribution</span>
-          <p>Section 5's histogram already showed most sales cluster in the $2,000&#8211;$3,999 range (7 + 9 = 16 of 28 sales), with only 4 sales making it past $4,000. Most clearance revenue is unremarkable &#8212; a handful of high-discount, high-volume days do the heavy lifting.</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">٢. التوزيع التكراري</span>
-          <p>أظهر الرسم البياني في القسم ٥ بالفعل أن معظم المبيعات تتجمع في نطاق ٢٬٠٠٠–٣٬٩٩٩ دولار (٧ + ٩ = ١٦ من أصل ٢٨ عملية بيع)، بينما ٤ عمليات بيع فقط تجاوزت ٤٬٠٠٠ دولار. معظم إيرادات التخفيض عادية — أيام قليلة عالية الخصم وعالية الحجم هي التي تقوم بالعمل الأكبر.</p>
-        </div>
-      </div>
-
-      <div class="box example">
-        <div data-lang="en" class="active">
-          <span class="box-label">3. The regional comparison</span>
-          <p>Section 7's <code class="mono">GROUP BY region</code> table, visualized:</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">٣. المقارنة الإقليمية</span>
-          <p>جدول <code class="mono">GROUP BY region</code> من القسم ٧، مرئيًا:</p>
-        </div>
+        <div data-i18n="worked-example.7"></div>
       </div>
 
       <figure class="diagram">
-        <div class="fig"><span data-lang="en" class="active">Diagram 6</span><span data-lang="ar">الرسم ٦</span></div>
-        <div class="fig-title"><span data-lang="en" class="active">Average revenue and spread, by region</span><span data-lang="ar">متوسط الإيراد والتشتت، حسب المنطقة</span></div>
+        <div class="fig"><span data-i18n="worked-example.8"></span></div>
+        <div class="fig-title"><span data-i18n="worked-example.9"></span></div>
         <div class="fig-art"><img src="../../../_shared/figures/week-01/diagram-06.svg" alt="Average clearance revenue by region: North 3130.86, South 2497.14, East 3658.29, West 2440.00, with spread shown as an error bar on each"></div>
-        <figcaption><span data-lang="en" class="active">East leads on average &#8212; but also has the widest whiskers, meaning the least consistent results.</span><span data-lang="ar">يتصدّر الشرق في المتوسط — لكن لديه أيضًا أوسع الشرائط، أي أقل النتائج اتساقًا.</span></figcaption>
+        <figcaption><span data-i18n="worked-example.10"></span></figcaption>
       </figure>
 
       <div class="box keypoint">
-        <div data-lang="en" class="active">
-          <span class="box-label">4. The decision</span>
-          <p>East's approach earns the most on average &#8212; but the same data shows East is also the least predictable region, with a standard deviation nearly 46% higher than South's. Copying East's discount strategy chain-wide is a bet on volatility, not just revenue. The recommendation: pilot East's approach in one more region first, and specifically check whether East's high average is broad-based or driven by one or two outlier sale days, before rolling it out everywhere. Exactly like Week 0's markdown question, the analysis isn't finished until it produces a decision &#8212; and here, the honest decision is "test further," not "copy East."</p>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">٤. القرار</span>
-          <p>يحقق نهج الشرق الأعلى في المتوسط — لكن نفس البيانات تُظهر أن الشرق أيضًا أقل المناطق قابلية للتنبؤ، بانحراف معياري أعلى بنسبة ٤٦٪ تقريبًا من الجنوب. نسخ استراتيجية خصم الشرق على مستوى السلسلة بأكملها مراهنة على التقلب، لا على الإيراد فقط. التوصية: جرّب نهج الشرق في منطقة إضافية واحدة أولاً، وتحقق تحديدًا مما إذا كان متوسط الشرق المرتفع واسع القاعدة أم مدفوعًا بيوم أو يومي بيع استثنائيين، قبل تعميمه في كل مكان. تمامًا كسؤال التخفيض في الأسبوع صفر، لا يكتمل التحليل حتى ينتج قرارًا — وهنا، القرار الصادق هو "اختبر أكثر"، لا "انسخ الشرق".</p>
-        </div>
+        <div data-i18n="worked-example.11"></div>
       </div>
 
       <div class="exercise" data-question-id="worked-example"></div>
@@ -826,31 +487,15 @@ FROM clearance_sales;
     <!-- ============ 10 COMMON MISTAKES ============ -->
     <section id="common-mistakes">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 10</span><span data-lang="ar">القسم ١٠</span></span>
-        <span class="time-est">&#9201; <span data-lang="en" class="active">4 min</span><span data-lang="ar">٤ دقائق</span></span>
+        <span class="sec-num"><span data-i18n="common-mistakes.1"></span></span>
+        <span class="time-est">&#9201; <span data-i18n="common-mistakes.2"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Common mistakes, gathered in one place</h2>
-        <p class="standfirst">Everything this page warned about, as a single reference.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>الأخطاء الشائعة، مجمّعة في مكان واحد</h2>
-        <p class="standfirst">كل ما حذّرت منه هذه الصفحة، كمرجع واحد.</p>
-      </div>
+      <div data-i18n="common-mistakes.3"></div>
 
       <div class="table-scroll">
       <table>
-        <thead><tr><th><span data-lang="en" class="active">Mistake</span><span data-lang="ar">الخطأ</span></th><th><span data-lang="en" class="active">Why it matters</span><span data-lang="ar">لماذا يهم</span></th></tr></thead>
-        <tbody data-lang="en" class="active">
-          <tr><td><strong>STDDEV_POP instead of STDDEV_SAMP</strong></td><td>Dividing by n instead of n&#8722;1 understates the true spread whenever your rows are a sample, not the full population &#8212; which is almost always.</td></tr>
-          <tr><td><strong>Assuming COUNT(*) = COUNT(column)</strong></td><td><code class="mono">COUNT(column)</code> silently skips NULLs. If you want the row count regardless of missing values, use <code class="mono">COUNT(*)</code>.</td></tr>
-          <tr><td><strong>A SELECT column missing from GROUP BY</strong></td><td>Postgres errors instead of guessing &#8212; every non-aggregated column in SELECT must appear in GROUP BY too.</td></tr>
-        </tbody>
-        <tbody data-lang="ar">
-          <tr><td><strong>STDDEV_POP بدلاً من STDDEV_SAMP</strong></td><td>القسمة على n بدلاً من n&#8722;1 تقلل من التشتت الحقيقي كلما كانت صفوفك عيّنة لا المجتمع الكامل — وهذا هو الحال غالبًا.</td></tr>
-          <tr><td><strong>افتراض أن COUNT(*) تساوي COUNT(column)</strong></td><td>تتجاهل <code class="mono">COUNT(column)</code> قيم NULL بصمت. إن أردت عدد الصفوف بغض النظر عن القيم المفقودة، استخدم <code class="mono">COUNT(*)</code>.</td></tr>
-          <tr><td><strong>عمود في SELECT غير موجود في GROUP BY</strong></td><td>يُصدر Postgres خطأ بدلاً من التخمين — كل عمود غير مجمّع في SELECT يجب أن يظهر أيضًا في GROUP BY.</td></tr>
-        </tbody>
+        <thead><tr><th><span data-i18n="common-mistakes.4"></span></th><th><span data-i18n="common-mistakes.5"></span></th></tr></thead>
+        <tbody data-i18n="common-mistakes.6"></tbody>
       </table>
       </div>
     </section>
@@ -858,73 +503,36 @@ FROM clearance_sales;
     <!-- ============ 11 HOMEWORK ============ -->
     <section id="homework">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 11</span><span data-lang="ar">القسم ١١</span></span>
+        <span class="sec-num"><span data-i18n="homework.1"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Homework: write your report to the regional director</h2>
-        <p class="standfirst">You're the analyst. The regional director from Section 1 is waiting on your answer. Write it up as a short report, in your own words, and email it to me &#8212; each section below is small on its own; answer them in order.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>الواجب: اكتب تقريرك للمدير الإقليمي</h2>
-        <p class="standfirst">أنت المحلّل. المدير الإقليمي من القسم ١ ينتظر إجابتك. اكتبها كتقرير قصير، بكلماتك الخاصة، وأرسله لي بالبريد الإلكتروني — كل قسم أدناه صغير بذاته؛ أجب عنها بالترتيب.</p>
-      </div>
+      <div data-i18n="homework.2"></div>
 
       <div class="box keypoint">
-        <div data-lang="en" class="active">
-          <span class="box-label">Write your report, section by section, in order</span>
-          <ol class="steps">
-            <li><strong>Set the scene</strong> &#8212; In 2&#8211;3 sentences, describe the dataset (what it is, where it lives) and the business question the regional director actually wants answered.</li>
-            <li><strong>Why SQL, not Excel</strong> &#8212; In your own words, explain why this couldn't just be done by opening a spreadsheet.</li>
-            <li><strong>The center and the spread</strong> &#8212; What did <span class="mono">AVG</span>, <span class="mono">COUNT</span>, and <span class="mono">SUM</span> tell you about the data? Then explain the standard deviation: what it means, how you built it by hand, and what the built-in function confirmed.</li>
-            <li><strong>The shape of the data</strong> &#8212; What did grouping the sales into buckets and counting them show you about how the discounts are distributed? What did the median add that the mean alone didn't?</li>
-            <li><strong>Comparing regions</strong> &#8212; Which region had the highest average revenue per sale? Which was the most volatile (least predictable)? Why does knowing both matter more than knowing just one? <strong>Paste the actual SQL query you ran and its result</strong> &#8212; your report needs to show the evidence, not just state the conclusion.</li>
-            <li><strong>Working with AI</strong> &#8212; Describe a moment from this week where you'd need to explain, verify, or stand behind a SQL query an AI assistant wrote for you. What could go wrong if you skipped that step?</li>
-            <li><strong>The decision</strong> &#8212; Should the chain roll out the best-performing region's discount strategy everywhere next season? Give your recommendation and justify it with the actual numbers, not a guess.</li>
-          </ol>
-        </div>
-        <div data-lang="ar">
-          <span class="box-label">اكتب تقريرك، قسمًا تلو الآخر، بالترتيب</span>
-          <ol class="steps">
-            <li><strong>حدّد المشهد</strong> — في ٢-٣ جمل، صف البيانات (ما هي، وأين تعيش) والسؤال التجاري الذي يريد المدير الإقليمي إجابة عنه فعليًا.</li>
-            <li><strong>لماذا SQL لا Excel</strong> — اشرح بكلماتك سبب استحالة إنجاز هذا بمجرد فتح جدول بيانات.</li>
-            <li><strong>المركز والتشتت</strong> — ماذا أخبرتك <span class="mono">AVG</span> و<span class="mono">COUNT</span> و<span class="mono">SUM</span> عن البيانات؟ ثم اشرح الانحراف المعياري: ماذا يعني، وكيف بنيته يدويًا، وماذا أكدته الدالة الجاهزة.</li>
-            <li><strong>شكل البيانات</strong> — ماذا أظهر لك تجميع المبيعات في فئات وعدّها عن كيفية توزّع الخصومات؟ ماذا أضاف الوسيط لم يضفه المتوسط وحده؟</li>
-            <li><strong>مقارنة المناطق</strong> — أي منطقة كان لديها أعلى متوسط إيراد للبيع الواحد؟ أيها كانت الأكثر تقلبًا (الأقل قابلية للتنبؤ)؟ لماذا معرفة الاثنين معًا أهم من معرفة واحد فقط؟ <strong>الصق استعلام SQL الفعلي الذي شغّلته ونتيجته</strong> — يحتاج تقريرك إلى إظهار الدليل، لا مجرد ذكر الاستنتاج.</li>
-            <li><strong>العمل مع الذكاء الاصطناعي</strong> — صف لحظة من هذا الأسبوع تحتاج فيها إلى شرح استعلام SQL كتبه مساعد ذكاء اصطناعي أو التحقق منه أو الوقوف خلفه. ما الذي قد يحدث خطأً لو تخطيت تلك الخطوة؟</li>
-            <li><strong>القرار</strong> — هل ينبغي أن تعمم السلسلة استراتيجية خصم المنطقة الأفضل أداءً في كل مكان الموسم القادم؟ أعطِ توصيتك وبرّرها بالأرقام الفعلية، لا بالتخمين.</li>
-          </ol>
-        </div>
+        <div data-i18n="homework.3"></div>
       </div>
     </section>
 
     <!-- ============ 12 BEFORE WEEK 2 ============ -->
     <section id="before-week-2">
       <div class="sec-head">
-        <span class="sec-num"><span data-lang="en" class="active">Section 12</span><span data-lang="ar">القسم ١٢</span></span>
+        <span class="sec-num"><span data-i18n="before-week-2.1"></span></span>
       </div>
-      <div data-lang="en" class="active">
-        <h2>Before Week 2</h2>
-        <p>Every query this week read from one table. Week 2 introduces <code class="mono">JOIN</code> &#8212; combining rows from two tables at once &#8212; but that's next week's problem, not this one's.</p>
-      </div>
-      <div data-lang="ar">
-        <h2>قبل الأسبوع ٢</h2>
-        <p>كل استعلام هذا الأسبوع قرأ من جدول واحد. يقدّم الأسبوع ٢ عبارة <code class="mono">JOIN</code> — دمج صفوف من جدولين في آن واحد — لكن هذه مشكلة الأسبوع القادم، لا هذا الأسبوع.</p>
-      </div>
+      <div data-i18n="before-week-2.2"></div>
 
-      <a class="top-link" href="#top"><span data-lang="en" class="active">Back to top &#8593;</span><span data-lang="ar">العودة للأعلى &#8593;</span></a>
+      <a class="top-link" href="#top"><span data-i18n="before-week-2.3"></span></a>
     </section>
 
     <nav class="week-nav" id="weekNav"></nav>
 
     <footer>
-      <span data-lang="en" class="active">BA2 Week 1 &#183; Statistics at Scale</span>
-      <span data-lang="ar">الأسبوع 1 من BA2 &#183; الإحصاء على نطاق واسع</span>
+      <span data-i18n="footer.1"></span>
     </footer>
 
   </main>
 </div>
 
 <script src="../../manifest.js"></script>
+<script src="../../../_shared/i18n/week-01.strings.js"></script>
 <script src="../../../_shared/question-banks/week-01.questions.js"></script>
 <script src="../../../_shared/scripts/week.js"></script>
 <script src="../../../_shared/scripts/auth-gate.js"></script>
