@@ -30,6 +30,10 @@ html[dir="rtl"][lang="fa"] body{ font-family:'Vazirmatn','Inter',sans-serif; }
 [data-lang]{ display:none; }
 [data-lang].active{ display:block; }
 span[data-lang].active{ display:inline; }
+/* A <tbody> forced to display:block loses the shared column grid with its <thead>, so its <td>
+   widths stop lining up under the header's <th> columns — restore the table-specific display
+   value instead of the generic block override for language-switched table bodies. */
+tbody[data-lang].active{ display:table-row-group; }
 
 .langbar{
   position:fixed; inset-inline-end:20px; top:16px; z-index:50;

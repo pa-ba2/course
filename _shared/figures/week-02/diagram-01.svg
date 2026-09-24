@@ -23,9 +23,11 @@
 <text x="150" y="155" font-size="9" fill="#1C2B3A">9</text>
 <text x="95" y="180" text-anchor="middle" font-size="9.5" fill="#55606E">one row per sale</text>
 
-<path d="M92,60 C130,95 130,95 92,132" fill="none" stroke="#0E6F7E" stroke-width="1.6" stroke-dasharray="3,3"/>
-<text x="200" y="94" text-anchor="middle" font-size="9" font-weight="700" fill="#0E6F7E">shared</text>
-<text x="200" y="105" text-anchor="middle" font-size="9" font-weight="700" fill="#0E6F7E">column</text>
+<text x="200" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="#0E6F7E">shared</text>
+<text x="200" y="83" text-anchor="middle" font-size="9" font-weight="700" fill="#0E6F7E">column</text>
+<line x1="120" y1="95" x2="220" y2="95" stroke="#0E6F7E" stroke-width="1.6" stroke-dasharray="4,3"/>
+<line x1="120" y1="87" x2="120" y2="103" stroke="#0E6F7E" stroke-width="1.6"/>
+<line x1="220" y1="87" x2="220" y2="103" stroke="#0E6F7E" stroke-width="1.6"/>
 
 <text x="305" y="16" text-anchor="middle" font-size="11.5" font-weight="700" fill="#55606E">jam_products</text>
 <rect x="220" y="24" width="170" height="90" fill="#fff" stroke="#DED6C4"/>
