@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BA2 Week 2 — Calculating Metrics: From One Table to Two</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Vazirmatn:wght@400;600;700;800&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../_shared/styles/week.css">
+<link rel="stylesheet" href="../../../_shared/styles/auth-gate.css">
+</head>
+<body data-week-id="week-02" data-root-prefix="../../../">
+
+<div class="langbar">
+  <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode">&#127769;</button>
+  <button data-setlang="en" class="active">EN</button>
+  <button data-setlang="ar">AR</button>
+  <button data-setlang="fa">FA</button>
+</div>
+
+<div class="topbar-start">
+  <a class="pill-btn back-btn" id="backBtn" href="../../hub/index.html">
+    &#8592; <span data-i18n="topbar.1">Back to hub</span>
+  </a>
+  <button type="button" class="pill-btn contents-btn" id="contentsBtn">
+    &#9776; <span data-i18n="topbar.2">Course contents</span>
+  </button>
+</div>
+<div class="contents-overlay" id="contentsOverlay" hidden></div>
+<div class="contents-panel" id="contentsPanel" hidden>
+  <div class="contents-panel-head">
+    <span data-i18n="contents.1">Course contents</span>
+    <button type="button" class="contents-close" id="contentsClose" aria-label="Close">&times;</button>
+  </div>
+  <ul class="contents-list" id="contentsList"></ul>
+</div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span data-i18n="sidebar.1">Business Analytics 2</span>
+    </div>
+    <div class="brand-sub">
+      <span data-i18n="sidebar.2">Week 2 — Calculating Metrics</span>
+    </div>
+    <nav>
+      <div data-i18n="sidebar.3">        <a href="#welcome" class="current">Welcome</a>
+        <a href="#metrics-overview">What are business metrics?</a>
+        <a href="#metrics-by-industry">Metrics by industry</a>
+        <div class="grp-label">Toolkit</div>
+        <a href="#excel-functions">Excel functions recap</a>
+        <a href="#two-tables">Why data lives in two tables</a>
+        <div class="grp-label">SQL JOIN</div>
+        <a href="#inner-join">INNER JOIN</a>
+        <a href="#left-join">LEFT JOIN</a>
+        <a href="#calculating-metrics-sql">Metrics via JOIN + GROUP BY</a>
+        <div class="grp-label">AI layer</div>
+        <a href="#ai-corner">AI co-pilot corner</a>
+        <div class="grp-label">Applied</div>
+        <a href="#worked-example">Worked example</a>
+        <div class="grp-label">Reference</div>
+        <a href="#common-mistakes">Common mistakes</a>
+        <div class="grp-label">Homework</div>
+        <a href="#homework">Homework</a>
+        <a href="#before-week-3">Before Week 3</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="cover" id="top">
+      <div class="kicker">
+        <span data-i18n="cover.1">Business Analytics 2 &#183; Week 2</span>
+      </div>
+      <div data-i18n="cover.2">        <h1>Calculating Metrics:<em>From One Table to Two</em></h1>
+        <p class="lede">Last week every answer came from a single table. This week the business questions get harder on purpose: you can't compute profit from a sales table alone &#8212; you need a second table with prices and costs, and a way to combine them.</p>
+      </div>
+      <div class="cover-tools">
+        <a class="tool-btn" href="../../../ba-source-materials/Business%20Analytics%202/Week%202_%20Calculating%20Metrics%20in%20Excel.pdf" target="_blank" rel="noopener">
+          <span data-i18n="cover.3">View original slides</span>
+        </a>
+        <button type="button" class="tool-btn" onclick="window.print()">
+          <span data-i18n="cover.4">Save as PDF</span>
+        </button>
+        <span class="total-time">
+          &#9201; <span data-i18n="cover.5">&#8776; 60 min &#183; reading + SQL practice</span>
+        </span>
+      </div>
+      <div class="box keypoint" style="margin-top:18px;">
+        <div data-i18n="cover.6">          <span class="box-label">A note on the slides above</span>
+          <p>The original deck teaches business metrics through Excel formulas only &#8212; and that content is still here, in Sections 2&#8211;4. What's new is Sections 5&#8211;8: <code class="mono">JOIN</code>, the SQL topic Week 1 promised, taught through the exact problem the original deck's metrics can't solve alone &#8212; combining a sales table with a prices-and-costs table.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ 1 WELCOME ============ -->
+    <section id="welcome">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="welcome.1">Section 01</span></span>
+        <span class="time-est">&#9201; <span data-i18n="welcome.2">6 min</span></span>
+      </div>
+      <div data-i18n="welcome.3">        <h2>Welcome: the same table trick, twice</h2>
+        <p class="standfirst">Week 1 answered "what's typical, and how spread out." This week asks a harder question: "are we actually making money" &#8212; and that question needs two tables, not one.</p>
+      </div><div data-i18n="welcome.4">          <div class="obj-label">By the end, you'll be able to</div>
+          <ul>
+            <li>Calculate revenue, cost, profit, and profit margin from real sales data</li>
+            <li>Explain why prices and costs usually live in a separate table from sales, and combine them with <code class="mono">JOIN</code></li>
+            <li>Choose between <code class="mono">INNER JOIN</code> and <code class="mono">LEFT JOIN</code> depending on whether missing matches should be hidden or surfaced</li>
+          </ul>
+        </div><div data-i18n="welcome.5">        <p>Quick recap of Week 1's toolkit, since today builds on it directly: <code class="mono">SELECT / FROM / WHERE</code> to choose your sample, <code class="mono">AVG / COUNT / SUM</code> for the center, <code class="mono">STDDEV_SAMP</code> for the spread, and <code class="mono">GROUP BY</code> to get one stat per category instead of one for the whole table. Everything this week adds sits on top of that &#8212; nothing from Week 1 gets replaced.</p>
+      </div><div data-i18n="welcome.6">        <p>Here's this week's running scenario: you help run a jam stand at a Saturday farmers' market, selling three flavors &#8212; Strawberry, Blueberry, and Peach. Every sale gets logged in a <span class="mono">jam_sales</span> table: flavor, date, units sold. Prices and costs live somewhere else entirely, in a <span class="mono">jam_products</span> table, because they change rarely and apply to every sale of that flavor. The stand owner wants a straight answer: <strong>which flavor should we make more of next month?</strong> Sections 6 through 8 build toward that answer, and Section 10 delivers it with real numbers.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th><span data-i18n="welcome.7">flavor</span></th><th><span data-i18n="welcome.8">selling price</span></th><th><span data-i18n="welcome.9">cost price</span></th></tr></thead>
+        <tbody>
+          <tr><td><strong>Strawberry</strong></td><td>$5.00</td><td>$2.00</td></tr>
+          <tr><td><strong>Blueberry</strong></td><td>$6.00</td><td>$3.00</td></tr>
+          <tr><td><strong>Peach</strong></td><td>$4.00</td><td>$1.00</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="exercise" data-question-id="welcome"></div>
+    </section>
+
+    <!-- ============ 2 METRICS OVERVIEW ============ -->
+    <section id="metrics-overview">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="metrics-overview.1">Section 02</span></span>
+        <span class="time-est">&#9201; <span data-i18n="metrics-overview.2">5 min</span></span>
+      </div>
+      <div data-i18n="metrics-overview.3">        <h2>What is a business metric?</h2>
+        <p class="standfirst">A standardized, quantitative measurement used to track and assess performance &#8212; the difference between "sales felt good this week" and a number you can compare, alert on, and defend.</p>
+      </div><div data-i18n="metrics-overview.4">        <p><code class="mono">jam_sales</code> already gave you the raw ingredient &#8212; who sold how much, when. A metric turns that into something you can act on: revenue, cost, profit, or a per-category comparison. The four reasons this matters, straight from the business world:</p>
+        <ol class="steps">
+          <li><strong>Performance improvement</strong> &#8212; tracking the right metric tells you how the business is doing and where to focus.</li>
+          <li><strong>Identifying problems early</strong> &#8212; a metric that's drifting the wrong way flags a problem before it becomes a crisis.</li>
+          <li><strong>Comparative analysis</strong> &#8212; metrics let you check performance against a benchmark, a competitor, or last month.</li>
+          <li><strong>Communication</strong> &#8212; a shared metric is how you report to customers, investors, or a stand owner without an argument about what "good" means.</li>
+        </ol>
+      </div><div data-i18n="metrics-overview.5">          <span class="box-label">Bridge from BA1</span>
+          <p>This is BA1's "descriptive analytics" from a new angle: revenue and profit are the KPIs, and everything you're about to do &#8212; JOIN, GROUP BY &#8212; is just the plumbing that gets you from raw rows to a KPI you can report.</p>
+        </div>
+      <div class="exercise" data-question-id="metrics-overview"></div>
+    </section>
+
+    <!-- ============ 3 METRICS BY INDUSTRY ============ -->
+    <section id="metrics-by-industry">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="metrics-by-industry.1">Section 03</span></span>
+        <span class="time-est">&#9201; <span data-i18n="metrics-by-industry.2">6 min</span></span>
+      </div>
+      <div data-i18n="metrics-by-industry.3">        <h2>The same shape of metric, a different formula per industry</h2>
+        <p class="standfirst">"Revenue" and "traffic" mean something slightly different in a shop, a restaurant, and a hotel &#8212; but the underlying shape (a rate, a total, a ratio) repeats everywhere.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th><span data-i18n="metrics-by-industry.4">Industry</span></th><th><span data-i18n="metrics-by-industry.5">Metric</span></th><th><span data-i18n="metrics-by-industry.6">Formula</span></th></tr></thead>
+        <tbody data-lang="en" class="active">
+          <tr><td rowspan="2"><strong>Retail</strong></td><td>Sales revenue</td><td class="mono">SUM(quantity sold &#215; price)</td></tr>
+          <tr><td>Foot traffic</td><td class="mono">COUNT(visitors)</td></tr>
+          <tr><td rowspan="2"><strong>Restaurant</strong></td><td>Average customer bill</td><td class="mono">SUM(revenue per day) / COUNT(customers)</td></tr>
+          <tr><td>Table turnover rate</td><td class="mono">meals served / seating capacity</td></tr>
+          <tr><td rowspan="2"><strong>Hospitality</strong></td><td>Occupancy rate</td><td class="mono">rooms sold / total rooms available</td></tr>
+          <tr><td>Average daily rate</td><td class="mono">room revenue / rooms rented</td></tr>
+        </tbody>
+        <tbody data-lang="ar">
+          <tr><td rowspan="2"><strong>تجزئة</strong></td><td>إيراد المبيعات</td><td class="mono">SUM(الكمية المباعة &#215; السعر)</td></tr>
+          <tr><td>حركة الزوار</td><td class="mono">COUNT(الزوار)</td></tr>
+          <tr><td rowspan="2"><strong>مطعم</strong></td><td>متوسط فاتورة العميل</td><td class="mono">SUM(الإيراد اليومي) / COUNT(العملاء)</td></tr>
+          <tr><td>معدل دوران الطاولات</td><td class="mono">الوجبات المقدَّمة / سعة الجلوس</td></tr>
+          <tr><td rowspan="2"><strong>ضيافة</strong></td><td>معدل الإشغال</td><td class="mono">الغرف المباعة / إجمالي الغرف المتاحة</td></tr>
+          <tr><td>متوسط السعر اليومي</td><td class="mono">إيراد الغرف / الغرف المؤجَّرة</td></tr>
+        </tbody>
+        <tbody data-lang="fa">
+          <tr><td rowspan="2"><strong>خرده‌فروشی</strong></td><td>درآمد فروش</td><td class="mono">SUM(تعداد فروخته‌شده &#215; قیمت)</td></tr>
+          <tr><td>ترافیک پیاده</td><td class="mono">COUNT(بازدیدکنندگان)</td></tr>
+          <tr><td rowspan="2"><strong>رستوران</strong></td><td>میانگین صورت‌حساب مشتری</td><td class="mono">SUM(درآمد روزانه) / COUNT(مشتریان)</td></tr>
+          <tr><td>نرخ گردش میز</td><td class="mono">وعده‌های سرو شده / ظرفیت نشستن</td></tr>
+          <tr><td rowspan="2"><strong>مهمان‌نوازی</strong></td><td>نرخ اشغال</td><td class="mono">اتاق‌های فروخته‌شده / کل اتاق‌های موجود</td></tr>
+          <tr><td>نرخ متوسط روزانه</td><td class="mono">درآمد اتاق / اتاق‌های اجاره‌شده</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div data-i18n="metrics-by-industry.7">          <span class="box-label">Example: the jam stand's own numbers</span>
+          <p>In May, the stand sold 100 Strawberry jars at $5, 60 Blueberry jars at $6, and 40 Peach jars at $4. Revenue = SUM(units &#215; price) = (100&#215;5) + (60&#215;6) + (40&#215;4) = $500 + $360 + $160 = <strong>$1,020</strong>. That's the retail formula above, done by hand &#8212; before Section 8 does it in SQL, joined against the cost table too.</p>
+        </div>
+      <div class="exercise" data-question-id="metrics-by-industry"></div>
+    </section>
+
+    <!-- ============ 4 EXCEL FUNCTIONS ============ -->
+    <section id="excel-functions">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="excel-functions.1">Section 04</span></span>
+        <span class="time-est">&#9201; <span data-i18n="excel-functions.2">5 min</span></span>
+      </div>
+      <div data-i18n="excel-functions.3">        <h2>Excel functions recap: the same stats, a different set of hands</h2>
+        <p class="standfirst">The original deck for this week is Excel-only. You already know these ideas from Week 1's SQL &#8212; here's the Excel side, for whenever your data arrives as a spreadsheet instead of a live database.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th><span data-i18n="excel-functions.4">Excel function</span></th><th><span data-i18n="excel-functions.5">Does</span></th><th><span data-i18n="excel-functions.6">Week 1's SQL equivalent</span></th></tr></thead>
+        <tbody data-lang="en" class="active">
+          <tr><td class="mono">AVERAGE()</td><td>Mean of the selected range</td><td class="mono">AVG()</td></tr>
+          <tr><td class="mono">MEDIAN()</td><td>Middle value of the selected range</td><td class="mono">PERCENTILE_CONT(0.5)</td></tr>
+          <tr><td class="mono">MODE()</td><td>Most frequent value in the range</td><td class="mono">GROUP BY + ORDER BY COUNT(*) DESC</td></tr>
+          <tr><td class="mono">AVERAGEIF()</td><td>Mean of a range, only where a condition holds</td><td class="mono">AVG() with WHERE, or GROUP BY</td></tr>
+          <tr><td class="mono">STDEV()</td><td>Sample standard deviation</td><td class="mono">STDDEV_SAMP()</td></tr>
+          <tr><td class="mono">VAR()</td><td>Sample variance</td><td class="mono">STDDEV_SAMP()<sup>2</sup></td></tr>
+        </tbody>
+        <tbody data-lang="ar">
+          <tr><td class="mono">AVERAGE()</td><td>متوسط النطاق المحدد</td><td class="mono">AVG()</td></tr>
+          <tr><td class="mono">MEDIAN()</td><td>القيمة الوسطى للنطاق المحدد</td><td class="mono">PERCENTILE_CONT(0.5)</td></tr>
+          <tr><td class="mono">MODE()</td><td>القيمة الأكثر تكرارًا في النطاق</td><td class="mono">GROUP BY + ORDER BY COUNT(*) DESC</td></tr>
+          <tr><td class="mono">AVERAGEIF()</td><td>متوسط نطاق، فقط حيث يتحقق شرط</td><td class="mono">AVG() مع WHERE، أو GROUP BY</td></tr>
+          <tr><td class="mono">STDEV()</td><td>الانحراف المعياري للعيّنة</td><td class="mono">STDDEV_SAMP()</td></tr>
+          <tr><td class="mono">VAR()</td><td>تباين العيّنة</td><td class="mono">STDDEV_SAMP()<sup>2</sup></td></tr>
+        </tbody>
+        <tbody data-lang="fa">
+          <tr><td class="mono">AVERAGE()</td><td>میانگین بازهٔ انتخاب‌شده</td><td class="mono">AVG()</td></tr>
+          <tr><td class="mono">MEDIAN()</td><td>مقدار میانی بازهٔ انتخاب‌شده</td><td class="mono">PERCENTILE_CONT(0.5)</td></tr>
+          <tr><td class="mono">MODE()</td><td>پرتکرارترین مقدار در بازه</td><td class="mono">GROUP BY + ORDER BY COUNT(*) DESC</td></tr>
+          <tr><td class="mono">AVERAGEIF()</td><td>میانگین یک بازه، فقط جایی که شرطی برقرار است</td><td class="mono">AVG() همراه با WHERE، یا GROUP BY</td></tr>
+          <tr><td class="mono">STDEV()</td><td>انحراف معیار نمونه</td><td class="mono">STDDEV_SAMP()</td></tr>
+          <tr><td class="mono">VAR()</td><td>واریانس نمونه</td><td class="mono">STDDEV_SAMP()<sup>2</sup></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div data-i18n="excel-functions.7">          <span class="box-label">Common mistake</span>
+          <p><code class="mono">AVERAGEIF()</code> and <code class="mono">GROUP BY</code> aren't quite the same shape: <code class="mono">AVERAGEIF()</code> gives you one number for one condition you typed out by hand, while <code class="mono">GROUP BY</code> gives you one row per category automatically &#8212; for 3 flavors, that's one <code class="mono">AVERAGEIF()</code> per flavor versus a single <code class="mono">GROUP BY flavor</code>.</p>
+        </div>
+      <div class="exercise" data-question-id="excel-functions"></div>
+    </section>
+
+    <!-- ============ 5 TWO TABLES ============ -->
+    <section id="two-tables">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="two-tables.1">Section 05</span></span>
+        <span class="time-est">&#9201; <span data-i18n="two-tables.2">5 min</span></span>
+      </div>
+      <div data-i18n="two-tables.3">        <h2>Why prices don't live inside the sales table</h2>
+        <p class="standfirst">You could add a price column to every row of <code class="mono">jam_sales</code>. Real databases almost never do that &#8212; and the reason is worth understanding before you write a single <code class="mono">JOIN</code>.</p>
+      </div><div data-i18n="two-tables.4">        <p>Say you did add a <span class="mono">selling_price</span> column to every row of <span class="mono">jam_sales</span>. Strawberry sells at $5 across 4 different market days &#8212; so the price $5 would be copied into 4 separate rows. The day the stand raises Strawberry to $5.50, you'd have to find and update every single row that ever sold Strawberry, and if you missed even one, your data would quietly disagree with itself about what Strawberry costs. Keeping price in its own <span class="mono">jam_products</span> table means it's stored exactly once per flavor &#8212; update it there, and every future <code class="mono">JOIN</code> picks up the new price automatically.</p>
+      </div><div data-i18n="two-tables.5">          <span class="box-label">Analogy</span>
+          <p>This is Week 1's warehouse, with a second room. <span class="mono">jam_sales</span> is the loading dock &#8212; a fast, constantly-growing log of what left the building. <span class="mono">jam_products</span> is the price list pinned to the office wall &#8212; small, slow-changing, and looked up whenever the loading dock needs a number. <code class="mono">JOIN</code> is the trip between the two rooms, done automatically instead of by hand.</p>
+        </div>
+      <figure class="diagram">
+        <div class="fig"><span data-i18n="two-tables.6">Diagram 1</span></div>
+        <div class="fig-title"><span data-i18n="two-tables.7">Two tables, one shared column</span></div>
+        <div class="fig-art"><img src="../../../_shared/figures/week-02/diagram-01.svg" alt="jam_sales table and jam_products table, connected by the shared flavor column"></div>
+        <figcaption><span data-i18n="two-tables.8">flavor appears in both tables &#8212; that shared column is what a JOIN matches rows on.</span></figcaption>
+      </figure>
+
+      <div class="exercise" data-question-id="two-tables"></div>
+    </section>
+
+    <!-- ============ 6 INNER JOIN ============ -->
+    <section id="inner-join">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="inner-join.1">Section 06</span></span>
+        <span class="time-est">&#9201; <span data-i18n="inner-join.2">8 min</span></span>
+      </div>
+      <div data-i18n="inner-join.3">        <h2>INNER JOIN: rows that match on both sides</h2>
+        <p class="standfirst">The Week 1 promise, delivered: <code class="mono">JOIN</code> is how you combine columns from two tables into one result, matched on a shared column.</p>
+      </div><div data-i18n="inner-join.4">        <p><code class="mono">INNER JOIN</code> is the strictest version: it keeps a row only if the join column has a match in <em>both</em> tables. Row up every <code class="mono">jam_sales</code> row against <code class="mono">jam_products</code> on <code class="mono">flavor</code>, and you get one combined row per sale, now carrying its price and cost alongside it.</p>
+      </div>
+      <div class="code-block">
+        <pre><code>CREATE TABLE jam_products (
+  flavor        TEXT PRIMARY KEY,
+  selling_price NUMERIC(10,2) NOT NULL,
+  cost_price    NUMERIC(10,2) NOT NULL
+);
+
+INSERT INTO jam_products (flavor, selling_price, cost_price) VALUES
+('Strawberry', 5.00, 2.00),
+('Blueberry',  6.00, 3.00),
+('Peach',      4.00, 1.00);
+-- Note: no row for 'Lemon' yet &#8212; Section 7 comes back to why that matters.
+
+CREATE TABLE jam_sales (
+  id          INT PRIMARY KEY,
+  flavor      TEXT NOT NULL,
+  market_date DATE NOT NULL,
+  units_sold  INT NOT NULL
+);
+
+INSERT INTO jam_sales (id, flavor, market_date, units_sold) VALUES
+(1, 'Strawberry', '2024-05-04', 22),
+(2, 'Blueberry',  '2024-05-04', 15),
+(3, 'Peach',      '2024-05-04', 10),
+(4, 'Strawberry', '2024-05-11', 25),
+(5, 'Blueberry',  '2024-05-11', 12),
+(6, 'Peach',      '2024-05-11', 8),
+(7, 'Strawberry', '2024-05-18', 18),
+(8, 'Blueberry',  '2024-05-18', 17),
+(9, 'Peach',      '2024-05-18', 12),
+(10, 'Strawberry', '2024-05-25', 35),
+(11, 'Blueberry',  '2024-05-25', 16),
+(12, 'Peach',      '2024-05-25', 10),
+(13, 'Lemon',       '2024-05-25', 9);</code></pre>
+        <button type="button" class="code-copy-btn">Copy</button>
+      </div>
+
+      <div class="code-block">
+        <pre><code>SELECT s.flavor, s.market_date, s.units_sold, p.selling_price, p.cost_price
+FROM jam_sales s
+INNER JOIN jam_products p ON s.flavor = p.flavor
+ORDER BY s.market_date;
+
+-- 12 rows come back &#8212; every jam_sales row EXCEPT the Lemon sale on 2024-05-25,
+-- because 'Lemon' has no matching row in jam_products.</code></pre>
+        <button type="button" class="code-copy-btn">Copy</button>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-i18n="inner-join.5">Diagram 2</span></div>
+        <div class="fig-title"><span data-i18n="inner-join.6">INNER JOIN keeps only what matches on both sides</span></div>
+        <div class="fig-art"><img src="../../../_shared/figures/week-02/diagram-02.svg" alt="jam_sales rows matched against jam_products on flavor; the Lemon row has no match and is dropped"></div>
+        <figcaption><span data-i18n="inner-join.7">Lemon's sale disappears from the result entirely &#8212; not flagged, not zeroed, just gone.</span></figcaption>
+      </figure>
+
+      <div data-i18n="inner-join.8">          <span class="box-label">Common mistake</span>
+          <p>Treating <code class="mono">INNER JOIN</code> as the safe default. It's the right choice when an unmatched row genuinely shouldn't count &#8212; but it silently deletes rows from your result with no warning, which is exactly the wrong behavior when an unmatched row is a data problem you need to see. Section 7 shows the fix.</p>
+        </div>
+      <div class="exercise" data-question-id="inner-join"></div>
+    </section>
+
+    <!-- ============ 7 LEFT JOIN ============ -->
+    <section id="left-join">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="left-join.1">Section 07</span></span>
+        <span class="time-est">&#9201; <span data-i18n="left-join.2">7 min</span></span>
+      </div>
+      <div data-i18n="left-join.3">        <h2>LEFT JOIN: keep every row from the table that matters most</h2>
+        <p class="standfirst">Row 13 was a real sale &#8212; 9 jars of a new Lemon flavor, sold before anyone added it to the price list. Losing it from a report isn't safe, it's a bug.</p>
+      </div><div data-i18n="left-join.4">        <p><code class="mono">LEFT JOIN</code> keeps every row from the table you list first (the "left" table &#8212; <code class="mono">jam_sales</code> here), whether or not it finds a match on the right. Where there's no match, the right-hand columns come back as <code class="mono">NULL</code> instead of the row disappearing.</p>
+      </div>
+      <div class="code-block">
+        <pre><code>SELECT s.flavor, s.market_date, s.units_sold, p.selling_price, p.cost_price
+FROM jam_sales s
+LEFT JOIN jam_products p ON s.flavor = p.flavor
+ORDER BY s.market_date;
+
+-- All 13 rows come back. The Lemon row still shows units_sold = 9,
+-- but selling_price and cost_price are both NULL &#8212; a visible flag,
+-- not a silent deletion.</code></pre>
+        <button type="button" class="code-copy-btn">Copy</button>
+      </div>
+
+      <figure class="diagram">
+        <div class="fig"><span data-i18n="left-join.5">Diagram 3</span></div>
+        <div class="fig-title"><span data-i18n="left-join.6">LEFT JOIN keeps the unmatched row, flagged with NULL</span></div>
+        <div class="fig-art"><img src="../../../_shared/figures/week-02/diagram-03.svg" alt="LEFT JOIN result: the Lemon row is kept with NULL price and cost instead of being dropped"></div>
+        <figcaption><span data-i18n="left-join.7">Same 13 sales, same JOIN condition &#8212; only the join type changed, and a real data gap became visible instead of invisible.</span></figcaption>
+      </figure>
+
+      <div data-i18n="left-join.8">          <span class="box-label">Key point</span>
+          <p>A <code class="mono">NULL</code> from a <code class="mono">LEFT JOIN</code> is a finding, not an error to hide from. Here it means: "9 jars of Lemon were sold, and nobody has told the database what Lemon costs yet." That's worth a message to whoever's pricing the new flavor &#8212; not a silently shrunk report.</p>
+        </div>
+      <div class="exercise" data-question-id="left-join"></div>
+    </section>
+
+    <!-- ============ 8 CALCULATING METRICS SQL ============ -->
+    <section id="calculating-metrics-sql">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="calculating-metrics-sql.1">Section 08</span></span>
+        <span class="time-est">&#9201; <span data-i18n="calculating-metrics-sql.2">8 min</span></span>
+      </div>
+      <div data-i18n="calculating-metrics-sql.3">        <h2>Revenue, cost, profit and margin &#8212; one query, all three flavors</h2>
+        <p class="standfirst">Everything from today lands here: <code class="mono">JOIN</code> to bring price and cost alongside each sale, <code class="mono">GROUP BY</code> to collapse it to one row per flavor.</p>
+      </div><div data-i18n="calculating-metrics-sql.4">        <p>Revenue is units sold &#215; selling price, summed. Cost is units sold &#215; cost price, summed. Profit is revenue minus cost. Profit margin is profit as a percentage of revenue &#8212; the number that tells you which flavor is actually worth making more of, not just which one sells the most.</p>
+      </div>
+      <div class="code-block">
+        <pre><code>SELECT
+  p.flavor,
+  SUM(s.units_sold)                                            AS total_units,
+  ROUND(SUM(s.units_sold * p.selling_price), 2)                AS revenue,
+  ROUND(SUM(s.units_sold * p.cost_price), 2)                   AS cost,
+  ROUND(SUM(s.units_sold * (p.selling_price - p.cost_price)), 2) AS profit,
+  ROUND(100.0 * SUM(s.units_sold * (p.selling_price - p.cost_price))
+        / SUM(s.units_sold * p.selling_price), 2)               AS margin_pct
+FROM jam_sales s
+INNER JOIN jam_products p ON s.flavor = p.flavor
+GROUP BY p.flavor
+ORDER BY margin_pct DESC;
+
+-- flavor      | total_units | revenue | cost   | profit | margin_pct
+-- Peach       | 40          | 160.00  | 40.00  | 120.00 | 75.00
+-- Strawberry  | 100         | 500.00  | 200.00 | 300.00 | 60.00
+-- Blueberry   | 60          | 360.00  | 180.00 | 180.00 | 50.00
+-- (Lemon's 9 units are excluded here &#8212; INNER JOIN drops what LEFT JOIN would flag)</code></pre>
+        <button type="button" class="code-copy-btn">Copy</button>
+      </div>
+
+      <div data-i18n="calculating-metrics-sql.5">          <span class="box-label">Key point</span>
+          <p>Strawberry sells the most units and earns the most total profit &#8212; but Peach has by far the best margin: 75&#37; of every Peach dollar is profit, against 50&#37; for Blueberry. Volume and margin answer different questions, and Section 10 needs both to make a real recommendation.</p>
+        </div>
+      <div class="exercise" data-question-id="calculating-metrics-sql"></div>
+    </section>
+
+    <!-- ============ 9 AI CORNER ============ -->
+    <section id="ai-corner">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="ai-corner.1">Section 09 &#8212; AI layer</span></span>
+        <span class="time-est">&#9201; <span data-i18n="ai-corner.2">6 min</span></span>
+      </div>
+      <div data-i18n="ai-corner.3">        <h2>AI co-pilot corner: the wrong JOIN doesn't throw an error</h2>
+        <p class="standfirst">Picking <code class="mono">INNER JOIN</code> instead of <code class="mono">LEFT JOIN</code> isn't a syntax mistake &#8212; the query runs perfectly. That's exactly what makes it dangerous when an AI assistant picks it for you.</p>
+      </div>
+      <div class="tabs">
+        <div class="tab-heads">
+          <button class="tab-btn active" data-tab="weak">
+            <span data-i18n="ai-corner.4">Weak prompt</span>
+          </button>
+          <button class="tab-btn" data-tab="strong">
+            <span data-i18n="ai-corner.5">Strong prompt</span>
+          </button>
+        </div>
+        <div class="tab-panel active" data-panel="weak" data-print-label="Weak prompt">
+          <div data-i18n="ai-corner.6"><p><strong>Prompt:</strong> "Write a SQL query joining jam_sales and jam_products to get total revenue per flavor."</p></div>
+          <div class="code-block">
+            <pre><code>-- What the assistant hands back:
+SELECT p.flavor, SUM(s.units_sold * p.selling_price) AS revenue
+FROM jam_sales s
+JOIN jam_products p ON s.flavor = p.flavor   -- plain JOIN defaults to INNER JOIN
+GROUP BY p.flavor;</code></pre>
+            <button type="button" class="code-copy-btn">Copy</button>
+          </div>
+          <div data-i18n="ai-corner.7"><p>It runs. It returns three tidy rows. What it doesn't show you: 9 jars of Lemon were sold and are <strong>missing from this total</strong>, because the prompt never said what to do about a flavor with no price yet, and the assistant defaulted to the join type that hides the gap instead of the one that reveals it.</p></div>
+        </div>
+        <div class="tab-panel" data-panel="strong" data-print-label="Strong prompt">
+          <div data-i18n="ai-corner.8"><p><strong>Prompt:</strong> "Write a PostgreSQL query joining jam_sales and jam_products to get total revenue per flavor. Use a LEFT JOIN so any sale with no matching product row still appears, with NULL revenue, instead of being silently excluded."</p></div>
+          <div class="code-block">
+            <pre><code>SELECT p.flavor, SUM(s.units_sold * p.selling_price) AS revenue,
+       COUNT(*) FILTER (WHERE p.flavor IS NULL) AS unpriced_sales
+FROM jam_sales s
+LEFT JOIN jam_products p ON s.flavor = p.flavor
+GROUP BY p.flavor;
+
+-- Lemon now appears with revenue = NULL, and a flag showing 1 unpriced sale
+-- exists for it &#8212; the gap is visible instead of silently missing.</code></pre>
+            <button type="button" class="code-copy-btn">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div data-i18n="ai-corner.9">          <span class="box-label">Common mistake</span>
+          <p>Trusting a JOIN because the row count "looks about right." 12 rows out of 13 sales looks like a small, reasonable trim &#8212; not obviously a bug. <strong>Verify it</strong> means checking that row count against what you expect, not just that the query ran.</p>
+        </div>
+      <div class="exercise" data-question-id="ai-corner"></div>
+    </section>
+
+    <!-- ============ 10 WORKED EXAMPLE ============ -->
+    <section id="worked-example">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="worked-example.1">Section 10</span></span>
+        <span class="time-est">&#9201; <span data-i18n="worked-example.2">7 min</span></span>
+      </div>
+      <div data-i18n="worked-example.3">        <h2>Worked example: which flavor should the stand feature next month?</h2>
+        <p class="standfirst">Section 1 opened with the question. Here's the full answer, built from every piece this page covered.</p>
+      </div><div data-i18n="worked-example.4">          <span class="box-label">1. Revenue and profit, joined and grouped</span>
+          <p>From Section 8's query: Strawberry earns the most total profit ($300), Blueberry the least ($180), Peach in between ($120) &#8212; but on far fewer units.</p>
+        </div><div data-i18n="worked-example.5">          <span class="box-label">2. Margin tells a different story</span>
+          <p>Peach converts 75&#37; of every dollar into profit &#8212; the best of the three, by a wide margin over Blueberry's 50&#37;. If the stand could sell as many Peach jars as Strawberry, profit would be far higher than any of today's real numbers.</p>
+        </div>
+      <figure class="diagram">
+        <div class="fig"><span data-i18n="worked-example.6">Diagram 4</span></div>
+        <div class="fig-title"><span data-i18n="worked-example.7">Profit vs. margin, by flavor</span></div>
+        <div class="fig-art"><img src="../../../_shared/figures/week-02/diagram-04.svg" alt="Bar chart of profit by flavor next to a line of margin percent by flavor, showing Strawberry highest profit but Peach highest margin"></div>
+        <figcaption><span data-i18n="worked-example.8">Highest bar and highest line point at two different flavors &#8212; that's the whole reason this section needed both numbers.</span></figcaption>
+      </figure>
+
+      <div data-i18n="worked-example.9">          <span class="box-label">3. The decision</span>
+          <p>Strawberry stays the anchor &#8212; it earns the most money today and shouldn't be cut back. But Peach's 75&#37; margin is too good to ignore: the recommendation is to feature Peach more prominently next month (better placement, a small sign, maybe a free sample) and watch whether units sold rise without the margin dropping. And separately &#8212; someone needs to price Lemon before the next market day, so Section 9's <code class="mono">LEFT JOIN</code> stops finding an unpriced sale every week.</p>
+        </div>
+      <div class="exercise" data-question-id="worked-example"></div>
+    </section>
+
+    <!-- ============ 11 COMMON MISTAKES ============ -->
+    <section id="common-mistakes">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="common-mistakes.1">Section 11</span></span>
+        <span class="time-est">&#9201; <span data-i18n="common-mistakes.2">4 min</span></span>
+      </div>
+      <div data-i18n="common-mistakes.3">        <h2>Common mistakes, gathered in one place</h2>
+        <p class="standfirst">Everything this page warned about, as a single reference.</p>
+      </div>
+      <div class="table-scroll">
+      <table>
+        <thead><tr><th><span data-i18n="common-mistakes.4">Mistake</span></th><th><span data-i18n="common-mistakes.5">Why it matters</span></th></tr></thead>
+        <tbody data-lang="en" class="active">
+          <tr><td><strong>Bare JOIN defaulting to INNER JOIN</strong></td><td>An unqualified <code class="mono">JOIN</code> means <code class="mono">INNER JOIN</code> &#8212; it silently drops unmatched rows unless you meant that.</td></tr>
+          <tr><td><strong>Confusing AVERAGEIF() with GROUP BY</strong></td><td><code class="mono">AVERAGEIF()</code> is one condition typed by hand; <code class="mono">GROUP BY</code> produces one row per category automatically.</td></tr>
+          <tr><td><strong>Trusting a row count because it "looks right"</strong></td><td>12 of 13 rows looks like a reasonable trim, not a bug &#8212; verify the count against what you expect, every time.</td></tr>
+        </tbody>
+        <tbody data-lang="ar">
+          <tr><td><strong>JOIN مجردة تُهمَل إلى INNER JOIN</strong></td><td><code class="mono">JOIN</code> غير المحدَّدة تعني <code class="mono">INNER JOIN</code> &#8212; تحذف الصفوف غير المتطابقة بصمت ما لم تقصد ذلك.</td></tr>
+          <tr><td><strong>الخلط بين AVERAGEIF() وGROUP BY</strong></td><td><code class="mono">AVERAGEIF()</code> شرط واحد مكتوب يدويًا؛ <code class="mono">GROUP BY</code> تنتج صفًا واحدًا لكل فئة تلقائيًا.</td></tr>
+          <tr><td><strong>الثقة بعدد الصفوف لأنه "يبدو صحيحًا"</strong></td><td>12 من 13 صفًا يبدو كتقليم معقول، لا خطأ &#8212; تحقق من العدد مقابل ما تتوقعه، في كل مرة.</td></tr>
+        </tbody>
+        <tbody data-lang="fa">
+          <tr><td><strong>JOIN ساده که پیش‌فرض به INNER JOIN می‌رود</strong></td><td><code class="mono">JOIN</code> بدون قید یعنی <code class="mono">INNER JOIN</code> &#8212; مگر منظورت همین باشد، بی‌سروصدا ردیف‌های بی‌تطبیق را حذف می‌کند.</td></tr>
+          <tr><td><strong>اشتباه‌گرفتن AVERAGEIF() با GROUP BY</strong></td><td><code class="mono">AVERAGEIF()</code> یک شرط دستی‌تایپ‌شده است؛ <code class="mono">GROUP BY</code> به‌طور خودکار یک ردیف برای هر دسته تولید می‌کند.</td></tr>
+          <tr><td><strong>اعتماد به تعداد ردیف چون «درست به‌نظر می‌رسد»</strong></td><td>۱۲ از ۱۳ ردیف مثل یک کوتاه‌شدن منطقی به‌نظر می‌رسد، نه یک باگ &#8212; هر بار تعداد را در برابر انتظارت تأیید کن.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <!-- ============ 12 HOMEWORK ============ -->
+    <section id="homework">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="homework.1">Section 12</span></span>
+      </div>
+      <div data-i18n="homework.2">        <h2>Homework: write your report to the stand owner</h2>
+        <p class="standfirst">You're the analyst. The stand owner from Section 1 is waiting on your recommendation. Write it up as a short report, in your own words, and email it to me &#8212; each section below is small on its own; answer them in order.</p>
+      </div><div data-i18n="homework.3">          <span class="box-label">Write your report, section by section, in order</span>
+          <ol class="steps">
+            <li><strong>Set the scene</strong> &#8212; In 2&#8211;3 sentences, describe the two tables (what each one holds, why they're separate) and the question the stand owner actually wants answered.</li>
+            <li><strong>Why two tables, not one</strong> &#8212; In your own words, explain why price and cost live in <code class="mono">jam_products</code> instead of being copied into every row of <code class="mono">jam_sales</code>.</li>
+            <li><strong>INNER JOIN vs. LEFT JOIN</strong> &#8212; Run both joins yourself. What's different about the row count and the Lemon row between the two results? When would <code class="mono">INNER JOIN</code> actually be the right choice instead of a mistake?</li>
+            <li><strong>The metrics</strong> &#8212; Paste your Section 8 query and its result. Which flavor earns the most total profit? Which has the best margin? Why aren't they the same flavor?</li>
+            <li><strong>Working with AI</strong> &#8212; Describe a moment from this week where you'd need to explain, verify, or stand behind a JOIN an AI assistant wrote for you. What could go wrong if you skipped that step?</li>
+            <li><strong>The decision</strong> &#8212; What should the stand actually do next month? Give your recommendation and justify it with the actual numbers, not a guess.</li>
+          </ol>
+        </div>
+    </section>
+
+    <!-- ============ 13 BEFORE WEEK 3 ============ -->
+    <section id="before-week-3">
+      <div class="sec-head">
+        <span class="sec-num"><span data-i18n="before-week-3.1">Section 13</span></span>
+      </div>
+      <div data-i18n="before-week-3.2">        <h2>Before Week 3</h2>
+        <p>You can now compute the right numbers. Week 3 asks a different question: how do you show them to someone who doesn't want to read a table &#8212; choosing the right chart, and knowing when a chart is quietly misleading.</p>
+      </div>
+      <a class="top-link" href="#top"><span data-i18n="before-week-3.3">Back to top &#8593;</span></a>
+    </section>
+
+    <nav class="week-nav" id="weekNav"></nav>
+
+    <footer>
+      <span data-i18n="footer.1">BA2 Week 2 &#183; Calculating Metrics</span>
+    </footer>
+
+  </main>
+</div>
+
+<script src="../../manifest.js"></script>
+<script src="../../../_shared/i18n/week-02.strings.js"></script>
+<script src="../../../_shared/question-banks/week-02.questions.js"></script>
+<script src="../../../_shared/scripts/week.js"></script>
+<script src="../../../_shared/scripts/auth-gate.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ window.BA2_MANIFEST = {
     { "id": "ba1-recap", "title": "Foundations — BA1 Recap", "published": true, "href": "BA1-Recap-Study-Guide.html" },
     { "id": "week-00", "title": "Introduction to Business Analytics 2", "published": true },
     { "id": "week-01", "title": "Statistics Overview & SQL Foundations", "published": true },
-    { "id": "week-02", "title": "Calculating Metrics in Excel & SQL", "published": false },
+    { "id": "week-02", "title": "Calculating Metrics in Excel & SQL", "published": true },
     { "id": "week-03", "title": "Visualizing Data", "published": false },
     { "id": "week-04", "title": "Data Preparation, Cleaning & Transforming", "published": false },
     { "id": "week-05", "title": "Introduction to Types of Models", "published": false },
